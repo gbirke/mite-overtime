@@ -31,6 +31,18 @@ describe( 'TimeAggregator', function() {
 		expect( result.total ).to.equal( 105 );
 	} );
 
-	// TODO test "it adds entries for each week"	
+	it( 'adds total minutes for each week', function() {
+		// TODO Use German locale
+		var testData = [
+				{"time_entry":{"date_at":"2015-10-11","minutes":45}},
+				{"time_entry":{"date_at":"2015-10-11","minutes":60}},
+				{"time_entry":{"date_at":"2015-10-18","minutes":60}}
+			],
+			aggregator = new TimeAggregator( testData ),
+			result = aggregator.getAggregatedData();
+		expect( result.weeks ).to.have.all.keys( ["42", "43" ] );
+		expect( result.weeks["42"].total ).to.equal( 105 );
+		expect( result.weeks["43"].total ).to.equal( 60 );
+	} );
 
 } );

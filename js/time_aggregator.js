@@ -6,10 +6,11 @@ function TimeAggregator( rawEntries ) {
 
 TimeAggregator.prototype.getAggregatedData = function() {
 	var data = {
-		total: 0
+		total: 0,
+		weeks: {}
 	}, 
 	entryCount = this._entries.length,
-	i, entry, day, firstDate;
+	i, entry, day, firstDate, week;
 	if ( !entryCount ) {
 		return data;
 	}
@@ -20,7 +21,15 @@ TimeAggregator.prototype.getAggregatedData = function() {
 		if ( day.month() != firstDate.month() ) {
 			continue;
 		}
+		week = day.week();
 		data.total += entry.minutes;
+		if ( !data.weeks.hasOwnProperty( week ) ) {
+			data.weeks[week] = {
+				total: entry.minutes
+			};
+		} else {
+			data.weeks[week].total += entry.minutes;
+		}
 	}
 	return data;
 }
