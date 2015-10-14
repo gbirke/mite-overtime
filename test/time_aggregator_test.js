@@ -1,14 +1,13 @@
-jest.dontMock( '../time_aggregator' )
-jest.dontMock( 'moment' )
+var expect = require('chai').expect
+var TimeAggregator = require('../js/time_aggregator');
 
 describe( 'TimeAggregator', function() {
-	var TimeAggregator = require('../time_aggregator');
 
 	it( 'returns zero for empty data', function() {
 		var testData = [],
 			aggregator = new TimeAggregator( testData ),
 			result = aggregator.getAggregatedData();
-		expect( result.total ).toBe( 0 );
+		expect( result.total ).to.equal( 0 );
 	} );
 
 	it( 'adds total minutes', function() {
@@ -18,7 +17,7 @@ describe( 'TimeAggregator', function() {
 			],
 			aggregator = new TimeAggregator( testData ),
 			result = aggregator.getAggregatedData();
-		expect( result.total ).toBe( 105 );
+		expect( result.total ).to.equal( 105 );
 	} );
 
 	it( 'discards minutes from different months', function() {
@@ -29,7 +28,7 @@ describe( 'TimeAggregator', function() {
 			],
 			aggregator = new TimeAggregator( testData ),
 			result = aggregator.getAggregatedData();
-		expect( result.total ).toBe( 105 );
+		expect( result.total ).to.equal( 105 );
 	} );
 
 	// TODO test "it adds entries for each week"	
