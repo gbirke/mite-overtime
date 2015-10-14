@@ -1,0 +1,31 @@
+{
+  "name": "mite-overtime",
+  "version": "0.0.1",
+  "description": "Overtime tracker for mite.yo.lk",
+  "repository": "https://github.com/gbirke/ite-overtime",
+  "private": "true",
+  "main": "server.js",
+  "browser": {
+    "server.js": "./js/main.js"
+  },
+  "scripts": {
+    "start": "node server.js",
+    "watch": "watchify -o web/js/app.js -v -d .",
+    "test": "jest"
+  },
+  "author": "Gabriel Birke <gb@birke-software.de>",
+  "license": "MIT",
+  "devDependencies": {
+    "browserify": "^9.0.8",
+    "envify": "^3.4.0",
+    "jest-cli": "^0.4.0",
+    "watchify": "^3.1.2"
+  },
+  "dependencies": {
+    "express": "^4.12.3",
+    "morgan": "^1.5.2"
+  },
+  "jest": {
+    "rootDir": "./js"
+  }
+}
