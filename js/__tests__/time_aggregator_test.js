@@ -1,4 +1,5 @@
 jest.dontMock( '../time_aggregator' )
+jest.dontMock( 'moment' )
 
 describe( 'TimeAggregator', function() {
 	var TimeAggregator = require('../time_aggregator');

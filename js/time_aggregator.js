@@ -1,3 +1,5 @@
+var moment = require('moment');
+
 function TimeAggregator( rawEntries ) {
 	this._entries = rawEntries;
 }
@@ -11,11 +13,11 @@ TimeAggregator.prototype.getAggregatedData = function() {
 	if ( !entryCount ) {
 		return data;
 	}
-	firstDate = new Date( this._entries[0].time_entry.date_at );
+	firstDate = moment( this._entries[0].time_entry.date_at );
 	for ( i=0; i < entryCount; i++ ) {
 		entry = this._entries[i].time_entry;
-		day = new Date( entry.date_at );
-		if ( day.getMonth() != firstDate.getMonth() ) {
+		day = moment( entry.date_at );
+		if ( day.month() != firstDate.month() ) {
 			continue;
 		}
 		data.total += entry.minutes;
