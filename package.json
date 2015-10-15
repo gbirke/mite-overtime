@@ -19,6 +19,7 @@
   "author": "Gabriel Birke <gb@birke-software.de>",
   "license": "MIT",
   "devDependencies": {
+    "benv": "^3.0.0",
     "browserify": "^9.0.8",
     "chai": "^3.3.0",
     "envify": "^3.4.0",
@@ -28,6 +29,7 @@
     "watchify": "^3.1.2"
   },
   "dependencies": {
+    "d3": "^3.5.6",
     "express": "^4.12.3",
     "moment": "^2.10.6",
     "morgan": "^1.5.2"
