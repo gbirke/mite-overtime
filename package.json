@@ -13,7 +13,8 @@
     "watch": "watchify -o web/js/app.js -v -d .",
     "test": "mocha",
     "lint": "jshint js test",
-    "pretest":"npm run lint"
+    "cs": "jscs js test",
+    "pretest": "npm run lint && npm run cs"
   },
   "author": "Gabriel Birke <gb@birke-software.de>",
   "license": "MIT",
@@ -21,6 +22,7 @@
     "browserify": "^9.0.8",
     "chai": "^3.3.0",
     "envify": "^3.4.0",
+    "jscs": "^2.3.1",
     "jshint": "^2.8.0",
     "mocha": "^2.3.3",
     "watchify": "^3.1.2"
