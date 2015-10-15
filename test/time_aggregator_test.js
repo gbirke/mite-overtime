@@ -78,4 +78,20 @@ describe( 'TimeAggregator', function() {
 
 	} ); // END describe getAggregatedData
 
+	describe( '#getDays', function() {
+
+		it( 'returns day objects', function() {
+			var testData = [
+					{"time_entry":{"date_at":"2015-10-11","minutes":45}},
+					{"time_entry":{"date_at":"2015-10-20","minutes":60}}
+				],
+				aggregator = new TimeAggregator( testData ),
+				result = aggregator.getDays();
+			expect( result ).to.have.all.keys( ["11", "20"] );
+			expect( result["11"].total ).to.equal( 45 );
+			expect( result["20"].total ).to.equal( 60 );
+		} );
+
+	} );
+
 } );

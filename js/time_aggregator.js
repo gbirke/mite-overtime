@@ -3,6 +3,7 @@ var moment = require('moment');
 function TimeAggregator( rawEntries, locale ) {
 	this._entries = rawEntries;
 	this.locale = typeof locale !== "undefined" ? locale : 'en';
+	this._aggregatedData = null;
 }
 
 function addToWeekData( weeks, week, minutes ) {
@@ -32,22 +33,22 @@ function addToDayData( days, dayOfMonth, minutes ) {
 	return dayData;
 }
 
-TimeAggregator.prototype.getAggregatedData = function() {
+function calculateAggregatedData( entries, locale ) {
 	var data = {
 		total: 0,
 		weeks: {}
 	},
-	entryCount = this._entries.length,
+	entryCount = entries.length,
 	i, entry, day, firstDate, week, dayOfMonth;
 	if ( !entryCount ) {
 		return data;
 	}
-	firstDate = moment( this._entries[0].time_entry.date_at );
-	firstDate.locale( this.locale );
+	firstDate = moment( entries[0].time_entry.date_at );
+	firstDate.locale( locale );
 	for ( i=0; i < entryCount; i++ ) {
-		entry = this._entries[i].time_entry;
+		entry = entries[i].time_entry;
 		day = moment( entry.date_at );
-		day.locale( this.locale );
+		day.locale( locale );
 		if ( day.month() != firstDate.month() ) {
 			continue;
 		}
@@ -58,6 +59,26 @@ TimeAggregator.prototype.getAggregatedData = function() {
 		data.weeks[week].days[dayOfMonth] = addToDayData( data.weeks[week].days, dayOfMonth, entry.minutes );
 	}
 	return data;
+}
+
+TimeAggregator.prototype.getAggregatedData = function() {
+	if ( !this._aggregatedData ) {
+		this._aggregatedData = calculateAggregatedData( this._entries, this.locale );
+	}
+	return this._aggregatedData;
+}
+
+TimeAggregator.prototype.getDays = function() {
+	var days = {}, day, week;
+	if ( !this._aggregatedData ) {
+		this._aggregatedData = calculateAggregatedData( this._entries, this.locale );
+	}
+	for( week in this._aggregatedData.weeks ) {
+		for( day in this._aggregatedData.weeks[week].days ) {
+			days[day] = this._aggregatedData.weeks[week].days[day];
+		}
+	}
+	return days;
 }
 
 module.exports = TimeAggregator
