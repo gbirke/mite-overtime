@@ -1,36 +1,12 @@
-var moment = require('moment');
+var moment = require('moment'),
+	TotalsObjectAggregator = require('./totals_object_aggregator'),
+	weekDefault = new TotalsObjectAggregator( { days: {} } ),
+	dayDefault = new TotalsObjectAggregator( {} );
 
 function TimeAggregator( rawEntries, locale ) {
 	this._entries = rawEntries;
 	this.locale = typeof locale !== "undefined" ? locale : 'en';
 	this._aggregatedData = null;
-}
-
-function addToWeekData( weeks, week, minutes ) {
-	var weekData;
-	if ( !weeks.hasOwnProperty( week ) ) {
-		weekData = {
-			total: minutes,
-			days: {}
-		};
-	} else {
-		weekData = weeks[week];
-		weekData.total += minutes;
-	}
-	return weekData;
-}
-
-function addToDayData( days, dayOfMonth, minutes ) {
-	var dayData;
-	if ( !days.hasOwnProperty( dayOfMonth ) ) {
-		dayData = {
-			total: minutes
-		};
-	} else {
-		dayData = days[dayOfMonth];
-		dayData.total += minutes;
-	}
-	return dayData;
 }
 
 function calculateAggregatedData( entries, locale ) {
@@ -55,8 +31,8 @@ function calculateAggregatedData( entries, locale ) {
 		data.total += entry.minutes;
 		week = day.week();
 		dayOfMonth = day.date();
-		data.weeks[week] = addToWeekData( data.weeks, week, entry.minutes );
-		data.weeks[week].days[dayOfMonth] = addToDayData( data.weeks[week].days, dayOfMonth, entry.minutes );
+		data.weeks[week] = weekDefault.getData( data.weeks, week, entry.minutes );
+		data.weeks[week].days[dayOfMonth] = dayDefault.getData( data.weeks[week].days, dayOfMonth, entry.minutes );
 	}
 	return data;
 }
