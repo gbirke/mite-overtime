@@ -24,7 +24,7 @@ describe( 'HtmlRenderer', function () {
 		renderer.render();
 		total = displayContainer.select( '#totalOvertime' );
 		expect( total.size() ).to.equal( 1 );
-		expect( total.text() ).to.equal( '80' );
+		expect( total.text() ).to.equal( '1:20' );
 	} );
 
 	after( function () {
