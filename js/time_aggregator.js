@@ -42,7 +42,7 @@ TimeAggregator.prototype.getAggregatedData = function() {
 		this._aggregatedData = calculateAggregatedData( this._entries, this.locale );
 	}
 	return this._aggregatedData;
-}
+};
 
 TimeAggregator.prototype.getDays = function() {
 	var days = {}, day, week;
@@ -55,6 +55,6 @@ TimeAggregator.prototype.getDays = function() {
 		}
 	}
 	return days;
-}
+};
 
-module.exports = TimeAggregator
+module.exports = TimeAggregator;

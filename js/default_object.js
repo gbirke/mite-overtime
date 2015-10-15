@@ -10,6 +10,6 @@ DefaultObject.prototype.getData = function( data, key ) {
         // Deep clone object
         return JSON.parse( JSON.stringify( this.defaultData ) );
     }
-}
+};
 
 module.exports = DefaultObject;

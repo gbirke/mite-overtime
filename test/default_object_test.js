@@ -1,5 +1,5 @@
-var expect = require('chai').expect
-var DefaultObject = require('../js/default_object');
+var expect = require('chai').expect,
+    DefaultObject = require('../js/default_object');
 
 describe( 'DefaultObject', function() {
 

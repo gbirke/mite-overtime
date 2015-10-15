@@ -9,6 +9,6 @@ TotalsObjectAggregator.prototype.getData = function( data, key, addToTotal ) {
     var newValue = this.defaultObject.getData( data, key );
     newValue.total += addToTotal;
     return newValue;
-}
+};
 
 module.exports = TotalsObjectAggregator;

@@ -21,7 +21,7 @@ OvertimeCalculator.prototype.getOvertime = function( timeData, minutesPerDay ) {
     }
     return overtime;
 
-}
+};
 
 
 

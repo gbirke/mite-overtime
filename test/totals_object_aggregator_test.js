@@ -1,5 +1,5 @@
-var expect = require('chai').expect
-var TotalsObjectAggregator = require('../js/totals_object_aggregator');
+var expect = require('chai').expect,
+    TotalsObjectAggregator = require('../js/totals_object_aggregator');
 
 describe( 'TotalsObjectAggregator', function() {
 

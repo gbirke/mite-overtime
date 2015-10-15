@@ -1,5 +1,5 @@
-var expect = require('chai').expect
-var TimeAggregator = require('../js/time_aggregator');
+var expect = require('chai').expect,
+	TimeAggregator = require('../js/time_aggregator');
 
 describe( 'TimeAggregator', function() {
 

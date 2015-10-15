@@ -11,16 +11,19 @@
   "scripts": {
     "start": "node server.js",
     "watch": "watchify -o web/js/app.js -v -d .",
-    "test": "mocha"
+    "test": "mocha",
+    "lint": "jshint js test",
+    "pretest":"npm run lint"
   },
   "author": "Gabriel Birke <gb@birke-software.de>",
   "license": "MIT",
   "devDependencies": {
     "browserify": "^9.0.8",
+    "chai": "^3.3.0",
     "envify": "^3.4.0",
-    "watchify": "^3.1.2",
+    "jshint": "^2.8.0",
     "mocha": "^2.3.3",
-    "chai": "^3.3.0"
+    "watchify": "^3.1.2"
   },
   "dependencies": {
     "express": "^4.12.3",

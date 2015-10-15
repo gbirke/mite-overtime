@@ -1,5 +1,5 @@
-var expect = require('chai').expect
-var OvertimeCalculator = require('../js/overtime_calculator');
+var expect = require('chai').expect,
+    OvertimeCalculator = require('../js/overtime_calculator');
 
 describe( 'OvertimeCalculator', function() {
 
