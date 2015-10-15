@@ -7,7 +7,8 @@ DefaultObject.prototype.getData = function( data, key ) {
         return data[key];
     }
     else {
-        return Object.create( this.defaultData );
+        // Deep clone object
+        return JSON.parse( JSON.stringify( this.defaultData ) );
     }
 }
 
