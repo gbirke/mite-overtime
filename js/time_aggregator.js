@@ -11,7 +11,7 @@ TimeAggregator.prototype.getAggregatedData = function() {
 		weeks: {}
 	},
 	entryCount = this._entries.length,
-	i, entry, day, firstDate, week;
+	i, entry, day, firstDate, week, dayOfMonth;
 	if ( !entryCount ) {
 		return data;
 	}
@@ -24,15 +24,23 @@ TimeAggregator.prototype.getAggregatedData = function() {
 		if ( day.month() != firstDate.month() ) {
 			continue;
 		}
-		//moment().format("dddd, MMMM Do YYYY, h:mm:ss a");
 		week = day.week();
+		dayOfMonth = day.date();
 		data.total += entry.minutes;
 		if ( !data.weeks.hasOwnProperty( week ) ) {
 			data.weeks[week] = {
-				total: entry.minutes
+				total: entry.minutes,
+				days: {}
 			};
 		} else {
 			data.weeks[week].total += entry.minutes;
+		}
+		if ( !data.weeks[week].days.hasOwnProperty( dayOfMonth ) ) {
+			data.weeks[week].days[dayOfMonth] = {
+				total: entry.minutes
+			};
+		} else {
+			data.weeks[week].days[dayOfMonth].total += entry.minutes;
 		}
 	}
 	return data;
