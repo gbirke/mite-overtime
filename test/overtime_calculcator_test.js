@@ -29,6 +29,24 @@ describe( 'OvertimeCalculator', function() {
             expect( result.total ).to.equal( 25 );
         } );
 
+        it( 'calculates weekly overtime', function() {
+            var minutesPerDay = 480,
+                calulcator = new OvertimeCalculator(),
+                result = calulcator.getOvertime( testData, minutesPerDay );
+            expect( result.weeks["42"].total ).to.equal( 80 );
+            expect( result.weeks["43"].total ).to.equal( -55 );
+        } );
+
+        it( 'calculates daily overtime', function() {
+            var minutesPerDay = 480,
+                calulcator = new OvertimeCalculator(),
+                result = calulcator.getOvertime( testData, minutesPerDay );
+            expect( result.weeks["42"].days["13"].total ).to.equal( 20 );
+            expect( result.weeks["42"].days["14"].total ).to.equal( 60 );
+            expect( result.weeks["43"].days["20"].total ).to.equal( -55 );
+            expect( result.weeks["43"].days["21"].total ).to.equal( 0 );
+        } );
+
     } );
 
 } );
