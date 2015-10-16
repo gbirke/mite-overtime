@@ -1,7 +1,7 @@
 var expect = require( 'chai' ).expect,
-	OvertimeCalculator = require( '../js/overtime_calculator' );
+	DailyOvertimeCalculator = require( '../js/daily_overtime_calculator' );
 
-describe( 'OvertimeCalculator', function () {
+describe( 'DailyOvertimeCalculator', function () {
 
 	describe( '#getOvertimes', function () {
 
@@ -26,14 +26,14 @@ describe( 'OvertimeCalculator', function () {
 
 		it( 'calculates total overtime', function () {
 			var minutesPerDay = 480,
-				calulcator = new OvertimeCalculator(),
+				calulcator = new DailyOvertimeCalculator(),
 				result = calulcator.getOvertime( testData, minutesPerDay );
 			expect( result.total ).to.equal( 25 );
 		} );
 
 		it( 'calculates weekly overtime', function () {
 			var minutesPerDay = 480,
-				calulcator = new OvertimeCalculator(),
+				calulcator = new DailyOvertimeCalculator(),
 				result = calulcator.getOvertime( testData, minutesPerDay );
 			expect( result.weeks[ 42 ].total ).to.equal( 80 );
 			expect( result.weeks[ 43 ].total ).to.equal( -55 );
@@ -41,7 +41,7 @@ describe( 'OvertimeCalculator', function () {
 
 		it( 'calculates daily overtime', function () {
 			var minutesPerDay = 480,
-				calulcator = new OvertimeCalculator(),
+				calulcator = new DailyOvertimeCalculator(),
 				result = calulcator.getOvertime( testData, minutesPerDay );
 			expect( result.weeks[ 42 ].days[ 13 ].total ).to.equal( 20 );
 			expect( result.weeks[ 42 ].days[ 14 ].total ).to.equal( 60 );
@@ -51,7 +51,7 @@ describe( 'OvertimeCalculator', function () {
 
 		it( 'copies year and month info', function () {
 			var minutesPerDay = 480,
-				calulcator = new OvertimeCalculator(),
+				calulcator = new DailyOvertimeCalculator(),
 				result = calulcator.getOvertime( testData, minutesPerDay );
 			expect( result.year ).to.equal( 2015 );
 			expect( result.month ).to.equal( 9 );

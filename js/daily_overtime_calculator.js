@@ -3,9 +3,9 @@ var moment = require( 'moment' ),
 	weekDefault = new TotalsObjectAggregator( { days: {} } ),
 	dayDefault = new TotalsObjectAggregator( {} );
 
-function OvertimeCalculator() {}
+function DailyOvertimeCalculator() {}
 
-OvertimeCalculator.prototype.getOvertime = function ( timeData, minutesPerDay ) {
+DailyOvertimeCalculator.prototype.getOvertime = function ( timeData, minutesPerDay ) {
 	var overtime = {
 			total: 0,
 			weeks: {},
@@ -25,4 +25,4 @@ OvertimeCalculator.prototype.getOvertime = function ( timeData, minutesPerDay ) 
 
 };
 
-module.exports = OvertimeCalculator;
+module.exports = DailyOvertimeCalculator;

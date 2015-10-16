@@ -1,7 +1,7 @@
 var HtmlRenderer = require( './html_renderer' ),
 	ServerConnector = require( './server_connector' ),
 	TimeAggregator = require( './time_aggregator' ),
-	OvertimeCalculator = require( './overtime_calculator' ),
+	OvertimeCalculator = require( './daily_overtime_calculator' ),
 	DataConverter = require( './data_converter' ),
 	testData = [ {
 		total: 80,
