@@ -3,13 +3,13 @@ var expect = require( 'chai' ).expect,
 
 describe( 'HtmlRenderer', function () {
 
-	var testData = {
+	var testData = [ {
 		total: 80,
 		weeks: [
 			{ total: 100, number: 42 },
 			{ total: -20, number: 43 }
 		]
-	};
+	} ];
 
 	before( function ( done ) {
 		benv.setup( function () {
