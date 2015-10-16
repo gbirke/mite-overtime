@@ -5,9 +5,9 @@ function ServerConnector( apiUrl, XMLHttpRequestClass ) {
 
 ServerConnector.prototype.getData = function ( callback ) {
 	var xhr = new this.xhrClass();
-	xhr.addEventListener( 'load', function() { 
+	xhr.addEventListener( 'load', function () {
 		var jsonData = JSON.parse( this.responseText );
-		callback( jsonData ); 
+		callback( jsonData );
 	} );
 	xhr.open( 'GET', this.apiUrl );
 	xhr.send();

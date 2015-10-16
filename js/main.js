@@ -12,8 +12,7 @@ var HtmlRenderer = require( './html_renderer' ),
 	} ],
 	connector = new ServerConnector( 'http://localhost:8080/time_entries.json', XMLHttpRequest );
 
-
-connector.getData( function( data ) {
+connector.getData( function ( data ) {
 	var agggregator = new TimeAggregator( data ),
 		overtime = new OvertimeCalculator(),
 		converter = new DataConverter(),
@@ -26,5 +25,4 @@ connector.getData( function( data ) {
 	renderer.render( convertedData );
 
 } );
-
 

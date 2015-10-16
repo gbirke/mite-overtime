@@ -61,7 +61,7 @@ describe( 'DataConverter', function () {
 
 			expect( firstWeek.days[ 0 ].day ).to.equal( '13' );
 			expect( firstWeek.days[ 1 ].day ).to.equal( '14' );
-			expect( secondWeek.days[ 0 ].day ).to.equal( '21' );			
+			expect( secondWeek.days[ 0 ].day ).to.equal( '21' );
 		} );
 
 		it( 'adds date information to days', function () {
@@ -69,13 +69,12 @@ describe( 'DataConverter', function () {
 				result = converter.convert( testData ),
 				firstWeek = result[ 0 ].weeks[ 0 ],
 				secondWeek = result[ 0 ].weeks[ 1 ];
-			
+
 			expect( firstWeek.days[ 0 ].date ).to.equal( '2015-10-13' );
 			expect( firstWeek.days[ 1 ].date ).to.equal( '2015-10-14' );
 			expect( secondWeek.days[ 0 ].date ).to.equal( '2015-10-21' );
-			
-		} );
 
+		} );
 
 	} );
 

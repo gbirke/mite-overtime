@@ -21,7 +21,7 @@ DataConverter.prototype.convert = function ( data ) {
 			dayData = {
 				total: data.weeks[ week ].days[ day ].total,
 				day: day,
-				date: [ data.year, '-', data.month + 1 , '-', day ].join( '' )
+				date: [ data.year, '-', data.month + 1, '-', day ].join( '' )
 			};
 			weekData.days.push( dayData );
 		}
