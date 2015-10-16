@@ -9,13 +9,21 @@ function TimeAggregator( rawEntries, locale ) {
 	this.aggregatedData = null;
 }
 
+function getEntryMinutes( entry ) {
+	if ( entry.tracking ) {
+		return entry.tracking.minutes;
+	} else {
+		return entry.minutes;
+	}
+}
+
 function calculateAggregatedData( entries, locale ) {
 	var data = {
 		total: 0,
 		weeks: {}
 	},
 	entryCount = entries.length,
-	i, entry, day, firstDate, week, dayOfMonth;
+	i, entry, day, firstDate, week, dayOfMonth, minutes;
 	if ( !entryCount ) {
 		return data;
 	}
@@ -32,11 +40,12 @@ function calculateAggregatedData( entries, locale ) {
 		if ( day.month() != firstDate.month() ) {
 			continue;
 		}
-		data.total += entry.minutes;
+		minutes = getEntryMinutes( entry );
+		data.total += minutes;
 		week = day.week();
 		dayOfMonth = day.date();
-		data.weeks[ week ] = weekDefault.getData( data.weeks, week, entry.minutes );
-		data.weeks[ week ].days[ dayOfMonth ] = dayDefault.getData( data.weeks[ week ].days, dayOfMonth, entry.minutes );
+		data.weeks[ week ] = weekDefault.getData( data.weeks, week, minutes );
+		data.weeks[ week ].days[ dayOfMonth ] = dayDefault.getData( data.weeks[ week ].days, dayOfMonth, minutes );
 	}
 	return data;
 }

@@ -24,6 +24,18 @@ describe( 'TimeAggregator', function () {
 			expect( result.total ).to.equal( 105 );
 		} );
 
+		it( 'uses running tracker minutes', function () {
+			var testData = [
+					{ time_entry: { date_at: '2015-10-11', minutes: 45, tracking: {
+						minutes: 80
+					} } },
+					{ time_entry: { date_at: '2015-10-11', minutes: 60 } }
+				],
+				aggregator = new TimeAggregator( testData ),
+				result = aggregator.getAggregatedData();
+			expect( result.total ).to.equal( 140 );
+		} );
+
 		it( 'discards minutes from different months', function () {
 			var testData = [
 					{ time_entry: { date_at: '2015-10-11', minutes: 45 } },
