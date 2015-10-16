@@ -3,9 +3,9 @@ var d3 = require( 'd3' ),
 
 require( 'moment-duration-format' );
 
-function DurationFormatter( localeName ) {
-	this.positiveFormat = 'h:mm [overtime]';
-	this.negativeFormat = 'h:mm [missing]';
+function DurationFormatter( positiveFormat, negativeFormat  ) {
+	this.positiveFormat = positiveFormat;
+	this.negativeFormat = negativeFormat;
 }
 
 DurationFormatter.prototype.format = function ( duration ) {
@@ -20,13 +20,14 @@ function HtmlRenderer( overtimeData ) {
 }
 
 HtmlRenderer.prototype.render = function () {
-	var formatter = new DurationFormatter( 'de' ),
+	var longFormatter = new DurationFormatter( 'h:mm [overtime]', 'h:mm [missing]' ),
+		shortFormatter = new DurationFormatter( 'h:mm', '[-] h:mm' ),
 		displayContainer, total, weeks;
 	displayContainer = d3.select( '#displayContainer' );
 	displayContainer.selectAll( 'div' ).remove();
 	total = displayContainer.append( 'div' );
 	total.attr( { id: 'totalOvertime' } )
-		.text( formatter.format( this.overtimeData.total ) );
+		.text( longFormatter.format( this.overtimeData.total ) );
 	weeks = displayContainer.append( 'div' ).attr( { id: 'weeks' } );
 	weeks.selectAll( 'div' )
 		.data( this.overtimeData.weeks )
@@ -36,7 +37,7 @@ HtmlRenderer.prototype.render = function () {
 		.append( 'div' )
 		.attr( { 'class': 'total' } )
 		.text( function ( d ) {
-			return formatter.format( d.total );
+			return longFormatter.format( d.total );
 		} );
 };
 
