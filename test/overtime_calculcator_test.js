@@ -6,6 +6,8 @@ describe( 'OvertimeCalculator', function () {
 	describe( '#getOvertimes', function () {
 
 		var testData = {
+			year: 2015,
+			month: 9,
 			weeks: {
 				42: {
 					days: {
@@ -45,6 +47,14 @@ describe( 'OvertimeCalculator', function () {
 			expect( result.weeks[ 42 ].days[ 14 ].total ).to.equal( 60 );
 			expect( result.weeks[ 43 ].days[ 20 ].total ).to.equal( -55 );
 			expect( result.weeks[ 43 ].days[ 21 ].total ).to.equal( 0 );
+		} );
+
+		it( 'copies year and month info', function () {
+			var minutesPerDay = 480,
+				calulcator = new OvertimeCalculator(),
+				result = calulcator.getOvertime( testData, minutesPerDay );
+			expect( result.year ).to.equal( 2015 );
+			expect( result.month ).to.equal( 9 );
 		} );
 
 	} );

@@ -76,6 +76,18 @@ describe( 'TimeAggregator', function () {
 			expect( secondWeek.days[ 20 ].total ).to.equal( 60 );
 		} );
 
+		it( 'stores month and year in data', function () {
+			var testData = [
+					{ time_entry: { date_at: '2015-10-11', minutes: 45 } },
+					{ time_entry: { date_at: '2015-10-11', minutes: 60 } },
+					{ time_entry: { date_at: '2015-12-11', minutes: 60 } }
+				],
+				aggregator = new TimeAggregator( testData ),
+				result = aggregator.getAggregatedData();
+			expect( result.month ).to.equal( 9 ); // month numbers are 0-based
+			expect( result.year ).to.equal( 2015 );
+		} );
+
 	} ); // END describe getAggregatedData
 
 	describe( '#getDays', function () {

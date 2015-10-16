@@ -22,6 +22,8 @@ function calculateAggregatedData( entries, locale ) {
 	// jscs:disable requireCamelCaseOrUpperCaseIdentifiers
 	firstDate = moment( entries[ 0 ].time_entry.date_at );
 	firstDate.locale( locale );
+	data.month = firstDate.month();
+	data.year  = firstDate.year();
 	for ( i = 0; i < entryCount; i++ ) {
 		entry = entries[ i ].time_entry;
 		day = moment( entry.date_at );

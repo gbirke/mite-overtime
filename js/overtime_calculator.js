@@ -8,7 +8,9 @@ function OvertimeCalculator() {}
 OvertimeCalculator.prototype.getOvertime = function ( timeData, minutesPerDay ) {
 	var overtime = {
 			total: 0,
-			weeks: {}
+			weeks: {},
+			year: timeData.year,
+			month: timeData.month
 		},
 		week, day, timeDifference;
 	for ( week in timeData.weeks ) {
