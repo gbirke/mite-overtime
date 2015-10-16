@@ -12,6 +12,7 @@
     "start": "node server.js",
     "watch": "watchify -o web/js/app.js -v -d .",
     "test": "mocha",
+    "build": "browserify -o web/js/app.js -v js/main.js",
     "lint": "jshint js test",
     "cs": "jscs js test",
     "fulltest": "npm run lint && npm run cs && mocha"
