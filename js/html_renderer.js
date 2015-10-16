@@ -24,7 +24,7 @@ function renderTotal( displayContainer ) {
 		total;
 	currentTime.month( data.month );
 	currentTime.year( data.year );
-	displayContainer.append( 'h1' ).text( 'Total for ' + currentTime.format( 'MMMM YYYY' ) )
+	displayContainer.append( 'h1' ).text( 'Total for ' + currentTime.format( 'MMMM YYYY' ) );
 	total = displayContainer.append( 'div' )
 		.attr( { id: 'totalOvertime' } )
 		.text( function ( d ) {
