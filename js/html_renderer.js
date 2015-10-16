@@ -19,7 +19,13 @@ longFormatter = new DurationFormatter( 'h:mm [overtime]', 'h:mm [missing]' );
 shortFormatter = new DurationFormatter( 'h:mm', '[-] h:mm' );
 
 function renderTotal( displayContainer ) {
-	var total = displayContainer.append( 'div' )
+	var data = displayContainer.data(),
+		currentTime = moment(),
+		total;
+	currentTime.month( data.month );
+	currentTime.year( data.year );
+	displayContainer.append( 'h1' ).text( 'Total for ' + currentTime.format( 'MMMM YYYY' ) )
+	total = displayContainer.append( 'div' )
 		.attr( { id: 'totalOvertime' } )
 		.text( function ( d ) {
 			return longFormatter.format( d.total );
@@ -34,6 +40,11 @@ function renderWeeks( displayContainer ) {
 		.enter()
 		.append( 'div' )
 		.classed( 'week', true );
+
+	weeks.append( 'h2' )
+		.text( function ( d ) {
+			return 'Week ' + d.week;
+		} );
 
 	weeks.append( 'div' )
 		.classed( 'total', true )
