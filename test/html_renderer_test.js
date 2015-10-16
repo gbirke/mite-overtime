@@ -37,7 +37,7 @@ describe( 'HtmlRenderer', function () {
 		weeks = displayContainer.selectAll( '.week .total' );
 		expect( weeks.size() ).to.equal( 2 );
 		expect( displayContainer.select( '.week:nth-child(1) .total' ).text() ).to.equal( '1:40 overtime' );
-		expect( displayContainer.select( '.week:nth-child(2) .total' ).text() ).to.equal( '20 missing' );
+		expect( displayContainer.select( '.week:nth-child(2) .total' ).text() ).to.equal( '0:20 missing' );
 	} );
 
 	after( function () {

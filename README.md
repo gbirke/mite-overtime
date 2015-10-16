@@ -6,7 +6,7 @@ This JavaScript application calculates the overtime of a month, using data from 
 
 To use this application you need two pieces of information: your **Mite account name** and your **API key**. The account name is the last bit of your Mite URL, e.g. if you access Mite normally via https://wmd.mite.yo.lk, then your account name is `wmd`. Your API key can be found on the Mite user account page. You can go to the Mite account page by clicking on your name in the top right corner of the Mite page after you logged in to Mite. 
 
-Enter the credentials in the fields and press the "Check" button. You will be presented with the overtime amounts for the current month.
+Enter the credentials in the fields and press the "Check" button. You will be presented with the overtime amounts for the current month. The times shown are hours and minutes.
 
 ### How is the overtime calculated?
 

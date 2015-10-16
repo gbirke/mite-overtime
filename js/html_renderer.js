@@ -4,19 +4,23 @@ var d3 = require( 'd3' ),
 
 require( 'moment-duration-format' );
 
-function DurationFormatter( positiveFormat, negativeFormat  ) {
+function DurationFormatter( positiveFormat, negativeFormat, absoluteValue ) {
 	this.positiveFormat = positiveFormat;
 	this.negativeFormat = negativeFormat;
+	this.absoluteValue = absoluteValue;
 }
 
 DurationFormatter.prototype.format = function ( duration ) {
 	var fmt = duration > 0 ? this.positiveFormat : this.negativeFormat;
+	if ( this.absoluteValue ) {
+		duration = Math.abs( duration );
+	}
 	return moment.duration( duration, 'minutes' )
-		.format( fmt );
+		.format( fmt, { trim: false } );
 };
 
-longFormatter = new DurationFormatter( 'h:mm [overtime]', 'h:mm [missing]' );
-shortFormatter = new DurationFormatter( 'h:mm', '[-] h:mm' );
+longFormatter = new DurationFormatter( 'h:mm [overtime]', 'h:mm [missing]', true );
+shortFormatter = new DurationFormatter( 'h:mm', 'h:mm', false );
 
 function renderTotal( displayContainer ) {
 	var data = displayContainer.data(),
