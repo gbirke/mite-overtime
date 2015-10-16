@@ -43,14 +43,12 @@ function renderWeeks( displayContainer ) {
 	return weeks;
 }
 
-function HtmlRenderer( overtimeData ) {
-	this.overtimeData = overtimeData;
-}
+function HtmlRenderer() {}
 
-HtmlRenderer.prototype.render = function () {
+HtmlRenderer.prototype.render = function ( overtimeData ) {
 	var	displayContainer, total, weekContainers, weeks;
 
-	displayContainer = d3.select( '#displayContainer' ).data( this.overtimeData );
+	displayContainer = d3.select( '#displayContainer' ).data( overtimeData );
 	displayContainer.selectAll( 'div' )
 		.remove();
 

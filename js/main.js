@@ -17,13 +17,13 @@ connector.getData( function( data ) {
 	var agggregator = new TimeAggregator( data ),
 		overtime = new OvertimeCalculator(),
 		converter = new DataConverter(),
-		overtimeData, convertedData, renderer;
-	//console.log( agggregator.getAggregatedData() );
+		renderer = new HtmlRenderer(),
+		overtimeData, convertedData;
+	// console.log( agggregator.getAggregatedData() );
 	overtimeData = overtime.getOvertime( agggregator.getAggregatedData( data ), 480 );
 	convertedData = converter.convert( overtimeData );
-	//console.log( convertedData );
-	renderer = new HtmlRenderer( convertedData );
-	renderer.render();
+	// console.log( convertedData );
+	renderer.render( convertedData );
 
 } );
 

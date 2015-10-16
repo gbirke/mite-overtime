@@ -17,7 +17,7 @@ describe( 'HtmlRenderer', function () {
 				d3: require( 'd3' )
 			} );
 			HtmlRenderer = require( '../js/html_renderer' );
-			renderer = new HtmlRenderer( testData );
+			renderer = new HtmlRenderer();
 			displayContainer = d3.select( 'body' ).append( 'div' ).attr( { id: 'displayContainer' } );
 			done();
 		} );
@@ -25,7 +25,7 @@ describe( 'HtmlRenderer', function () {
 
 	it( 'renders the total', function () {
 		var total;
-		renderer.render();
+		renderer.render( testData );
 		total = displayContainer.select( '#totalOvertime' );
 		expect( total.size() ).to.equal( 1 );
 		expect( total.text() ).to.equal( '1:20 overtime' );
@@ -33,7 +33,7 @@ describe( 'HtmlRenderer', function () {
 
 	it( 'renders the weekly total', function () {
 		var weeks;
-		renderer.render();
+		renderer.render( testData );
 		weeks = displayContainer.selectAll( '.week .total' );
 		expect( weeks.size() ).to.equal( 2 );
 		expect( displayContainer.select( '.week:nth-child(1) .total' ).text() ).to.equal( '1:40 overtime' );

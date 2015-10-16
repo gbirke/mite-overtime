@@ -11,6 +11,6 @@ ServerConnector.prototype.getData = function ( callback ) {
 	} );
 	xhr.open( 'GET', this.apiUrl );
 	xhr.send();
-}
+};
 
 module.exports = ServerConnector;
