@@ -14,7 +14,7 @@
     "test": "mocha",
     "lint": "jshint js test",
     "cs": "jscs js test",
-    "pretest": "npm run lint && npm run cs"
+    "fulltest": "npm run lint && npm run cs && mocha"
   },
   "author": "Gabriel Birke <gb@birke-software.de>",
   "license": "MIT",
