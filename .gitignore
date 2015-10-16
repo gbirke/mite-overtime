@@ -28,3 +28,6 @@ node_modules
 
 # js development directory
 web/js/app.js
+
+# example data
+web/time_entries.json

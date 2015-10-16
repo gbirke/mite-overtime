@@ -1,4 +1,8 @@
 var HtmlRenderer = require( './html_renderer' ),
+	ServerConnector = require( './server_connector' ),
+	TimeAggregator = require( './time_aggregator' ),
+	OvertimeCalculator = require( './overtime_calculator' ),
+	DataConverter = require( './data_converter' ),
 	testData = [ {
 		total: 80,
 		weeks: [
@@ -6,7 +10,21 @@ var HtmlRenderer = require( './html_renderer' ),
 			{ total: -20, number: 43 }
 		]
 	} ],
-	renderer = new HtmlRenderer( testData );
+	connector = new ServerConnector( 'http://localhost:8080/time_entries.json', XMLHttpRequest );
 
-renderer.render();
+
+connector.getData( function( data ) {
+	var agggregator = new TimeAggregator( data ),
+		overtime = new OvertimeCalculator(),
+		converter = new DataConverter(),
+		overtimeData, convertedData, renderer;
+	//console.log( agggregator.getAggregatedData() );
+	overtimeData = overtime.getOvertime( agggregator.getAggregatedData( data ), 480 );
+	convertedData = converter.convert( overtimeData );
+	//console.log( convertedData );
+	renderer = new HtmlRenderer( convertedData );
+	renderer.render();
+
+} );
+
 
