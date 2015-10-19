@@ -1,6 +1,6 @@
 var moment = require( 'moment' );
 
-function WorkdaysCalculator( workdays ) {
+function WorktimeCalculator( workdays ) {
 	var i;
 	this.workdays = workdays;
 	this.workdaysIndex = [];
@@ -9,7 +9,7 @@ function WorkdaysCalculator( workdays ) {
 	}
 }
 
-WorkdaysCalculator.prototype.getWorkdaysForWeek = function ( week, month ) {
+WorktimeCalculator.prototype.getWorkdaysForWeek = function ( week, month ) {
 	var firstDayOfWeek, nextWeek, dayPointer, dayBelongsToWeek,
 		dayCount = 0;
 	firstDayOfWeek = moment( week, 'w' );
@@ -27,4 +27,18 @@ WorkdaysCalculator.prototype.getWorkdaysForWeek = function ( week, month ) {
 	return dayCount;
 };
 
-module.exports = WorkdaysCalculator;
+WorktimeCalculator.prototype.getWorktimesForWeek = function ( week, month, hoursPerWeek ) {
+	var workdaysForWeek = this.getWorkdaysForWeek( week, month ),
+		hoursPerDay = hoursPerWeek / this.workdays.length;
+	return {
+		workdays: this.workdays.length,
+		workdaysForWeek: workdaysForWeek,
+		hoursPerDay: hoursPerDay,
+		hoursPerWeek: workdaysForWeek * hoursPerDay,
+		minutesPerDay: hoursPerDay * 60,
+		minutesPerWeek: workdaysForWeek * hoursPerDay * 60
+	};
+
+};
+
+module.exports = WorktimeCalculator;
