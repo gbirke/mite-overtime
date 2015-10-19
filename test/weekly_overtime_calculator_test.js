@@ -102,6 +102,7 @@ describe( 'WeeklyOvertimeCalculator', function () {
 
 	} );
 
+	// jscs:disable requireSpaceAfterLineComment
 	// TODO: it handles edge case where the month starts/ends in the middle of the week:
 	//			reduce the required hours for week, track days normally
 	// TODO: it handles edge case where the month starts with a weekend:
