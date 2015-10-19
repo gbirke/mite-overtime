@@ -104,9 +104,46 @@ describe( 'WeeklyOvertimeCalculator', function () {
 
 	} );
 
+	describe( '#getOvertime, incomplete week at end of month', function () {
+
+		var testData = {
+			year: 2015,
+			month: 7,
+			weeks: {
+				36: {
+					total: 500,
+					days: {
+						31: { total: 500 } // 8 hours 20 minutes
+					}
+				}
+			}
+		},
+		worktimeCalculator = new WorktimeCalculator( [ 1, 2, 3, 4, 5 ] );
+
+		it( 'calculates total overtime', function () {
+			var hoursPerWeek = 40,
+				calculator = new WeeklyOvertimeCalculator( worktimeCalculator ),
+				result = calculator.getOvertime( testData, hoursPerWeek );
+			expect( result.total ).to.equal( 20 );
+		} );
+
+		it( 'calculates weekly overtime', function () {
+			var hoursPerWeek = 40,
+				calculator = new WeeklyOvertimeCalculator( worktimeCalculator ),
+				result = calculator.getOvertime( testData, hoursPerWeek );
+			expect( result.weeks[ 36 ].total ).to.equal( 20 );
+		} );
+
+		it( 'calculates daily overtime', function () {
+			var hoursPerWeek = 40,
+				calculator = new WeeklyOvertimeCalculator( worktimeCalculator ),
+				result = calculator.getOvertime( testData, hoursPerWeek );
+			expect( result.weeks[ 36 ].days[ 31 ].total ).to.equal( 20 );
+		} );
+
+	} );
+
 	// jscs:disable requireSpaceAfterLineComment
-	// TODO: it handles edge case where the month starts/ends in the middle of the week:
-	//			reduce the required hours for week, track days normally
 	// TODO: it handles edge case where the month starts with a weekend:
 	//			if person has not worked on the weekend, it will not show up in input data
 	//		 	otherwise count as overtime for week and day
