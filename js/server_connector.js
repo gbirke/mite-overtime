@@ -4,10 +4,19 @@ function ServerConnector( apiUrl, XMLHttpRequestClass, specialHeaders ) {
 	this.specialHeaders = specialHeaders;
 }
 
-ServerConnector.prototype.getData = function ( callback ) {
+ServerConnector.prototype.getData = function ( callback, errback ) {
 	var xhr = new this.xhrClass(),
 		header;
 	xhr.addEventListener( 'load', function () {
+		var jsonData = JSON.parse( this.responseText );
+		if ( this.status >= 400 ) {
+			errback( this, jsonData );
+		}
+		else {
+			callback( jsonData );
+		}
+	} );
+	xhr.addEventListener( 'error', function () {
 		var jsonData = JSON.parse( this.responseText );
 		callback( jsonData );
 	} );
