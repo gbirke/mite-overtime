@@ -64,7 +64,7 @@ HtmlRenderer.prototype.render = function ( overtimeData ) {
 	var	displayContainer, total, weekContainers, weeks;
 
 	displayContainer = d3.select( '#displayContainer' ).data( overtimeData );
-	displayContainer.selectAll( 'div' )
+	displayContainer.selectAll( 'div, h1' )
 		.remove();
 
 	total = renderTotal( displayContainer );
