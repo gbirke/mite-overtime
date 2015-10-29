@@ -20,12 +20,13 @@ function WorktimeCalculator( workdays ) {
  * @return {Array} An array with the workdays in the week
  */
 WorktimeCalculator.prototype.getWorkdaysForWeek = function ( week, month ) {
-	var firstDayOfWeek, dayPointer, dayBelongsToWeek, i
+	var firstDayOfWeek, dayPointer, dayBelongsToWeek, i, isAWorkday,
 		days = [];
 	firstDayOfWeek = moment( week, 'w' );
 	dayPointer = firstDayOfWeek;
 	for ( i = 0; i < 7; i++ ) {
-		if ( this.workdaysIndex[ dayPointer.day() ] && dayPointer.month() == month ) {
+		isAWorkday = this.isAWorkday( dayPointer.year(), dayPointer.month(), dayPointer.date() );
+		if ( isAWorkday && dayPointer.month() == month ) {
 			days.push( dayPointer.date() );
 		}
 		dayPointer.add( 1, 'day' );
