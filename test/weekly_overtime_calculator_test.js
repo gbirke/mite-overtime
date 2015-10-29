@@ -143,10 +143,56 @@ describe( 'WeeklyOvertimeCalculator', function () {
 
 	} );
 
+	describe( '#getOvertime, month starting on a weekend', function () {
+
+		var testData = {
+			year: 2015,
+			month: 7,
+			weeks: {
+				31: {
+					total: 240,
+					days: {
+						2: { total: 240 },
+					}
+				}
+			}
+		},
+		worktimeCalculator = new WorktimeCalculator( [ 1, 2, 3, 4, 5 ] );
+
+		it( 'ignores the two days on the weekend', function () {
+			var hoursPerWeek = 40,
+				emptyData = {
+					year: 2015,
+					month: 7,
+					weeks: {
+						31: {
+							total: 0,
+							days: {	}
+						}
+					}
+				},
+				calculator = new WeeklyOvertimeCalculator( worktimeCalculator ),
+				result = calculator.getOvertime( emptyData, hoursPerWeek );
+			expect( result.total ).to.equal( 0 );
+		} );
+
+		it( 'calculates weekly overtime', function () {
+			var hoursPerWeek = 40,
+				calculator = new WeeklyOvertimeCalculator( worktimeCalculator ),
+				result = calculator.getOvertime( testData, hoursPerWeek );
+			expect( result.weeks[ 31 ].total ).to.equal( 240 );
+		} );
+
+		it( 'registers working on sunday at the start of a month as overtime', function () {
+			var hoursPerWeek = 40,
+				calculator = new WeeklyOvertimeCalculator( worktimeCalculator ),
+				result = calculator.getOvertime( testData, hoursPerWeek );
+			expect( result.weeks[ 31 ].days[ 2 ].total ).to.equal( 240 );
+		} );
+
+	} );
+
 	// jscs:disable requireSpaceAfterLineComment
-	// TODO: it handles edge case where the month starts with a weekend:
-	//			if person has not worked on the weekend, it will not show up in input data
-	//		 	otherwise count as overtime for week and day
 	// TODO: it handles overtime when people work on weekends:
 	//		    when more than daysPerWeek days have entries, all remaining days are marked as overtime
 	//          ( weekly overtime is alreadly handled correctly)

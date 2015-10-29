@@ -27,15 +27,20 @@ WorktimeCalculator.prototype.getWorkdaysForWeek = function ( week, month ) {
 	return dayCount;
 };
 
+/**
+ * Get the required work times for the week
+ *
+ * If the week consists of days that are not workdays, the required working times are 0.
+ */
 WorktimeCalculator.prototype.getWorktimesForWeek = function ( week, month, hoursPerWeek ) {
 	var workdaysForWeek = this.getWorkdaysForWeek( week, month ),
 		hoursPerDay = hoursPerWeek / this.workdays.length;
 	return {
 		workdays: this.workdays.length,
 		workdaysForWeek: workdaysForWeek,
-		hoursPerDay: hoursPerDay,
+		hoursPerDay: workdaysForWeek ? hoursPerDay : 0,
 		hoursPerWeek: workdaysForWeek * hoursPerDay,
-		minutesPerDay: hoursPerDay * 60,
+		minutesPerDay: workdaysForWeek ? hoursPerDay * 60 : 0,
 		minutesPerWeek: workdaysForWeek * hoursPerDay * 60
 	};
 

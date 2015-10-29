@@ -30,6 +30,13 @@ describe( 'WorktimeCalculator', function () {
 			expect( calculator.getWorkdaysForWeek( week, month ) ).to.equal( 1 );
 		} );
 
+		it( 'returns zero for months starting with a weekend', function () {
+			// 27th July - 2nd August, get days for August
+			var week = 31, month = 7;
+			moment.locale( 'en' );
+			expect( calculator.getWorkdaysForWeek( week, month ) ).to.equal( 0 );
+		} );
+
 	} );
 
 	describe( '#getWorktimes', function () {
@@ -75,6 +82,19 @@ describe( 'WorktimeCalculator', function () {
 			expect( result.minutesPerWeek ).to.equal( 480 );
 		} );
 
+		it( 'returns zero for months starting with a weekend', function () {
+			// 27th July - 2nd August, get days for August
+			var week = 31,
+				month = 7,
+				result;
+			moment.locale( 'en' );
+			result = calculator.getWorktimesForWeek( week, month, hoursPerWeek );
+			expect( result.hoursPerDay ).to.equal( 0 );
+			expect( result.hoursPerWeek ).to.equal( 0 );
+			expect( result.minutesPerDay ).to.equal( 0 );
+			expect( result.minutesPerWeek ).to.equal( 0 );
+		} );
+
 	} );
 
 	describe( '#getWorkdays (German locale)', function () {
@@ -100,6 +120,13 @@ describe( 'WorktimeCalculator', function () {
 			var week = 36, month = 7;
 			moment.locale( 'de' );
 			expect( calculator.getWorkdaysForWeek( week, month ) ).to.equal( 1 );
+		} );
+
+		it( 'returns zero for months starting with a weekend', function () {
+			// 27th July - 2nd August, get days for August
+			var week = 31, month = 7;
+			moment.locale( 'de' );
+			expect( calculator.getWorkdaysForWeek( week, month ) ).to.equal( 0 );
 		} );
 
 	} );

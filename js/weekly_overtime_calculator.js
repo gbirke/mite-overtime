@@ -11,7 +11,7 @@ WeeklyOvertimeCalculator.prototype.getOvertime = function ( timeData, hoursPerWe
 			year: timeData.year,
 			month: timeData.month
 		},
-		worktime, week, day, timeDifference;
+		worktimes, week, day, timeDifference;
 
 	for ( week in timeData.weeks ) {
 		worktimes = this.worktimeCalculator.getWorktimesForWeek( week, timeData.month, hoursPerWeek );
