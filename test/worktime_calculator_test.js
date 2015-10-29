@@ -134,7 +134,9 @@ describe( 'WorktimeCalculator', function () {
 
 	describe( '#isAWorkday', function () {
 
-		var calculator = new WorktimeCalculator( [ 1, 2, 3, 4, 5 ] ),
+		var holiday = new Date( 2015, 11, 25 ),
+			holidayFunction = function ( d ) { return d - holiday == 0; },
+			calculator = new WorktimeCalculator( [ 1, 2, 3, 4, 5 ], holidayFunction ),
 			year = 2015,
 			month = 9;
 
@@ -149,6 +151,13 @@ describe( 'WorktimeCalculator', function () {
 			moment.locale( 'en' );
 			expect( calculator.isAWorkday( year, month, 4 ) ).to.be.false;
 			expect( calculator.isAWorkday( year, month, 3 ) ).to.be.false;
+		} );
+
+		it( 'returns false for holidays', function () {
+			// Christmas day
+			moment.locale( 'en' );
+			expect( calculator.isAWorkday( year, 11, 24 ) ).to.be.true;
+			expect( calculator.isAWorkday( year, 11, 25 ) ).to.be.false;
 		} );
 
 	} );

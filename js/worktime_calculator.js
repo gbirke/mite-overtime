@@ -3,10 +3,11 @@ var moment = require( 'moment' );
 /**
  * @class WorktimeCalculator
  */
-function WorktimeCalculator( workdays ) {
+function WorktimeCalculator( workdays, holidayCallback ) {
 	var i;
 	this.workdays = workdays;
 	this.workdaysIndex = [];
+	this.holidayCallback = holidayCallback || function () { return false; };
 	for ( i = 0; i < 7; i++ ) {
 		this.workdaysIndex[ i ] = workdays.indexOf( i ) > -1;
 	}
@@ -66,8 +67,8 @@ WorktimeCalculator.prototype.getWorktimesForWeek = function ( week, month, hours
  * @return {boolean}
  */
 WorktimeCalculator.prototype.isAWorkday = function ( year, month, day ) {
-	var dayOfWeek = moment( [ year, month, day ] ).day();
-	return this.workdaysIndex[ dayOfWeek ];
+	var date = moment( [ year, month, day ] );
+	return this.workdaysIndex[ date.day() ] && !this.holidayCallback( date );
 }
 
 module.exports = WorktimeCalculator;
