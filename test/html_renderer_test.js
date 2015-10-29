@@ -4,10 +4,10 @@ var expect = require( 'chai' ).expect,
 describe( 'HtmlRenderer', function () {
 
 	var testData = [ {
-		total: 80,
+		timeDelta: 80,
 		weeks: [
-			{ total: 100, number: 42 },
-			{ total: -20, number: 43 }
+			{ timeDelta: 100, number: 42 },
+			{ timeDelta: -20, number: 43 }
 		]
 	} ];
 
@@ -23,7 +23,7 @@ describe( 'HtmlRenderer', function () {
 		} );
 	} );
 
-	it( 'renders the total', function () {
+	it( 'renders the total time delta', function () {
 		var total;
 		renderer.render( testData );
 		total = displayContainer.select( '#totalOvertime' );
@@ -31,7 +31,7 @@ describe( 'HtmlRenderer', function () {
 		expect( total.text() ).to.equal( '1:20 overtime' );
 	} );
 
-	it( 'renders the weekly total', function () {
+	it( 'renders the weekly time delta', function () {
 		var weeks;
 		renderer.render( testData );
 		weeks = displayContainer.selectAll( '.week .total' );
