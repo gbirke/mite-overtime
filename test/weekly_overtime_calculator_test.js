@@ -206,7 +206,7 @@ describe( 'WeeklyOvertimeCalculator', function () {
 						14: { total: 540 }, // 9 hours
 						15: { total: 420 }, // 7 hours
 						16: { total: 480 },
-						17: { total: 70 },
+						17: { total: 70 }, // Work on Saturday
 					}
 				}
 			}
@@ -227,11 +227,54 @@ describe( 'WeeklyOvertimeCalculator', function () {
 			expect( result.weeks[ 42 ].total ).to.equal( 90 );
 		} );
 
-		it( 'calculates daily overtime', function () {
+		it( 'counts overtime outside working days as overtime', function () {
 			var hoursPerWeek = 40,
 				calculator = new WeeklyOvertimeCalculator( worktimeCalculator ),
 				result = calculator.getOvertime( testData, hoursPerWeek );
 			expect( result.weeks[ 42 ].days[ 17 ].total ).to.equal( 70 );
+		} );
+	} );
+
+	describe( '#getOvertime, working outside worktimes to alleviate time deficit ', function () {
+
+		var testData = {
+			year: 2015,
+			month: 9,
+			weeks: {
+				42: {
+					total: 2430,
+					days: {
+						12: { total: 490 }, // 8 hours 10 minutes
+						13: { total: 500 }, // 8 hours 20 minutes
+						14: { total: 540 }, // 9 hours
+						15: { total: 540 }, // 9 hours
+						// No work on Friday
+						17: { total: 360 }, // Work on Saturday
+					}
+				}
+			}
+		},
+		worktimeCalculator = new WorktimeCalculator( [ 1, 2, 3, 4, 5 ] );
+
+		it( 'calculates total overtime', function () {
+			var hoursPerWeek = 40,
+				calculator = new WeeklyOvertimeCalculator( worktimeCalculator ),
+				result = calculator.getOvertime( testData, hoursPerWeek );
+			expect( result.total ).to.equal( 30 );
+		} );
+
+		it( 'calculates weekly overtime', function () {
+			var hoursPerWeek = 40,
+				calculator = new WeeklyOvertimeCalculator( worktimeCalculator ),
+				result = calculator.getOvertime( testData, hoursPerWeek );
+			expect( result.weeks[ 42 ].total ).to.equal( 30 );
+		} );
+
+		it( 'counts workdays not worked as missing time', function () {
+			var hoursPerWeek = 40,
+				calculator = new WeeklyOvertimeCalculator( worktimeCalculator ),
+				result = calculator.getOvertime( testData, hoursPerWeek );
+			expect( result.weeks[ 42 ].days[ 16 ].total ).to.equal( -480 );
 		} );
 	} );
 
