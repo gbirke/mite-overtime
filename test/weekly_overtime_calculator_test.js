@@ -278,8 +278,47 @@ describe( 'WeeklyOvertimeCalculator', function () {
 		} );
 	} );
 
-	// jscs:disable requireSpaceAfterLineComment
-	// TODO: it handles edge cases where there is a holiday on a workday:
-	// 			reduce the required hours for week, track days normally
+	describe( '#getOvertime, with holiday (christmas week)', function () {
+
+		var testData = {
+			year: 2015,
+			month: 11,
+			weeks: {
+				52: {
+					total: 1800,
+					days: {
+						21: { total: 480 }, // 8 hours
+						22: { total: 540 }, // 9 hours
+						23: { total: 540 }, // 9 hours
+						24: { total: 240 }, // 4 hours
+					}
+				}
+			}
+		},
+		christmas = new Date( 2015, 11, 25 ),
+		holidayFunction = function ( d ) { return d - christmas == 0; },
+		worktimeCalculator = new WorktimeCalculator( [ 1, 2, 3, 4, 5 ], holidayFunction );
+
+		it( 'calculates total overtime', function () {
+			var hoursPerWeek = 40,
+				calculator = new WeeklyOvertimeCalculator( worktimeCalculator ),
+				result = calculator.getOvertime( testData, hoursPerWeek );
+			expect( result.total ).to.equal( -120 );
+		} );
+
+		it( 'calculates weekly overtime', function () {
+			var hoursPerWeek = 40,
+				calculator = new WeeklyOvertimeCalculator( worktimeCalculator ),
+				result = calculator.getOvertime( testData, hoursPerWeek );
+			expect( result.weeks[ 52 ].total ).to.equal( -120 );
+		} );
+
+		it( 'skips holidays', function () {
+			var hoursPerWeek = 40,
+				calculator = new WeeklyOvertimeCalculator( worktimeCalculator ),
+				result = calculator.getOvertime( testData, hoursPerWeek );
+			expect( result.weeks[ 52 ].days[ 25 ] ).to.be.undefined;
+		} );
+	} );
 
 } );
