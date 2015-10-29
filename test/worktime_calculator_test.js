@@ -152,4 +152,39 @@ describe( 'WorktimeCalculator', function () {
 
 	} );
 
+	describe( '#getWorkdatesForWeek (German locale)', function () {
+
+		var calculator = new WorktimeCalculator( [ 1, 2, 3, 4, 5 ] );
+
+		it( 'returns all days for normal week', function () {
+			// 5th-11th October 2015
+			var week = 41, month = 9;
+			moment.locale( 'de' );
+			expect( calculator.getWorkdatesForWeek( week, month ) ).to.deep.equal( [ 5, 6, 7, 8, 9 ] );
+		} );
+
+		
+		it( 'returns some days for first week in month', function () {
+			// 29th September - 4th October 2015, get days for October
+			var week = 40, month = 9;
+			moment.locale( 'de' );
+			expect( calculator.getWorkdatesForWeek( week, month ) ).to.deep.equal( [ 1, 2 ] );
+		} );
+
+		it( 'returns some days for last week in month', function () {
+			// 31th August - 6th September 2015, get days for August
+			var week = 36, month = 7;
+			moment.locale( 'de' );
+			expect( calculator.getWorkdatesForWeek( week, month ) ).to.deep.equal( [ 31 ] );
+		} );
+
+		it( 'returns empty array for months starting with a weekend', function () {
+			// 27th July - 2nd August, get days for August
+			var week = 31, month = 7;
+			moment.locale( 'de' );
+			expect( calculator.getWorkdatesForWeek( week, month ) ).to.deep.equal( [] );
+		} );
+		
+	} );
+
 } );
