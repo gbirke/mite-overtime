@@ -28,29 +28,29 @@ describe( 'WeeklyOvertimeCalculator', function () {
 		},
 		worktimeCalculator = new WorktimeCalculator( [ 2, 3 ] );
 
-		it( 'calculates total overtime', function () {
+		it( 'calculates monthly overtime', function () {
 			var hoursPerWeek = 16,
 				calculator = new WeeklyOvertimeCalculator( worktimeCalculator ),
 				result = calculator.getOvertime( testData, hoursPerWeek );
-			expect( result.total ).to.equal( 25 );
+			expect( result.timeDelta ).to.equal( 25 );
 		} );
 
 		it( 'calculates weekly overtime', function () {
 			var hoursPerWeek = 16,
 				calculator = new WeeklyOvertimeCalculator( worktimeCalculator ),
 				result = calculator.getOvertime( testData, hoursPerWeek );
-			expect( result.weeks[ 42 ].total ).to.equal( 80 );
-			expect( result.weeks[ 43 ].total ).to.equal( -55 );
+			expect( result.weeks[ 42 ].timeDelta ).to.equal( 80 );
+			expect( result.weeks[ 43 ].timeDelta ).to.equal( -55 );
 		} );
 
 		it( 'calculates daily overtime', function () {
 			var hoursPerWeek = 16,
 				calculator = new WeeklyOvertimeCalculator( worktimeCalculator ),
 				result = calculator.getOvertime( testData, hoursPerWeek );
-			expect( result.weeks[ 42 ].days[ 13 ].total ).to.equal( 20 );
-			expect( result.weeks[ 42 ].days[ 14 ].total ).to.equal( 60 );
-			expect( result.weeks[ 43 ].days[ 20 ].total ).to.equal( -55 );
-			expect( result.weeks[ 43 ].days[ 21 ].total ).to.equal( 0 );
+			expect( result.weeks[ 42 ].days[ 13 ].timeDelta ).to.equal( 20 );
+			expect( result.weeks[ 42 ].days[ 14 ].timeDelta ).to.equal( 60 );
+			expect( result.weeks[ 43 ].days[ 20 ].timeDelta ).to.equal( -55 );
+			expect( result.weeks[ 43 ].days[ 21 ].timeDelta ).to.equal( 0 );
 		} );
 
 		it( 'copies year and month info', function () {
@@ -80,26 +80,26 @@ describe( 'WeeklyOvertimeCalculator', function () {
 		},
 		worktimeCalculator = new WorktimeCalculator( [ 1, 2, 3, 4, 5 ] );
 
-		it( 'calculates total overtime', function () {
+		it( 'calculates monthly overtime', function () {
 			var hoursPerWeek = 40,
 				calculator = new WeeklyOvertimeCalculator( worktimeCalculator ),
 				result = calculator.getOvertime( testData, hoursPerWeek );
-			expect( result.total ).to.equal( 80 );
+			expect( result.timeDelta ).to.equal( 80 );
 		} );
 
 		it( 'calculates weekly overtime', function () {
 			var hoursPerWeek = 40,
 				calculator = new WeeklyOvertimeCalculator( worktimeCalculator ),
 				result = calculator.getOvertime( testData, hoursPerWeek );
-			expect( result.weeks[ 40 ].total ).to.equal( 80 );
+			expect( result.weeks[ 40 ].timeDelta ).to.equal( 80 );
 		} );
 
 		it( 'calculates daily overtime', function () {
 			var hoursPerWeek = 40,
 				calculator = new WeeklyOvertimeCalculator( worktimeCalculator ),
 				result = calculator.getOvertime( testData, hoursPerWeek );
-			expect( result.weeks[ 40 ].days[ 1 ].total ).to.equal( 20 );
-			expect( result.weeks[ 40 ].days[ 2 ].total ).to.equal( 60 );
+			expect( result.weeks[ 40 ].days[ 1 ].timeDelta ).to.equal( 20 );
+			expect( result.weeks[ 40 ].days[ 2 ].timeDelta ).to.equal( 60 );
 		} );
 
 	} );
@@ -120,25 +120,25 @@ describe( 'WeeklyOvertimeCalculator', function () {
 		},
 		worktimeCalculator = new WorktimeCalculator( [ 1, 2, 3, 4, 5 ] );
 
-		it( 'calculates total overtime', function () {
+		it( 'calculates monthly overtime', function () {
 			var hoursPerWeek = 40,
 				calculator = new WeeklyOvertimeCalculator( worktimeCalculator ),
 				result = calculator.getOvertime( testData, hoursPerWeek );
-			expect( result.total ).to.equal( 20 );
+			expect( result.timeDelta ).to.equal( 20 );
 		} );
 
 		it( 'calculates weekly overtime', function () {
 			var hoursPerWeek = 40,
 				calculator = new WeeklyOvertimeCalculator( worktimeCalculator ),
 				result = calculator.getOvertime( testData, hoursPerWeek );
-			expect( result.weeks[ 36 ].total ).to.equal( 20 );
+			expect( result.weeks[ 36 ].timeDelta ).to.equal( 20 );
 		} );
 
 		it( 'calculates daily overtime', function () {
 			var hoursPerWeek = 40,
 				calculator = new WeeklyOvertimeCalculator( worktimeCalculator ),
 				result = calculator.getOvertime( testData, hoursPerWeek );
-			expect( result.weeks[ 36 ].days[ 31 ].total ).to.equal( 20 );
+			expect( result.weeks[ 36 ].days[ 31 ].timeDelta ).to.equal( 20 );
 		} );
 
 	} );
@@ -173,21 +173,21 @@ describe( 'WeeklyOvertimeCalculator', function () {
 				},
 				calculator = new WeeklyOvertimeCalculator( worktimeCalculator ),
 				result = calculator.getOvertime( emptyData, hoursPerWeek );
-			expect( result.total ).to.equal( 0 );
+			expect( result.timeDelta ).to.equal( 0 );
 		} );
 
 		it( 'calculates weekly overtime', function () {
 			var hoursPerWeek = 40,
 				calculator = new WeeklyOvertimeCalculator( worktimeCalculator ),
 				result = calculator.getOvertime( testData, hoursPerWeek );
-			expect( result.weeks[ 31 ].total ).to.equal( 240 );
+			expect( result.weeks[ 31 ].timeDelta ).to.equal( 240 );
 		} );
 
 		it( 'registers working on sunday at the start of a month as overtime', function () {
 			var hoursPerWeek = 40,
 				calculator = new WeeklyOvertimeCalculator( worktimeCalculator ),
 				result = calculator.getOvertime( testData, hoursPerWeek );
-			expect( result.weeks[ 31 ].days[ 2 ].total ).to.equal( 240 );
+			expect( result.weeks[ 31 ].days[ 2 ].timeDelta ).to.equal( 240 );
 		} );
 
 	} );
@@ -213,25 +213,25 @@ describe( 'WeeklyOvertimeCalculator', function () {
 		},
 		worktimeCalculator = new WorktimeCalculator( [ 1, 2, 3, 4, 5 ] );
 
-		it( 'calculates total overtime', function () {
+		it( 'calculates monthly overtime', function () {
 			var hoursPerWeek = 40,
 				calculator = new WeeklyOvertimeCalculator( worktimeCalculator ),
 				result = calculator.getOvertime( testData, hoursPerWeek );
-			expect( result.total ).to.equal( 90 );
+			expect( result.timeDelta ).to.equal( 90 );
 		} );
 
 		it( 'calculates weekly overtime', function () {
 			var hoursPerWeek = 40,
 				calculator = new WeeklyOvertimeCalculator( worktimeCalculator ),
 				result = calculator.getOvertime( testData, hoursPerWeek );
-			expect( result.weeks[ 42 ].total ).to.equal( 90 );
+			expect( result.weeks[ 42 ].timeDelta ).to.equal( 90 );
 		} );
 
 		it( 'counts overtime outside working days as overtime', function () {
 			var hoursPerWeek = 40,
 				calculator = new WeeklyOvertimeCalculator( worktimeCalculator ),
 				result = calculator.getOvertime( testData, hoursPerWeek );
-			expect( result.weeks[ 42 ].days[ 17 ].total ).to.equal( 70 );
+			expect( result.weeks[ 42 ].days[ 17 ].timeDelta ).to.equal( 70 );
 		} );
 	} );
 
@@ -256,25 +256,25 @@ describe( 'WeeklyOvertimeCalculator', function () {
 		},
 		worktimeCalculator = new WorktimeCalculator( [ 1, 2, 3, 4, 5 ] );
 
-		it( 'calculates total overtime', function () {
+		it( 'calculates monthly overtime', function () {
 			var hoursPerWeek = 40,
 				calculator = new WeeklyOvertimeCalculator( worktimeCalculator ),
 				result = calculator.getOvertime( testData, hoursPerWeek );
-			expect( result.total ).to.equal( 30 );
+			expect( result.timeDelta ).to.equal( 30 );
 		} );
 
 		it( 'calculates weekly overtime', function () {
 			var hoursPerWeek = 40,
 				calculator = new WeeklyOvertimeCalculator( worktimeCalculator ),
 				result = calculator.getOvertime( testData, hoursPerWeek );
-			expect( result.weeks[ 42 ].total ).to.equal( 30 );
+			expect( result.weeks[ 42 ].timeDelta ).to.equal( 30 );
 		} );
 
 		it( 'counts workdays not worked as missing time', function () {
 			var hoursPerWeek = 40,
 				calculator = new WeeklyOvertimeCalculator( worktimeCalculator ),
 				result = calculator.getOvertime( testData, hoursPerWeek );
-			expect( result.weeks[ 42 ].days[ 16 ].total ).to.equal( -480 );
+			expect( result.weeks[ 42 ].days[ 16 ].timeDelta ).to.equal( -480 );
 		} );
 	} );
 
@@ -299,18 +299,18 @@ describe( 'WeeklyOvertimeCalculator', function () {
 		holidayFunction = function ( d ) { return d - christmas == 0; },
 		worktimeCalculator = new WorktimeCalculator( [ 1, 2, 3, 4, 5 ], holidayFunction );
 
-		it( 'calculates total overtime', function () {
+		it( 'calculates monthly overtime', function () {
 			var hoursPerWeek = 40,
 				calculator = new WeeklyOvertimeCalculator( worktimeCalculator ),
 				result = calculator.getOvertime( testData, hoursPerWeek );
-			expect( result.total ).to.equal( -120 );
+			expect( result.timeDelta ).to.equal( -120 );
 		} );
 
 		it( 'calculates weekly overtime', function () {
 			var hoursPerWeek = 40,
 				calculator = new WeeklyOvertimeCalculator( worktimeCalculator ),
 				result = calculator.getOvertime( testData, hoursPerWeek );
-			expect( result.weeks[ 52 ].total ).to.equal( -120 );
+			expect( result.weeks[ 52 ].timeDelta ).to.equal( -120 );
 		} );
 
 		it( 'skips holidays', function () {
