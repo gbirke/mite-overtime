@@ -5,6 +5,7 @@ function DataConverter() {}
 DataConverter.prototype.convert = function ( data ) {
 	var converted = {
 		total: data.total,
+		timeDelta: data.timeDelta,
 		weeks: [],
 		year: data.year,
 		month: data.month
@@ -13,6 +14,7 @@ DataConverter.prototype.convert = function ( data ) {
 	for ( week in data.weeks ) {
 		weekData = {
 			total: data.weeks[ week ].total,
+			timeDelta: data.weeks[ week ].timeDelta,
 			week: week,
 			days: []
 		};
@@ -20,6 +22,7 @@ DataConverter.prototype.convert = function ( data ) {
 		for ( day in data.weeks[ week ].days ) {
 			dayData = {
 				total: data.weeks[ week ].days[ day ].total,
+				timeDelta: data.weeks[ week ].days[ day ].timeDelta,
 				day: day,
 				date: [ data.year, '-', data.month + 1, '-', day ].join( '' )
 			};

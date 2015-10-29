@@ -32,7 +32,7 @@ function renderTotal( displayContainer ) {
 	total = displayContainer.append( 'div' )
 		.attr( { id: 'totalOvertime' } )
 		.text( function ( d ) {
-			return longFormatter.format( d.total );
+			return longFormatter.format( d.timeDelta );
 		} );
 	return total;
 }
@@ -53,7 +53,7 @@ function renderWeeks( displayContainer ) {
 	weeks.append( 'div' )
 		.classed( 'total', true )
 		.text( function ( d ) {
-			return longFormatter.format( d.total );
+			return longFormatter.format( d.timeDelta );
 		} );
 	return weeks;
 }
