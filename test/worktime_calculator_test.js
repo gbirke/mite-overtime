@@ -5,7 +5,7 @@ var expect = require( 'chai' ).expect,
 // jscs:disable requireLineBreakAfterVariableAssignment
 describe( 'WorktimeCalculator', function () {
 
-	describe( '#getWorkdays (English locale)', function () {
+	describe( '#getWorkdaysForWeek (English locale)', function () {
 
 		var calculator = new WorktimeCalculator( [ 1, 2, 3, 4, 5 ] );
 
@@ -13,30 +13,65 @@ describe( 'WorktimeCalculator', function () {
 			// 4th-10th October 2015
 			var week = 41, month = 9;
 			moment.locale( 'en' );
-			expect( calculator.getWorkdaysForWeek( week, month ) ).to.equal( 5 );
+			expect( calculator.getWorkdaysForWeek( week, month ) ).to.deep.equal( [ 5, 6, 7, 8, 9 ] );
 		} );
 
 		it( 'returns some days for first week in month', function () {
 			// 27th September - 3rd October 2015, get days for October
 			var week = 40, month = 9;
 			moment.locale( 'en' );
-			expect( calculator.getWorkdaysForWeek( week, month ) ).to.equal( 2 );
+			expect( calculator.getWorkdaysForWeek( week, month ) ).to.deep.equal( [ 1, 2] );
 		} );
 
 		it( 'returns some days for last week in month', function () {
 			// 30th August - 5th September 2015, get days for August
 			var week = 36, month = 7;
 			moment.locale( 'en' );
-			expect( calculator.getWorkdaysForWeek( week, month ) ).to.equal( 1 );
+			expect( calculator.getWorkdaysForWeek( week, month ) ).to.deep.equal( [ 31 ] );
 		} );
 
 		it( 'returns zero for months starting with a weekend', function () {
 			// 27th July - 2nd August, get days for August
 			var week = 31, month = 7;
 			moment.locale( 'en' );
-			expect( calculator.getWorkdaysForWeek( week, month ) ).to.equal( 0 );
+			expect( calculator.getWorkdaysForWeek( week, month ) ).to.deep.equal( [] );
 		} );
 
+	} );
+
+	describe( '#getWorkdaysForWeek (German locale)', function () {
+
+		var calculator = new WorktimeCalculator( [ 1, 2, 3, 4, 5 ] );
+
+		it( 'returns all days for normal week', function () {
+			// 5th-11th October 2015
+			var week = 41, month = 9;
+			moment.locale( 'de' );
+			expect( calculator.getWorkdaysForWeek( week, month ) ).to.deep.equal( [ 5, 6, 7, 8, 9 ] );
+		} );
+
+		
+		it( 'returns some days for first week in month', function () {
+			// 29th September - 4th October 2015, get days for October
+			var week = 40, month = 9;
+			moment.locale( 'de' );
+			expect( calculator.getWorkdaysForWeek( week, month ) ).to.deep.equal( [ 1, 2 ] );
+		} );
+
+		it( 'returns some days for last week in month', function () {
+			// 31th August - 6th September 2015, get days for August
+			var week = 36, month = 7;
+			moment.locale( 'de' );
+			expect( calculator.getWorkdaysForWeek( week, month ) ).to.deep.equal( [ 31 ] );
+		} );
+
+		it( 'returns empty array for months starting with a weekend', function () {
+			// 27th July - 2nd August, get days for August
+			var week = 31, month = 7;
+			moment.locale( 'de' );
+			expect( calculator.getWorkdaysForWeek( week, month ) ).to.deep.equal( [] );
+		} );
+		
 	} );
 
 	describe( '#getWorktimes', function () {
@@ -97,40 +132,6 @@ describe( 'WorktimeCalculator', function () {
 
 	} );
 
-	describe( '#getWorkdays (German locale)', function () {
-
-		var calculator = new WorktimeCalculator( [ 1, 2, 3, 4, 5 ] );
-
-		it( 'returns all days for normal week', function () {
-			// 5th-11th October 2015
-			var week = 41, month = 9;
-			moment.locale( 'de' );
-			expect( calculator.getWorkdaysForWeek( week, month ) ).to.equal( 5 );
-		} );
-
-		it( 'returns some days for first week in month', function () {
-			// 29th September - 4th October 2015, get days for October
-			var week = 40, month = 9;
-			moment.locale( 'de' );
-			expect( calculator.getWorkdaysForWeek( week, month ) ).to.equal( 2 );
-		} );
-
-		it( 'returns some days for last week in month', function () {
-			// 31th August - 6th September 2015, get days for August
-			var week = 36, month = 7;
-			moment.locale( 'de' );
-			expect( calculator.getWorkdaysForWeek( week, month ) ).to.equal( 1 );
-		} );
-
-		it( 'returns zero for months starting with a weekend', function () {
-			// 27th July - 2nd August, get days for August
-			var week = 31, month = 7;
-			moment.locale( 'de' );
-			expect( calculator.getWorkdaysForWeek( week, month ) ).to.equal( 0 );
-		} );
-
-	} );
-
 	describe( '#isAWorkday', function () {
 
 		var calculator = new WorktimeCalculator( [ 1, 2, 3, 4, 5 ] ),
@@ -150,41 +151,6 @@ describe( 'WorktimeCalculator', function () {
 			expect( calculator.isAWorkday( year, month, 3 ) ).to.be.false;
 		} );
 
-	} );
-
-	describe( '#getWorkdatesForWeek (German locale)', function () {
-
-		var calculator = new WorktimeCalculator( [ 1, 2, 3, 4, 5 ] );
-
-		it( 'returns all days for normal week', function () {
-			// 5th-11th October 2015
-			var week = 41, month = 9;
-			moment.locale( 'de' );
-			expect( calculator.getWorkdatesForWeek( week, month ) ).to.deep.equal( [ 5, 6, 7, 8, 9 ] );
-		} );
-
-		
-		it( 'returns some days for first week in month', function () {
-			// 29th September - 4th October 2015, get days for October
-			var week = 40, month = 9;
-			moment.locale( 'de' );
-			expect( calculator.getWorkdatesForWeek( week, month ) ).to.deep.equal( [ 1, 2 ] );
-		} );
-
-		it( 'returns some days for last week in month', function () {
-			// 31th August - 6th September 2015, get days for August
-			var week = 36, month = 7;
-			moment.locale( 'de' );
-			expect( calculator.getWorkdatesForWeek( week, month ) ).to.deep.equal( [ 31 ] );
-		} );
-
-		it( 'returns empty array for months starting with a weekend', function () {
-			// 27th July - 2nd August, get days for August
-			var week = 31, month = 7;
-			moment.locale( 'de' );
-			expect( calculator.getWorkdatesForWeek( week, month ) ).to.deep.equal( [] );
-		} );
-		
 	} );
 
 } );
