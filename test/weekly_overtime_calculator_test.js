@@ -279,11 +279,6 @@ describe( 'WeeklyOvertimeCalculator', function () {
 	} );
 
 	// jscs:disable requireSpaceAfterLineComment
-	// TODO: it handles overtime when people work on weekends:
-	//		    when more than daysPerWeek days have entries, all remaining days are marked as overtime
-	//          ( weekly overtime is alreadly handled correctly)
-	//			when there is no entry for a workday and and entry on a non-work day, count it normally
-	//			do a case of not working on friday and doing 4 hours on saturday and sunday, week total should be fine
 	// TODO: it handles edge cases where there is a holiday on a workday:
 	// 			reduce the required hours for week, track days normally
 

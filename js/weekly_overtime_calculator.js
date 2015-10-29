@@ -11,7 +11,7 @@ WeeklyOvertimeCalculator.prototype.getOvertime = function ( timeData, hoursPerWe
 			year: timeData.year,
 			month: timeData.month
 		},
-		worktimes, week, day, timeDifference;
+		worktimes, week, day, timeDifference, i;
 
 	for ( week in timeData.weeks ) {
 		worktimes = this.worktimeCalculator.getWorktimesForWeek( week, timeData.month, hoursPerWeek );
@@ -30,6 +30,16 @@ WeeklyOvertimeCalculator.prototype.getOvertime = function ( timeData, hoursPerWe
 			}
 			overtime.weeks[ week ].days[ day ] = {
 				total: timeDifference
+			};
+		}
+		// Add missing workdays
+		for ( i = 0; i < worktimes.workdates.length; i++ ) {
+			day = worktimes.workdates[ i ];
+			if ( day in overtime.weeks[ week ].days ) {
+				continue;
+			}
+			overtime.weeks[ week ].days[ day ] = {
+				total: 0 - worktimes.minutesPerDay
 			};
 		}
 	}

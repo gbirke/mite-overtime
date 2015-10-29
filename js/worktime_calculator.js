@@ -54,9 +54,11 @@ WorktimeCalculator.prototype.getWorkdaysForWeek = function ( week, month ) {
  * @return {Object} Calculated properties for the week: Number of workdays for the week, hours and minutes per day and week
  */
 WorktimeCalculator.prototype.getWorktimesForWeek = function ( week, month, hoursPerWeek ) {
-	var workdaysForWeek = this.getWorkdaysForWeek( week, month ),
+	var workdatesForWeek = this.getWorkdatesForWeek( week, month ),
+		workdaysForWeek = workdatesForWeek.length,
 		hoursPerDay = hoursPerWeek / this.workdays.length;
 	return {
+		workdates: workdatesForWeek,
 		workdays: this.workdays.length,
 		workdaysForWeek: workdaysForWeek,
 		hoursPerDay: workdaysForWeek ? hoursPerDay : 0,
