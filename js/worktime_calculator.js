@@ -13,27 +13,35 @@ function WorktimeCalculator( workdays ) {
 }
 
 /**
- * Return the number of working days in a week
+ * Return the working days of the week for a given month.
+ *
+ * @param {number} week Week number
+ * @param {number} month Month number (0-11)
+ * @return {Array} An array with the workdays in the week
+ */
+WorktimeCalculator.prototype.getWorkdatesForWeek = function ( week, month ) {
+	var firstDayOfWeek, dayPointer, dayBelongsToWeek, i
+		days = [];
+	firstDayOfWeek = moment( week, 'w' );
+	dayPointer = firstDayOfWeek;
+	for ( i = 0; i < 7; i++ ) {
+		if ( this.workdaysIndex[ dayPointer.day() ] && dayPointer.month() == month ) {
+			days.push( dayPointer.date() );
+		}
+		dayPointer.add( 1, 'day' );
+	}
+	return days;
+};
+
+/**
+ * Return the number of working days in a week for a given month
+ *
  * @param {number} week Week number
  * @param {number} month Month number (0-11)
  * @return {number} Number of workdays in the week
  */
 WorktimeCalculator.prototype.getWorkdaysForWeek = function ( week, month ) {
-	var firstDayOfWeek, nextWeek, dayPointer, 
-		dayCount = 0;
-	firstDayOfWeek = moment( week, 'w' );
-	nextWeek = moment( week, 'w' ).add( 7, 'days' );
-	if ( firstDayOfWeek.month() === nextWeek.month() ) {
-		return this.workdays.length;
-	}
-	dayPointer = firstDayOfWeek;
-	while ( dayPointer.diff( nextWeek, 'days' ) < 0 ) {
-		if ( this.workdaysIndex[ dayPointer.day() ] && dayPointer.month() == month ) {
-			dayCount += 1;
-		}
-		dayPointer.add( 1, 'day' );
-	}
-	return dayCount;
+	return this.getWorkdatesForWeek( week, month ).length;
 };
 
 /**
@@ -69,25 +77,5 @@ WorktimeCalculator.prototype.isAWorkday = function ( year, month, day ) {
 	var dayOfWeek = moment( [ year, month, day ] ).day();
 	return this.workdaysIndex[ dayOfWeek ];
 }
-
-/**
- * Return the working days of the week
- * @param {number} week Week number
- * @param {number} month Month number (0-11)
- * @return {number} Number of workdays in the week
- */
-WorktimeCalculator.prototype.getWorkdatesForWeek = function ( week, month ) {
-	var firstDayOfWeek, dayPointer, dayBelongsToWeek, i
-		days = [];
-	firstDayOfWeek = moment( week, 'w' );
-	dayPointer = firstDayOfWeek;
-	for ( i = 0; i < 7; i++ ) {
-		if ( this.workdaysIndex[ dayPointer.day() ] && dayPointer.month() == month ) {
-			days.push( dayPointer.date() );
-		}
-		dayPointer.add( 1, 'day' );
-	}
-	return days;
-};
 
 module.exports = WorktimeCalculator;
