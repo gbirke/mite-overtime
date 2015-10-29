@@ -22,7 +22,12 @@ WeeklyOvertimeCalculator.prototype.getOvertime = function ( timeData, hoursPerWe
 			total: timeDifference
 		};
 		for ( day in timeData.weeks[ week ].days ) {
-			timeDifference = timeData.weeks[ week ].days[ day ].total - worktimes.minutesPerDay;
+			if ( this.worktimeCalculator.isAWorkday( timeData.year, timeData.month, day ) ) {
+				timeDifference = timeData.weeks[ week ].days[ day ].total - worktimes.minutesPerDay;
+			}
+			else {
+				timeDifference = timeData.weeks[ week ].days[ day ].total;
+			}
 			overtime.weeks[ week ].days[ day ] = {
 				total: timeDifference
 			};

@@ -192,6 +192,49 @@ describe( 'WeeklyOvertimeCalculator', function () {
 
 	} );
 
+	describe( '#getOvertime, working outside worktimes without deficit', function () {
+
+		var testData = {
+			year: 2015,
+			month: 9,
+			weeks: {
+				42: {
+					total: 2490,
+					days: {
+						12: { total: 480 },
+						13: { total: 500 }, // 8 hours 20 minutes
+						14: { total: 540 }, // 9 hours
+						15: { total: 420 }, // 7 hours
+						16: { total: 480 },
+						17: { total: 70 },
+					}
+				}
+			}
+		},
+		worktimeCalculator = new WorktimeCalculator( [ 1, 2, 3, 4, 5 ] );
+
+		it( 'calculates total overtime', function () {
+			var hoursPerWeek = 40,
+				calculator = new WeeklyOvertimeCalculator( worktimeCalculator ),
+				result = calculator.getOvertime( testData, hoursPerWeek );
+			expect( result.total ).to.equal( 90 );
+		} );
+
+		it( 'calculates weekly overtime', function () {
+			var hoursPerWeek = 40,
+				calculator = new WeeklyOvertimeCalculator( worktimeCalculator ),
+				result = calculator.getOvertime( testData, hoursPerWeek );
+			expect( result.weeks[ 42 ].total ).to.equal( 90 );
+		} );
+
+		it( 'calculates daily overtime', function () {
+			var hoursPerWeek = 40,
+				calculator = new WeeklyOvertimeCalculator( worktimeCalculator ),
+				result = calculator.getOvertime( testData, hoursPerWeek );
+			expect( result.weeks[ 42 ].days[ 17 ].total ).to.equal( 70 );
+		} );
+	} );
+
 	// jscs:disable requireSpaceAfterLineComment
 	// TODO: it handles overtime when people work on weekends:
 	//		    when more than daysPerWeek days have entries, all remaining days are marked as overtime
