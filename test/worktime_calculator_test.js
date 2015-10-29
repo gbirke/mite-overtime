@@ -131,4 +131,25 @@ describe( 'WorktimeCalculator', function () {
 
 	} );
 
+	describe( '#isAWorkday', function () {
+
+		var calculator = new WorktimeCalculator( [ 1, 2, 3, 4, 5 ] ),
+			year = 2015,
+			month = 9;
+
+		it( 'returns true for configured workdays', function () {
+			// Monday, 5th of October
+			moment.locale( 'en' );
+			expect( calculator.isAWorkday( year, month, 5 ) ).to.be.true;
+		} );
+
+		it( 'returns false for configured non-workdays (weekends)', function () {
+			// Sunday, 4th of October and Saturday, 3rd of October
+			moment.locale( 'en' );
+			expect( calculator.isAWorkday( year, month, 4 ) ).to.be.false;
+			expect( calculator.isAWorkday( year, month, 3 ) ).to.be.false;
+		} );
+
+	} );
+
 } );

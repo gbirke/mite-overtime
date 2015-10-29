@@ -43,7 +43,11 @@ WorktimeCalculator.prototype.getWorktimesForWeek = function ( week, month, hours
 		minutesPerDay: workdaysForWeek ? hoursPerDay * 60 : 0,
 		minutesPerWeek: workdaysForWeek * hoursPerDay * 60
 	};
-
 };
+
+WorktimeCalculator.prototype.isAWorkday = function ( year, month, day ) {
+	var dayOfWeek = moment( [ year, month, day ] ).day();
+	return this.workdaysIndex[ dayOfWeek ];
+}
 
 module.exports = WorktimeCalculator;
