@@ -5,6 +5,42 @@ var expect = require( 'chai' ).expect,
 // jscs:disable requireLineBreakAfterVariableAssignment
 describe( 'WorktimeCalculator', function () {
 
+	describe( '#getDaysForWeek (English locale)', function () {
+
+		var calculator = new WorktimeCalculator( [ ] );
+
+		it( 'returns all days for normal week', function () {
+			// 4th-10th October 2015
+			var week = 41, month = 9, result;
+			moment.locale( 'en' );
+			result = calculator.getDaysForWeek( week, month );
+			expect( result.length ).to.equal( 7 );
+			expect( result[ 0 ].isSame( moment( [ 2015, 9, 4 ] ) ) ).to.be.true;
+			expect( result[ 6 ].isSame( moment( [ 2015, 9, 10 ] ) ) ).to.be.true;
+		} );
+
+		it( 'returns some days for first week in month', function () {
+			// 27th September - 3rd October 2015, get days for October
+			var week = 40, month = 9, result;
+			moment.locale( 'en' );
+			result = calculator.getDaysForWeek( week, month );
+			expect( result.length ).to.equal( 3 );
+			expect( result[ 0 ].isSame( moment( [ 2015, 9, 1 ] ) ) ).to.be.true;
+			expect( result[ 2 ].isSame( moment( [ 2015, 9, 3 ] ) ) ).to.be.true 
+		} );
+
+		it( 'returns some days for last week in month', function () {
+			// 30th August - 5th September 2015, get days for August
+			var week = 36, month = 7;
+			moment.locale( 'en' );
+			result = calculator.getDaysForWeek( week, month );
+			expect( result.length ).to.equal( 2 );
+			expect( result[ 0 ].isSame( moment( [ 2015, 7, 30 ] ) ) ).to.be.true;
+			expect( result[ 1 ].isSame( moment( [ 2015, 7, 31 ] ) ) ).to.be.true 
+		} );
+	
+	} );
+
 	describe( '#getWorkdaysForWeek (English locale)', function () {
 
 		var calculator = new WorktimeCalculator( [ 1, 2, 3, 4, 5 ] );
