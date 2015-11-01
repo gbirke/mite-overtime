@@ -1,7 +1,8 @@
-var moment = require( 'moment' );
+var moment = require( 'moment' ),
+	DayTypes = require( './day_types' );
 
-function CalendarDataGenerator() {
-
+function CalendarDataGenerator( worktimeCalculator ) {
+	this.worktimeCalculator = worktimeCalculator;
 }
 
 CalendarDataGenerator.prototype.generateData = function ( year, month ) {
@@ -11,7 +12,7 @@ CalendarDataGenerator.prototype.generateData = function ( year, month ) {
 		weeks: {}
 	},
 	day = moment( [ year, month, 1 ] ),
-	week, date;
+	week, date, dayType;
 	while ( day.month() == month ) {
 		week = day.week();
 		date = day.date();
@@ -22,8 +23,10 @@ CalendarDataGenerator.prototype.generateData = function ( year, month ) {
 			};
 		}
 		if ( ! data.weeks[ week ].days[ date ] ) {
+			dayType = this.worktimeCalculator.isAWorkday( day ) ? DayTypes.WORKDAY : DayTypes.HOLIDAY;
 			data.weeks[ week ].days[ date ] = {
-				date: day
+				date: day,
+				dayType: dayType
 			};
 		}
 		day.add( 1, 'day' );
