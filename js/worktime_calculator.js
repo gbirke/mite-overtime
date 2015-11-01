@@ -26,7 +26,7 @@ WorktimeCalculator.prototype.getWorkdaysForWeek = function ( week, month ) {
 	firstDayOfWeek = moment( week, 'w' );
 	dayPointer = firstDayOfWeek;
 	for ( i = 0; i < 7; i++ ) {
-		isAWorkday = this.isAWorkday( dayPointer.year(), dayPointer.month(), dayPointer.date() );
+		isAWorkday = this.isAWorkday( dayPointer );
 		if ( isAWorkday && dayPointer.month() == month ) {
 			days.push( dayPointer.date() );
 		}
@@ -60,14 +60,14 @@ WorktimeCalculator.prototype.getWorktimesForWeek = function ( week, month, hours
 };
 
 /**
- * Check if a given day is a configured workday
- * @param {number} year 
- * @param {number} month Month number (0-11)
- * @param {number} day Day of the month (1-31)
+ * Check if a given date is a configured workday
+ *
+ * The date can either be given
+ *
+ * @param {moment} date
  * @return {boolean}
  */
-WorktimeCalculator.prototype.isAWorkday = function ( year, month, day ) {
-	var date = moment( [ year, month, day ] );
+WorktimeCalculator.prototype.isAWorkday = function ( date ) {
 	return this.workdaysIndex[ date.day() ] && !this.holidayCallback( date );
 }
 

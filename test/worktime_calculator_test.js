@@ -141,23 +141,31 @@ describe( 'WorktimeCalculator', function () {
 			month = 9;
 
 		it( 'returns true for configured workdays', function () {
+			var day;
 			// Monday, 5th of October
 			moment.locale( 'en' );
-			expect( calculator.isAWorkday( year, month, 5 ) ).to.be.true;
+			var day = moment( [ year, month, 5 ] )
+			expect( calculator.isAWorkday( day ) ).to.be.true;
 		} );
 
 		it( 'returns false for configured non-workdays (weekends)', function () {
+			var day;
 			// Sunday, 4th of October and Saturday, 3rd of October
 			moment.locale( 'en' );
-			expect( calculator.isAWorkday( year, month, 4 ) ).to.be.false;
-			expect( calculator.isAWorkday( year, month, 3 ) ).to.be.false;
+			day = moment( [ year, month, 3 ] );
+			expect( calculator.isAWorkday( day ) ).to.be.false;
+			day = moment( [ year, month, 4 ] );
+			expect( calculator.isAWorkday( day ) ).to.be.false;
 		} );
 
 		it( 'returns false for holidays', function () {
+			var day;
 			// Christmas day
 			moment.locale( 'en' );
-			expect( calculator.isAWorkday( year, 11, 24 ) ).to.be.true;
-			expect( calculator.isAWorkday( year, 11, 25 ) ).to.be.false;
+			day = moment( [ year, 11, 24 ] );
+			expect( calculator.isAWorkday( day ) ).to.be.true;
+			day = moment( [ year, 11, 25 ] );
+			expect( calculator.isAWorkday( day ) ).to.be.false;
 		} );
 
 	} );
