@@ -20,17 +20,35 @@ function WorktimeCalculator( workdays, holidayCallback ) {
  * @param {number} month Month number (0-11)
  * @return {Array} An array with the workdays in the week
  */
-WorktimeCalculator.prototype.getWorkdaysForWeek = function ( week, month ) {
-	var firstDayOfWeek, dayPointer, dayBelongsToWeek, i, isAWorkday,
+WorktimeCalculator.prototype.getDaysForWeek = function ( week, month ) {
+	var firstDayOfWeek, dayPointer, i,
 		days = [];
 	firstDayOfWeek = moment( week, 'w' );
 	dayPointer = firstDayOfWeek;
 	for ( i = 0; i < 7; i++ ) {
-		isAWorkday = this.isAWorkday( dayPointer );
-		if ( isAWorkday && dayPointer.month() == month ) {
-			days.push( dayPointer.date() );
+		if ( dayPointer.month() == month ) {
+			days.push( moment( dayPointer ) );
 		}
 		dayPointer.add( 1, 'day' );
+	}
+	return days;
+};
+
+/**
+ * Return the working days of the week for a given month.
+ *
+ * @param {number} week Week number
+ * @param {number} month Month number (0-11)
+ * @return {Array} An array with the workdays in the week
+ */
+WorktimeCalculator.prototype.getWorkdaysForWeek = function ( week, month ) {
+	var daysOfWeek = this.getDaysForWeek( week, month ), 
+		days = [],
+		i;
+	for ( i = 0; i < daysOfWeek.length; i++ ) {
+		if ( this.isAWorkday( daysOfWeek[ i ] ) ) {
+			days.push( daysOfWeek[ i ].date() );
+		}
 	}
 	return days;
 };
