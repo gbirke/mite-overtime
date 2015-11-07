@@ -40,7 +40,9 @@ function renderTotal( displayContainer ) {
 function renderWeeks( displayContainer ) {
 	var weekContainer = displayContainer.append( 'div' ).classed( 'weeks', true ),
 		weeks = weekContainer.selectAll( '.week' )
-		.data( function ( d ) { return d.weeks; } )
+		.data( function ( d ) {
+			return d3.values( d.weeks );
+		} )
 		.enter()
 		.append( 'div' )
 		.classed( 'week', true );
@@ -63,7 +65,7 @@ function HtmlRenderer() {}
 HtmlRenderer.prototype.render = function ( overtimeData ) {
 	var	displayContainer, total, weekContainers, weeks;
 
-	displayContainer = d3.select( '#displayContainer' ).data( overtimeData );
+	displayContainer = d3.select( '#displayContainer' ).data( [ overtimeData ] );
 	displayContainer.selectAll( 'div, h1' )
 		.remove();
 

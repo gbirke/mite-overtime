@@ -3,13 +3,13 @@ var expect = require( 'chai' ).expect,
 
 describe( 'HtmlRenderer', function () {
 
-	var testData = [ {
+	var testData = {
 		timeDelta: 80,
-		weeks: [
-			{ timeDelta: 100, number: 42 },
-			{ timeDelta: -20, number: 43 }
-		]
-	} ];
+		weeks: {
+			42: { timeDelta: 100, number: 42 },
+			43: { timeDelta: -20, number: 43 }
+		}
+	};
 
 	before( function ( done ) {
 		benv.setup( function () {
@@ -23,7 +23,7 @@ describe( 'HtmlRenderer', function () {
 		} );
 	} );
 
-	it( 'renders the total time delta', function () {
+	it( 'renders the overall time delta', function () {
 		var total;
 		renderer.render( testData );
 		total = displayContainer.select( '#totalOvertime' );
