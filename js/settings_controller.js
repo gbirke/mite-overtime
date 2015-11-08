@@ -2,9 +2,9 @@ var $ = require( 'jQuery' ),
 	HtmlRenderer = require( './html_renderer' ),
 	ServerConnector = require( './server_connector' ),
 	TimeAggregator = require( './time_aggregator' ),
+	CalendarDataGenerator = require( './calendar_data_generator' ),
 	WorkTimeCalculator = require( './worktime_calculator' ),
-	OvertimeCalculator = require( './weekly_overtime_calculator' ),
-	DataConverter = require( './data_converter' );
+	OvertimeCalculator = require( './weekly_overtime_calculator' );
 
 /**
  * This handles the input from the form, sending it to the server processing the data from the server.
@@ -26,13 +26,12 @@ function SettingsController() {
 			function ( data ) {
 				var agggregator = new TimeAggregator( data ),
 					worktimeCalc = new WorkTimeCalculator( [ 1, 2, 3, 4, 5 ] ),
+					calendarDataGenerator = new CalendarDataGenerator( worktimeCalc ),
 					overtime = new OvertimeCalculator( worktimeCalc ),
-					converter = new DataConverter(),
 					renderer = new HtmlRenderer(),
 					overtimeData, convertedData;
 				overtimeData = overtime.getOvertime( agggregator.getAggregatedData( data ), hoursPerWeek );
-				convertedData = converter.convert( overtimeData );
-				renderer.render( convertedData );
+				renderer.render( calendarDataGenerator.generateData( 2015, 9), overtimeData );
 			}, // end callback for data
 			function ( xhr, errorJSON ) {
 				var errorMsg = "There was an error. Please contact gabriel.birke@wikimedia.de.",
