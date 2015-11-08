@@ -25,7 +25,7 @@ CalendarDataGenerator.prototype.generateData = function ( year, month ) {
 		if ( ! data.weeks[ week ].days[ date ] ) {
 			dayType = this.worktimeCalculator.isAWorkday( day ) ? DayTypes.WORKDAY : DayTypes.HOLIDAY;
 			data.weeks[ week ].days[ date ] = {
-				date: day,
+				date: day.clone(),
 				dayType: dayType
 			};
 		}
