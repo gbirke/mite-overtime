@@ -1,9 +1,11 @@
 var expect = require( 'chai' ).expect,
-	benv = require( 'benv' );
+	benv = require( 'benv' ),
+	CalendarDataGenerator = require( '../js/calendar_data_generator' ),
+	WorktimeCalculator = require( '../js/worktime_calculator' );
 
 describe( 'HtmlRenderer', function () {
 
-	var testData = {
+	var testOvertimeData = {
 		timeDelta: 80,
 		month: 9,
 		year: 2015,
@@ -11,7 +13,9 @@ describe( 'HtmlRenderer', function () {
 			42: { timeDelta: 100, week: 42 },
 			43: { timeDelta: -20, week: 43 }
 		}
-	};
+	},
+	dateGenerator = new CalendarDataGenerator( new WorktimeCalculator( [ 1, 2, 3, 4, 5 ] ) ),
+	testCalendarData = dateGenerator.generateData( 2015, 9 );
 
 	before( function ( done ) {
 		benv.setup( function () {
@@ -27,7 +31,7 @@ describe( 'HtmlRenderer', function () {
 
 	it( 'renders the month name and year', function () {
 		var total;
-		renderer.render( testData );
+		renderer.render( testCalendarData, {} );
 		total = displayContainer.select( 'h1' );
 		expect( total.size() ).to.equal( 1 );
 		expect( total.text() ).to.equal( 'Total for November 2015' );
@@ -36,7 +40,7 @@ describe( 'HtmlRenderer', function () {
 
 	it( 'renders the overall time delta', function () {
 		var total;
-		renderer.render( testData );
+		renderer.render( testCalendarData, testOvertimeData );
 		total = displayContainer.select( '#totalOvertime' );
 		expect( total.size() ).to.equal( 1 );
 		expect( total.text() ).to.equal( '1:20 overtime' );
@@ -44,22 +48,29 @@ describe( 'HtmlRenderer', function () {
 
 	it( 'renders the weekly time delta', function () {
 		var weeks;
-		renderer.render( testData );
+		renderer.render( testCalendarData, testOvertimeData );
 		weeks = displayContainer.selectAll( '.week .total' );
-		expect( weeks.size() ).to.equal( 2 );
-		expect( displayContainer.select( '.week:nth-child(1) .total' ).text() ).to.equal( '1:40 overtime' );
-		expect( displayContainer.select( '.week:nth-child(2) .total' ).text() ).to.equal( '0:20 missing' );
+		expect( weeks.size() ).to.equal( 5 );
+		expect( displayContainer.select( '.week:nth-child(3) .total' ).text() ).to.equal( '1:40 overtime' );
+		expect( displayContainer.select( '.week:nth-child(4) .total' ).text() ).to.equal( '0:20 missing' );
 	} );
 
 	it( 'renders the week number', function () {
 		var weeks;
-		renderer.render( testData );
+		renderer.render( testCalendarData, testOvertimeData );
 		weeks = displayContainer.selectAll( '.week h2' );
-		expect( weeks.size() ).to.equal( 2 );
-		expect( displayContainer.select( '.week:nth-child(1) h2' ).text() ).to.equal( 'Week 42' );
-		expect( displayContainer.select( '.week:nth-child(2) h2' ).text() ).to.equal( 'Week 43' );
+		expect( weeks.size() ).to.equal( 5 );
+		expect( displayContainer.select( '.week:nth-child(1) h2' ).text() ).to.equal( 'Week 40' );
+		expect( displayContainer.select( '.week:nth-child(2) h2' ).text() ).to.equal( 'Week 41' );
+		expect( displayContainer.select( '.week:nth-child(3) h2' ).text() ).to.equal( 'Week 42' );
+		expect( displayContainer.select( '.week:nth-child(4) h2' ).text() ).to.equal( 'Week 43' );
+		expect( displayContainer.select( '.week:nth-child(5) h2' ).text() ).to.equal( 'Week 44' );
 	} );
 
+	// TODO: Test it renders 0 timedelta as "0:00 overtime", not "0:00 missing"
+	// TODO: test it renders week 1 of following year as last column, with year
+	// TODO: test it renders week 52 of previous year as first column, with year
+	// TODO: It render dates (from-to) below week numbers
 
 	after( function () {
 		benv.teardown();

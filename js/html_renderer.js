@@ -22,30 +22,52 @@ DurationFormatter.prototype.format = function ( duration ) {
 longFormatter = new DurationFormatter( 'h:mm [overtime]', 'h:mm [missing]', true );
 shortFormatter = new DurationFormatter( 'h:mm', 'h:mm', false );
 
-function renderTotal( displayContainer ) {
+
+function HtmlRenderer() {
+	this.overtimeData = {};
+}
+
+HtmlRenderer.prototype.render = function ( calendarData, overtimeData ) {
+	var	displayContainer, total, weekContainers, weeks;
+
+	this.overtimeData = overtimeData;
+	displayContainer = d3.select( '#displayContainer' ).data( [ calendarData ] );
+	displayContainer.selectAll( 'div, h1' )
+		.remove();
+
+	total = this._renderTotal( displayContainer );
+	weeks = this._renderWeeks( displayContainer );
+};
+
+HtmlRenderer.prototype._renderTotal = function ( displayContainer ) {
 	var data = displayContainer.data(),
 		currentTime = moment(),
+		self = this,
 		total;
 	currentTime.month( data.month );
 	currentTime.year( data.year );
 	displayContainer.append( 'h1' ).text( 'Total for ' + currentTime.format( 'MMMM YYYY' ) );
 	total = displayContainer.append( 'div' )
 		.attr( { id: 'totalOvertime' } )
-		.text( function ( d ) {
-			return longFormatter.format( d.timeDelta );
+		.text( function ( ) {
+			if ( self.overtimeData.timeDelta ) {
+				return longFormatter.format( self.overtimeData.timeDelta );
+			}
 		} );
 	return total;
 }
 
-function renderWeeks( displayContainer ) {
+
+HtmlRenderer.prototype._renderWeeks = function ( displayContainer ) {
 	var weekContainer = displayContainer.append( 'div' ).classed( 'weeks', true ),
+		self = this,
 		weeks = weekContainer.selectAll( '.week' )
-		.data( function ( d ) {
-			return d3.values( d.weeks );
-		} )
-		.enter()
-		.append( 'div' )
-		.classed( 'week', true );
+			.data( function ( d ) {
+				return d3.values( d.weeks );
+			} )
+			.enter()
+			.append( 'div' )
+			.classed( 'week', true );
 
 	weeks.append( 'h2' )
 		.text( function ( d ) {
@@ -55,22 +77,14 @@ function renderWeeks( displayContainer ) {
 	weeks.append( 'div' )
 		.classed( 'total', true )
 		.text( function ( d ) {
-			return longFormatter.format( d.timeDelta );
+			var timeDelta = 0;
+			if ( typeof self.overtimeData.weeks !== "undefined" && d.week in self.overtimeData.weeks ) {
+				timeDelta = self.overtimeData.weeks[ d.week ].timeDelta;
+			}
+			return longFormatter.format( timeDelta );
 		} );
 	return weeks;
 }
 
-function HtmlRenderer() {}
-
-HtmlRenderer.prototype.render = function ( overtimeData ) {
-	var	displayContainer, total, weekContainers, weeks;
-
-	displayContainer = d3.select( '#displayContainer' ).data( [ overtimeData ] );
-	displayContainer.selectAll( 'div, h1' )
-		.remove();
-
-	total = renderTotal( displayContainer );
-	weeks = renderWeeks( displayContainer );
-};
 
 module.exports = HtmlRenderer;
