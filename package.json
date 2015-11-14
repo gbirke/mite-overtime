@@ -11,7 +11,7 @@
   "scripts": {
     "start": "node server.js",
     "watch": "watchify -o web/js/app.js -v -d .",
-    "test": "mocha",
+    "test": "mocha --recursive",
     "build": "browserify -o web/js/app.js -v js/main.js",
     "lint": "jshint js test",
     "cs": "jscs js test",
@@ -27,6 +27,8 @@
     "jscs": "^2.3.1",
     "jshint": "^2.8.0",
     "mocha": "^2.3.3",
+    "sinon": "^1.17.2",
+    "sinon-chai": "^2.8.0",
     "watchify": "^3.1.2"
   },
   "dependencies": {
