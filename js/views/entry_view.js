@@ -1,19 +1,16 @@
-var HtmlRenderer = require( '../html_renderer' );
-
 module.exports = {
-	create: function ( entriesStore ) {
+	create: function ( renderer, entriesStore ) {
 		return Object.create( {
 			init: function() {
-				entriesStore.listen( this.update.bind(this) );
-				this.renderer = new HtmlRenderer();
+				entriesStore.listen( this.update );
 			},
 			update: function( data ) {
-				this.renderer.render( data.calendarData, data.overtimeData );
+				renderer.render( data.calendarData, data.overtimeData );
 			}
 		} );
 	},
-	createAndInit: function( entriesStore ) {
-		var view = this.create( entriesStore );
+	createAndInit: function( renderer, entriesStore ) {
+		var view = this.create( renderer, entriesStore );
 		view.init();
 		return view;
 	}

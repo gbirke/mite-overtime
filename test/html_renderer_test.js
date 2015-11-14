@@ -23,7 +23,7 @@ describe( 'HtmlRenderer', function () {
 				d3: require( 'd3' )
 			} );
 			HtmlRenderer = require( '../js/html_renderer' );
-			renderer = new HtmlRenderer();
+			renderer = new HtmlRenderer( '#displayContainer' );
 			displayContainer = d3.select( 'body' ).append( 'div' ).attr( { id: 'displayContainer' } );
 			done();
 		} );

@@ -6,6 +6,7 @@ var $ = jQuery = require( 'jQuery' ),
 	CalendarDataGenerator = require( './calendar_data_generator' ),
 	WorkTimeCalculator = require( './worktime_calculator' )
 	OvertimeCalculator = require( './weekly_overtime_calculator' ),
+	HtmlRenderer = require( './html_renderer' ),
 	EntriesStore = require( './stores/entries' ),
 	errorStore = require( './stores/errors' ),
 	EntryView = require( './views/entry_view' ),
@@ -22,7 +23,7 @@ $( function () {
 	// TODO: Check environment vars and set API url accordingly
 	SettingsActions.changeApiUrl( 'http://localhost:8080/time_entries.json' );
 	errorStore.init();
-	EntryView.createAndInit( entriesStore );
+	EntryView.createAndInit( new HtmlRenderer( '#displayContainer' ), entriesStore );
 	ErrorView.createAndInit( $( '#errorModal' ), errorStore );
 	new SettingsController();
 } );
