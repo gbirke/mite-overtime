@@ -23,15 +23,16 @@ longFormatter = new DurationFormatter( 'h:mm [overtime]', 'h:mm [missing]', true
 shortFormatter = new DurationFormatter( 'h:mm', 'h:mm', false );
 
 
-function HtmlRenderer() {
+function HtmlRenderer( elementName ) {
 	this.overtimeData = {};
+	this.elementName = elementName;
 }
 
 HtmlRenderer.prototype.render = function ( calendarData, overtimeData ) {
 	var	displayContainer, total, weekContainers, weeks;
 
 	this.overtimeData = overtimeData;
-	displayContainer = d3.select( '#displayContainer' ).data( [ calendarData ] );
+	displayContainer = d3.select( this.elementName ).data( [ calendarData ] );
 	displayContainer.selectAll( 'div, h1' )
 		.remove();
 
