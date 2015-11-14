@@ -14,7 +14,7 @@ module.exports = {
 			onSettingsChanged: function( settings ) {
 				this.calendarData = calendarDataGenerator.generateData( settings.year, settings.month );
 				overtimeCalculator.hoursPerWeek = settings.hoursPerWeek;
-				serverActions.load( { apiKey: settings.apiKey, account: settings.account } );
+				serverActions.load();
 			},
 			onLoad: function( credentials ) {
 				serverConnector.getData( serverActions.load.completed, serverActions.load.failed );
