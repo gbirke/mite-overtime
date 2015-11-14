@@ -1,9 +1,9 @@
 # Next steps in the reflux branch
 
+- Refactor OvertimeCalculator and ServerConnector as Services/Stores (new directory "services") that listen to settings actions. This makes the data flow more explicit.
 - Create ErrorView with error handling code from SettingsController
 - Move SettingsController code to SettingsView (view just handles the user events)
 - Add unit tests for events/handlers
-- Refactor: Inject dependencies, make hoursPerWeek a property of WeeklyOvertimeCalculator
 
 # Next steps in the weekly-display branch:
 
