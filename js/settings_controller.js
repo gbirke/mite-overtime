@@ -1,5 +1,6 @@
 var $ = require( 'jQuery' ),
-	actions = require( './actions/settings' )
+	actions = require( './actions/settings' ),
+	commands = require( './actions/commands' )
 	;
 
 /**
@@ -10,10 +11,12 @@ function SettingsController() {
 	$( '#submit_settings' ).on( 'click', function () {
 		var apiKey = $( '#api_key' ).val(),
 			account = $( '#account' ).val(),
-			hoursPerWeek = $( '#hours_per_week' ).val();
+			hoursPerWeek = $( '#hours_per_week' ).val(),
+			now = new Date( '2015-10-01' ); // TODO use current date
 
-		
-		actions.changeSettings( { apiKey: apiKey, account: account, hoursPerWeek: hoursPerWeek } );
+		actions.changeCredentials( { apiKey: apiKey, account: account } );
+		actions.changeHoursPerWeek( hoursPerWeek );
+		commands.showEntriesForMonth( now.getYear(), now.getMonth() );
 		return;
 		// 	connector = new ServerConnector( 'https://corsapi.mite.yo.lk/time_entries.json', XMLHttpRequest, {
 		// 			'X-MiteAccount': account,
@@ -42,7 +45,7 @@ function SettingsController() {
 		// 		errorBox.find( '.modal-body' ).html('<p>' + errorMsg + '</p>');
 		// 		errorBox.modal();
 		// 	}
-		//  ); 
+		//  );
 	} ); // end onclick handler
 }
 

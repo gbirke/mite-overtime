@@ -1,5 +1,6 @@
 var serverActions = require( '../actions/server' ),
-	settingsStore = require( './settings' ),
+	settingsActions = require( '../actions/settings' ),
+	commands = require( '../actions/commands' ),
 	Reflux = require( 'reflux-core' ),
 	TimeAggregator = require( '../time_aggregator' );
 
@@ -7,23 +8,26 @@ module.exports = {
 	create: function ( serverConnector, overtimeCalculator, calendarDataGenerator ) {
 		return Reflux.createStore( {
 			init: function() {
-				this.listenTo( settingsStore, this.onSettingsChanged );
+				this.listenToMany( settingsActions );
 				this.listenToMany( serverActions );
+				this.listenToMany( commands );
 				this.entries = {};
+				this.calendarData = {};
 			},
-			onSettingsChanged: function( settings ) {
-				this.calendarData = calendarDataGenerator.generateData( settings.year, settings.month );
-				overtimeCalculator.hoursPerWeek = settings.hoursPerWeek;
-				serverActions.load();
+			onChangeHoursPerWeek: function( hoursPerWeek ) {
+				overtimeCalculator.hoursPerWeek = hoursPerWeek;
 			},
-			onLoad: function( credentials ) {
-				serverConnector.getData( serverActions.load.completed, serverActions.load.failed );
+			onShowEntriesForMonth: function( year, month ) {
+				this.calendarData = calendarDataGenerator.generateData( year, month );
+				serverActions.load( year, month );
+			},
+			onLoad: function( year, month ) {
+				serverConnector.getData( year, month, serverActions.load.completed, serverActions.load.failed );
 			},
 			onLoadCompleted: function ( result ) {
 				var agggregator = new TimeAggregator( result );
+
 				this.entries = overtimeCalculator.getOvertime( agggregator.getAggregatedData() );
-				console.log("success!");
-				console.log(this.calendarData);
 				this.trigger( { calendarData: this.calendarData, overtimeData: this.entries } );
 			},
 			onLoadFailed: function ( result ) {

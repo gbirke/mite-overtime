@@ -1,32 +1,31 @@
-function ServerConnector( apiUrl, XMLHttpRequestClass, specialHeaders ) {
-	this.apiUrl = apiUrl;
-	this.xhrClass = XMLHttpRequestClass;
-	this.specialHeaders = specialHeaders;
-}
+module.exports = {
+	create: function ( apiUrl, xhrObject ) {
+		var account, apiKey;
 
-ServerConnector.prototype.getData = function ( callback, errback ) {
-	var xhr = new this.xhrClass(),
-		header;
-	xhr.addEventListener( 'load', function () {
-		var jsonData = JSON.parse( this.responseText );
-		if ( this.status >= 400 ) {
-			errback( this, jsonData );
-		}
-		else {
-			callback( jsonData );
-		}
-	} );
-	xhr.addEventListener( 'error', function () {
-		var jsonData = JSON.parse( this.responseText );
-		callback( jsonData );
-	} );
-	xhr.open( 'GET', this.apiUrl, true );
-	if ( this.specialHeaders ) {
-		for ( header in this.specialHeaders ) {
-			xhr.setRequestHeader( header, this.specialHeaders[ header ] );
-		}
+		return Object.create( {
+			getData: function ( year, month, callback, errback ) {
+				xhrObject.addEventListener( 'load', function () {
+					var jsonData = JSON.parse( this.responseText );
+					if ( this.status >= 400 ) {
+						errback( jsonData, this );
+					}
+					else {
+						callback( jsonData );
+					}
+				} );
+				xhrObject.addEventListener( 'error', function () {
+					var jsonData = JSON.parse( this.responseText );
+					errback( jsonData, this );
+				} );
+				xhrObject.open( 'GET', apiUrl, true );
+				xhrObject.setRequestHeader( 'X-MiteAccount', account );
+				xhrObject.setRequestHeader( 'X-MiteApiKey', apiKey );
+				xhrObject.send();
+			},
+			onChangeCredentials: function( newCredentials ) {
+				account = newCredentials.account || '';
+				apiKey = newCredentials.apiKey || '';
+			}
+		} ); // END Object.create
 	}
-	xhr.send();
 };
-
-module.exports = ServerConnector;
