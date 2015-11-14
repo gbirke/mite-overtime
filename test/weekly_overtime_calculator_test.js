@@ -26,9 +26,9 @@ describe( 'WeeklyOvertimeCalculator', function () {
 				}
 			}
 		},
-		hoursPerWeek = 16,
+		settings = { hoursPerWeek: 16 },
 		worktimeCalculator = new WorktimeCalculator( [ 2, 3 ] ),
-		overtimeCalculator = new WeeklyOvertimeCalculator( worktimeCalculator, hoursPerWeek ),
+		overtimeCalculator = new WeeklyOvertimeCalculator( worktimeCalculator, settings ),
 		result = overtimeCalculator.getOvertime( testData );
 
 		it( 'calculates monthly overtime', function () {
@@ -48,7 +48,7 @@ describe( 'WeeklyOvertimeCalculator', function () {
 		} );
 
 		it( 'copies year and month info', function () {
-			var calculator = new WeeklyOvertimeCalculator( worktimeCalculator, hoursPerWeek ),
+			var calculator = new WeeklyOvertimeCalculator( worktimeCalculator, settings ),
 				result = calculator.getOvertime( testData );
 			expect( result.year ).to.equal( 2015 );
 			expect( result.month ).to.equal( 9 );
@@ -71,9 +71,9 @@ describe( 'WeeklyOvertimeCalculator', function () {
 				}
 			}
 		},
-		hoursPerWeek = 40,
+		settings = { hoursPerWeek: 40 },
 		worktimeCalculator = new WorktimeCalculator( [ 1, 2, 3, 4, 5 ] ),
-		overtimeCalculator = new WeeklyOvertimeCalculator( worktimeCalculator, hoursPerWeek ),
+		overtimeCalculator = new WeeklyOvertimeCalculator( worktimeCalculator, settings ),
 		result = overtimeCalculator.getOvertime( testData );
 
 		it( 'calculates monthly overtime', function () {
@@ -105,9 +105,9 @@ describe( 'WeeklyOvertimeCalculator', function () {
 				}
 			}
 		},
-		hoursPerWeek = 40,
+		settings = { hoursPerWeek: 40 },
 		worktimeCalculator = new WorktimeCalculator( [ 1, 2, 3, 4, 5 ] ),
-		overtimeCalculator = new WeeklyOvertimeCalculator( worktimeCalculator, hoursPerWeek ),
+		overtimeCalculator = new WeeklyOvertimeCalculator( worktimeCalculator, settings ),
 		result = overtimeCalculator.getOvertime( testData );
 
 		it( 'calculates monthly overtime', function () {
@@ -138,9 +138,9 @@ describe( 'WeeklyOvertimeCalculator', function () {
 				}
 			}
 		},
-		hoursPerWeek = 40,
+		settings = { hoursPerWeek: 40 },
 		worktimeCalculator = new WorktimeCalculator( [ 1, 2, 3, 4, 5 ] ),
-		overtimeCalculator = new WeeklyOvertimeCalculator( worktimeCalculator, hoursPerWeek ),
+		overtimeCalculator = new WeeklyOvertimeCalculator( worktimeCalculator, settings ),
 		result = overtimeCalculator.getOvertime( testData );
 
 		it( 'ignores the two days on the weekend', function () {
@@ -154,8 +154,8 @@ describe( 'WeeklyOvertimeCalculator', function () {
 						}
 					}
 				},
-				calculator = new WeeklyOvertimeCalculator( worktimeCalculator, hoursPerWeek ),
-				result = calculator.getOvertime( emptyData, hoursPerWeek );
+				calculator = new WeeklyOvertimeCalculator( worktimeCalculator, settings ),
+				result = calculator.getOvertime( emptyData );
 			expect( result.timeDelta ).to.equal( 0 );
 		} );
 
@@ -188,9 +188,9 @@ describe( 'WeeklyOvertimeCalculator', function () {
 				}
 			}
 		},
-		hoursPerWeek = 40,
+		settings = { hoursPerWeek: 40 },
 		worktimeCalculator = new WorktimeCalculator( [ 1, 2, 3, 4, 5 ] ),
-		overtimeCalculator = new WeeklyOvertimeCalculator( worktimeCalculator, hoursPerWeek ),
+		overtimeCalculator = new WeeklyOvertimeCalculator( worktimeCalculator, settings ),
 		result = overtimeCalculator.getOvertime( testData );
 
 		it( 'calculates monthly overtime', function () {
@@ -225,9 +225,9 @@ describe( 'WeeklyOvertimeCalculator', function () {
 				}
 			}
 		},
-		hoursPerWeek = 40,
+		settings = { hoursPerWeek: 40 },
 		worktimeCalculator = new WorktimeCalculator( [ 1, 2, 3, 4, 5 ] ),
-		overtimeCalculator = new WeeklyOvertimeCalculator( worktimeCalculator, hoursPerWeek ),
+		overtimeCalculator = new WeeklyOvertimeCalculator( worktimeCalculator, settings ),
 		result = overtimeCalculator.getOvertime( testData );
 
 		it( 'calculates monthly overtime', function () {
@@ -260,11 +260,11 @@ describe( 'WeeklyOvertimeCalculator', function () {
 				}
 			}
 		},
-		hoursPerWeek = 40,
+		settings = { hoursPerWeek: 40 },
 		christmas = new Date( 2015, 11, 25 ),
 		holidayFunction = function ( d ) { return d - christmas == 0; },
 		worktimeCalculator = new WorktimeCalculator( [ 1, 2, 3, 4, 5 ], holidayFunction ),
-		overtimeCalculator = new WeeklyOvertimeCalculator( worktimeCalculator, hoursPerWeek ),
+		overtimeCalculator = new WeeklyOvertimeCalculator( worktimeCalculator, settings ),
 		result = overtimeCalculator.getOvertime( testData );
 
 		it( 'calculates monthly overtime', function () {
