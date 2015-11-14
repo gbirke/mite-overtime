@@ -23,12 +23,9 @@ module.exports = {
 				var agggregator = new TimeAggregator( result );
 				this.entries = overtimeCalculator.getOvertime( agggregator.getAggregatedData() );
 				this.trigger( { calendarData: this.calendarData, overtimeData: this.entries } );
-			},
-			onLoadFailed: function ( result ) {
-				console.log("fail!");
-				console.log(result);
-			},
+			}, // onLoadFailed is handled in ErrorStore
 			calendarData: {},
+			entries: {}
 		} );
 	}
 }
