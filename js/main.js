@@ -1,4 +1,5 @@
 var $ = jQuery = require( 'jQuery' ),
+	SettingsActions = require( './actions/settings' ),
 	SettingsController = require( './settings_controller' ),
 	ServerConnector = require( './server_connector' ),
 	CalendarDataGenerator = require( './calendar_data_generator' ),
@@ -9,12 +10,13 @@ var $ = jQuery = require( 'jQuery' ),
 	Bootstrap = require( 'bootstrap' );
 
 $( function () {
-	var serverConnector = new ServerConnector( 'http://localhost:8080/time_entries.json', XMLHttpRequest ),
+	var serverConnector = ServerConnector.create( 'http://localhost:8080/time_entries.json', new XMLHttpRequest() ),
 		worktimeCalculator = new WorkTimeCalculator( [ 1, 2, 3, 4, 5 ] ),
 		calendarDataGenerator = new CalendarDataGenerator( worktimeCalculator ),
 		overtimeCalculator = new OvertimeCalculator( worktimeCalculator, 40 ),
 		entriesStore = EntriesStore.create( serverConnector, overtimeCalculator, calendarDataGenerator );
 
+	SettingsActions.changeCredentials.listen( serverConnector.onChangeCredentials );
 	EntryView.createAndInit( entriesStore );
 	new SettingsController();
 } );
