@@ -1,9 +1,10 @@
 var $ = jQuery = require( 'jQuery' ),
 	SettingsController = require( './settings_controller' ),
-	entryView = require('./views/entry_view'),
+	entriesStore = require( './stores/entries' ),
+	EntryView = require('./views/entry_view'),
 	Bootstrap = require( 'bootstrap' );
 
 $( function () {
-	entryView.init();
+	EntryView.createAndInit( entriesStore );
 	new SettingsController();
 } );
