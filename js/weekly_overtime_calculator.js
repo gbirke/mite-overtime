@@ -1,10 +1,11 @@
 var moment = require( 'moment' );
 
-function WeeklyOvertimeCalculator( worktimeCalculator ) {
+function WeeklyOvertimeCalculator( worktimeCalculator, hoursPerWeek ) {
 	this.worktimeCalculator = worktimeCalculator;
+	this.hoursPerWeek = hoursPerWeek;
 }
 
-WeeklyOvertimeCalculator.prototype.getOvertime = function ( timeData, hoursPerWeek ) {
+WeeklyOvertimeCalculator.prototype.getOvertime = function ( timeData ) {
 	var overtime = {
 			total: timeData.total,
 			timeDelta: 0,
@@ -15,7 +16,7 @@ WeeklyOvertimeCalculator.prototype.getOvertime = function ( timeData, hoursPerWe
 		worktimes, week, day, timeDifference, i, date;
 
 	for ( week in timeData.weeks ) {
-		worktimes = this.worktimeCalculator.getWorktimesForWeek( week, timeData.month, hoursPerWeek );
+		worktimes = this.worktimeCalculator.getWorktimesForWeek( week, timeData.month, this.hoursPerWeek );
 		timeDifference = timeData.weeks[ week ].total - worktimes.minutesPerWeek;
 		overtime.timeDelta += timeDifference;
 		overtime.weeks[ week ] = {
