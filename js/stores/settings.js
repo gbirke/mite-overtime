@@ -1,21 +1,28 @@
 var Reflux = require( 'reflux-core' ),
+	objectAssign = require( 'object-assign' ),
 	settingsActions = require( '../actions/settings' ),
 	settingsStore = Reflux.createStore( {
 		init: function() {
 			this.listenToMany( settingsActions );
-			this.settings = {
-				account: '',
-				apiKey: '',
-				hoursPerWeek: 40
-			};
 		},
 		onChangeHoursPerWeek: function ( hoursPerWeek ) {
-			this.settings.hoursPerWeek = hoursPerWeek;
-		}
+			this.hoursPerWeek = hoursPerWeek;
+			this.trigger();
+		},
 		onChangeCredentials: function( newCredentials ) {
-			this.settings.apiKey = newCredentials.apiKey;
-			this.settings.account = newCredentials.account;
-		}
+			this.credentials = objectAssign( {}, this.credentials, newCredentials );
+			this.trigger();
+		},
+		onChangeApiUrl: function ( apiUrl ) {
+			this.apiUrl = apiUrl;
+			this.trigger();
+		},
+		hoursPerWeek: 40,
+		credentials: {
+			account: '',
+			apiKey: ''
+		},
+		apiUrl: ''
 	} );
 
 module.exports = settingsStore;

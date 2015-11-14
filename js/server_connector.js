@@ -1,7 +1,5 @@
 module.exports = {
-	create: function ( apiUrl, xhrObject ) {
-		var account, apiKey;
-
+	create: function ( settings, xhrObject ) {
 		return Object.create( {
 			getData: function ( year, month, callback, errback ) {
 				xhrObject.addEventListener( 'load', function () {
@@ -17,14 +15,10 @@ module.exports = {
 					var jsonData = JSON.parse( this.responseText );
 					errback( jsonData, this );
 				} );
-				xhrObject.open( 'GET', apiUrl, true );
-				xhrObject.setRequestHeader( 'X-MiteAccount', account );
-				xhrObject.setRequestHeader( 'X-MiteApiKey', apiKey );
+				xhrObject.open( 'GET', settings.apiUrl, true );
+				xhrObject.setRequestHeader( 'X-MiteAccount', settings.credentials.account );
+				xhrObject.setRequestHeader( 'X-MiteApiKey', settings.credentials.apiKey );
 				xhrObject.send();
-			},
-			onChangeCredentials: function( newCredentials ) {
-				account = newCredentials.account || '';
-				apiKey = newCredentials.apiKey || '';
 			}
 		} ); // END Object.create
 	}
