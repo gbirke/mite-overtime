@@ -4,7 +4,7 @@ var serverActions = require( '../actions/server' ),
 	TimeAggregator = require( '../time_aggregator' );
 
 module.exports = {
-	create: function ( serverConnector, overtimeCalculator, calendarDataGenerator ) {
+	create: function ( serverConnector, overtimeCalculator, calendarDataGenerator, dateStore ) {
 		return Reflux.createStore( {
 			init: function() {
 				this.listenToMany( serverActions );
@@ -12,7 +12,9 @@ module.exports = {
 				this.entries = {};
 				this.calendarData = {};
 			},
-			onShowEntriesForMonth: function( year, month ) {
+			onShowEntries: function() {
+				var year = dateStore.getYear(),
+					month = dateStore.getMonth();
 				this.calendarData = calendarDataGenerator.generateData( year, month );
 				serverActions.load( year, month );
 			},

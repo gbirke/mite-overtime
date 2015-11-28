@@ -33,7 +33,7 @@ describe( 'SettingsView', function () {
             view.handleSubmit();
             expect( actions.changeCredentials ).to.have.been.calledWith( { apiKey: 'test_key', account: 'test_account' } );
             expect( actions.changeHoursPerWeek ).to.have.been.calledWith( 40 );
-            expect( commands.showEntriesForMonth ).to.have.been.called;
+            expect( commands.showEntries ).to.have.been.called;
     	} );
     } );
 } );
