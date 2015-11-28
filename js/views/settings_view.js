@@ -7,12 +7,11 @@ module.exports = {
 			handleSubmit: function () {
 				var apiKey = $( '#api_key' ).val(),
 					account = $( '#account' ).val(),
-					hoursPerWeek = $( '#hours_per_week' ).val(),
-					now = new Date( '2015-10-01' ); // TODO use current date
+					hoursPerWeek = $( '#hours_per_week' ).val();
 
 				settingsActions.changeCredentials( { apiKey: apiKey, account: account } );
 				settingsActions.changeHoursPerWeek( parseInt( hoursPerWeek, 10 ) );
-				commands.showEntriesForMonth( now.getYear(), now.getMonth() );
+				commands.showEntries();
 				return;
 			}
 		} );
