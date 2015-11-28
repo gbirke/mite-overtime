@@ -1,7 +1,6 @@
 # Next steps in the reflux branch
 
-- Move SettingsController code to SettingsView (view just handles the user events)
-- Add unit tests for events/handlers
+- Add store that holds the current date and time and make the ServerConnector use them. Remove them from SettingsView
 
 # Next steps in the weekly-display branch:
 
