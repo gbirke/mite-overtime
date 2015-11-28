@@ -1,5 +1,6 @@
 var $ = jQuery = require( 'jQuery' ),
 	SettingsActions = require( './actions/settings' ),
+	Commands = require( './actions/commands' ),
 	settingsStore = require( './stores/settings' ),
 	SettingsController = require( './settings_controller' ),
 	ServerConnector = require( './server_connector' ),
@@ -11,6 +12,7 @@ var $ = jQuery = require( 'jQuery' ),
 	errorStore = require( './stores/errors' ),
 	EntryView = require( './views/entry_view' ),
 	ErrorView = require( './views/error_view' ),
+	SettingsView = require( './views/settings_view' ),
 	Bootstrap = require( 'bootstrap' );
 
 $( function () {
@@ -21,9 +23,10 @@ $( function () {
 		entriesStore = EntriesStore.create( serverConnector, overtimeCalculator, calendarDataGenerator );
 
 	// TODO: Check environment vars and set API url accordingly
+	// Real API URL: https://corsapi.mite.yo.lk/time_entries.json
 	SettingsActions.changeApiUrl( 'http://localhost:8080/time_entries.json' );
 	errorStore.init();
 	EntryView.createAndInit( new HtmlRenderer( '#displayContainer' ), entriesStore );
 	ErrorView.createAndInit( $( '#errorModal' ), errorStore );
-	new SettingsController();
+	SettingsView.createAndInit( jQuery, SettingsActions, Commands );
 } );
