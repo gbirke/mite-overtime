@@ -7,7 +7,7 @@ module.exports = {
 			},
 			update: function( data ) {
                 element.find( '.modal-body' ).html('<p>' + errorStore.message + '</p>');
-				element.modal()
+				element.modal();
 			}
 		} );
 	},
@@ -16,4 +16,4 @@ module.exports = {
 		view.init();
 		return view;
 	}
-}
+};

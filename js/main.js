@@ -1,10 +1,10 @@
-var $ = jQuery = require( 'jQuery' ),
+var jQuery = require( 'jQuery' ),
 	SettingsActions = require( './actions/settings' ),
 	Commands = require( './actions/commands' ),
 	settingsStore = require( './stores/settings' ),
 	ServerConnector = require( './server_connector' ),
 	CalendarDataGenerator = require( './calendar_data_generator' ),
-	WorkTimeCalculator = require( './worktime_calculator' )
+	WorkTimeCalculator = require( './worktime_calculator' ),
 	OvertimeCalculator = require( './weekly_overtime_calculator' ),
 	HtmlRenderer = require( './html_renderer' ),
 	DateStore = require( './stores/date' ),
@@ -29,6 +29,6 @@ $( function () {
 	errorStore.init();
 	DateStore.init( config.startDate );
 	EntryView.createAndInit( new HtmlRenderer( '#displayContainer' ), entriesStore );
-	ErrorView.createAndInit( $( '#errorModal' ), errorStore );
+	ErrorView.createAndInit( jQuery( '#errorModal' ), errorStore );
 	SettingsView.createAndInit( jQuery, SettingsActions, Commands );
 } );

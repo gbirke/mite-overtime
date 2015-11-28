@@ -14,4 +14,4 @@ module.exports = {
 		view.init();
 		return view;
 	}
-}
+};

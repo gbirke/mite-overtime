@@ -1,3 +1,5 @@
+/*jshint expr: true*/
+
 var expect = require( 'chai' ).expect,
 	WorktimeCalculator = require( '../js/worktime_calculator' ),
 	moment = require( 'moment' );
@@ -26,7 +28,7 @@ describe( 'WorktimeCalculator', function () {
 			result = calculator.getDaysForWeek( week, month );
 			expect( result.length ).to.equal( 3 );
 			expect( result[ 0 ].isSame( moment( [ 2015, 9, 1 ] ) ) ).to.be.true;
-			expect( result[ 2 ].isSame( moment( [ 2015, 9, 3 ] ) ) ).to.be.true 
+			expect( result[ 2 ].isSame( moment( [ 2015, 9, 3 ] ) ) ).to.be.true;
 		} );
 
 		it( 'returns some days for last week in month', function () {
@@ -36,7 +38,7 @@ describe( 'WorktimeCalculator', function () {
 			result = calculator.getDaysForWeek( week, month );
 			expect( result.length ).to.equal( 2 );
 			expect( result[ 0 ].isSame( moment( [ 2015, 7, 30 ] ) ) ).to.be.true;
-			expect( result[ 1 ].isSame( moment( [ 2015, 7, 31 ] ) ) ).to.be.true 
+			expect( result[ 1 ].isSame( moment( [ 2015, 7, 31 ] ) ) ).to.be.true;
 		} );
 	
 	} );
@@ -171,7 +173,7 @@ describe( 'WorktimeCalculator', function () {
 	describe( '#isAWorkday', function () {
 
 		var holiday = new Date( 2015, 11, 25 ),
-			holidayFunction = function ( d ) { return d - holiday == 0; },
+			holidayFunction = function ( d ) { return d - holiday === 0; },
 			calculator = new WorktimeCalculator( [ 1, 2, 3, 4, 5 ], holidayFunction ),
 			year = 2015,
 			month = 9;
@@ -180,7 +182,7 @@ describe( 'WorktimeCalculator', function () {
 			var day;
 			// Monday, 5th of October
 			moment.locale( 'en' );
-			var day = moment( [ year, month, 5 ] )
+			day = moment( [ year, month, 5 ] );
 			expect( calculator.isAWorkday( day ) ).to.be.true;
 		} );
 

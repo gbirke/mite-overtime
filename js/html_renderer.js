@@ -56,7 +56,7 @@ HtmlRenderer.prototype._renderTotal = function ( displayContainer ) {
 			}
 		} );
 	return total;
-}
+};
 
 
 HtmlRenderer.prototype._renderWeeks = function ( displayContainer ) {
@@ -85,7 +85,7 @@ HtmlRenderer.prototype._renderWeeks = function ( displayContainer ) {
 			return longFormatter.format( timeDelta );
 		} );
 	return weeks;
-}
+};
 
 
 module.exports = HtmlRenderer;
