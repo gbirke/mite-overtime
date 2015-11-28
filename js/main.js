@@ -13,6 +13,7 @@ var $ = jQuery = require( 'jQuery' ),
 	EntryView = require( './views/entry_view' ),
 	ErrorView = require( './views/error_view' ),
 	SettingsView = require( './views/settings_view' ),
+	config = require( './config' ),
 	Bootstrap = require( 'bootstrap' );
 
 $( function () {
@@ -24,9 +25,9 @@ $( function () {
 
 	// TODO: Check environment vars and set API url accordingly
 	// Real API URL: https://corsapi.mite.yo.lk/time_entries.json
-	SettingsActions.changeApiUrl( 'http://localhost:8080/time_entries.json' );
+	SettingsActions.changeApiUrl( config.apiURL );
 	errorStore.init();
-	DateStore.init( new Date( '2015-10-01' ) );
+	DateStore.init( config.startDate );
 	EntryView.createAndInit( new HtmlRenderer( '#displayContainer' ), entriesStore );
 	ErrorView.createAndInit( $( '#errorModal' ), errorStore );
 	SettingsView.createAndInit( jQuery, SettingsActions, Commands );

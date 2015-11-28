@@ -19,7 +19,7 @@
     "start": "node server.js",
     "watch": "watchify -o web/js/app.js -v -d .",
     "test": "mocha --recursive",
-    "build": "browserify -o web/js/app.js -v js/main.js",
+    "build": "browserify -o web/js/app.js -t envify js/main.js",
     "lint": "jshint js test",
     "cs": "jscs js test",
     "fulltest": "npm run lint && npm run cs && mocha"
