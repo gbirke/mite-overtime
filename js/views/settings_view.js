@@ -1,7 +1,7 @@
 module.exports = {
 	create: function ( $, settingsActions, commands ) {
 		return Object.create( {
-			init: function() {
+			init: function () {
 				$( '#submit_settings' ).on( 'click', this.handleSubmit );
 			},
 			handleSubmit: function () {
@@ -16,7 +16,7 @@ module.exports = {
 			}
 		} );
 	},
-	createAndInit: function( $, settingsActions, commands ) {
+	createAndInit: function ( $, settingsActions, commands ) {
 		var view = this.create( $, settingsActions, commands );
 		view.init();
 		return view;

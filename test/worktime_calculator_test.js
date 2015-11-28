@@ -40,7 +40,7 @@ describe( 'WorktimeCalculator', function () {
 			expect( result[ 0 ].isSame( moment( [ 2015, 7, 30 ] ) ) ).to.be.true;
 			expect( result[ 1 ].isSame( moment( [ 2015, 7, 31 ] ) ) ).to.be.true;
 		} );
-	
+
 	} );
 
 	describe( '#getWorkdaysForWeek (English locale)', function () {
@@ -58,7 +58,7 @@ describe( 'WorktimeCalculator', function () {
 			// 27th September - 3rd October 2015, get days for October
 			var week = 40, month = 9;
 			moment.locale( 'en' );
-			expect( calculator.getWorkdaysForWeek( week, month ) ).to.deep.equal( [ 1, 2] );
+			expect( calculator.getWorkdaysForWeek( week, month ) ).to.deep.equal( [ 1, 2 ] );
 		} );
 
 		it( 'returns some days for last week in month', function () {
@@ -88,7 +88,6 @@ describe( 'WorktimeCalculator', function () {
 			expect( calculator.getWorkdaysForWeek( week, month ) ).to.deep.equal( [ 5, 6, 7, 8, 9 ] );
 		} );
 
-		
 		it( 'returns some days for first week in month', function () {
 			// 29th September - 4th October 2015, get days for October
 			var week = 40, month = 9;
@@ -109,7 +108,7 @@ describe( 'WorktimeCalculator', function () {
 			moment.locale( 'de' );
 			expect( calculator.getWorkdaysForWeek( week, month ) ).to.deep.equal( [] );
 		} );
-		
+
 	} );
 
 	describe( '#getWorktimes', function () {

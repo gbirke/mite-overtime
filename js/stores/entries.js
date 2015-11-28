@@ -6,19 +6,19 @@ var serverActions = require( '../actions/server' ),
 module.exports = {
 	create: function ( serverConnector, overtimeCalculator, calendarDataGenerator, dateStore ) {
 		return Reflux.createStore( {
-			init: function() {
+			init: function () {
 				this.listenToMany( serverActions );
 				this.listenToMany( commands );
 				this.entries = {};
 				this.calendarData = {};
 			},
-			onShowEntries: function() {
+			onShowEntries: function () {
 				var year = dateStore.getYear(),
 					month = dateStore.getMonth();
 				this.calendarData = calendarDataGenerator.generateData( year, month );
 				serverActions.load( year, month );
 			},
-			onLoad: function( year, month ) {
+			onLoad: function ( year, month ) {
 				serverConnector.getData( year, month, serverActions.load.completed, serverActions.load.failed );
 			},
 			onLoadCompleted: function ( result ) {

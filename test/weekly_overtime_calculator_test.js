@@ -135,7 +135,7 @@ describe( 'WeeklyOvertimeCalculator', function () {
 				31: {
 					total: 240,
 					days: {
-						2: { total: 240 },
+						2: { total: 240 }
 					}
 				}
 			}
@@ -185,7 +185,7 @@ describe( 'WeeklyOvertimeCalculator', function () {
 						14: { total: 540 }, // 9 hours
 						15: { total: 420 }, // 7 hours
 						16: { total: 480 },
-						17: { total: 70 }, // Work on Saturday
+						17: { total: 70 } // Work on Saturday
 					}
 				}
 			}
@@ -222,7 +222,7 @@ describe( 'WeeklyOvertimeCalculator', function () {
 						14: { total: 540 }, // 9 hours
 						15: { total: 540 }, // 9 hours
 						// No work on Friday
-						17: { total: 360 }, // Work on Saturday
+						17: { total: 360 } // Work on Saturday
 					}
 				}
 			}
@@ -257,7 +257,7 @@ describe( 'WeeklyOvertimeCalculator', function () {
 						21: { total: 480 }, // 8 hours
 						22: { total: 540 }, // 9 hours
 						23: { total: 540 }, // 9 hours
-						24: { total: 240 }, // 4 hours
+						24: { total: 240 } // 4 hours
 					}
 				}
 			}

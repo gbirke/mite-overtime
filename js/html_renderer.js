@@ -4,6 +4,8 @@ var d3 = require( 'd3' ),
 
 require( 'moment-duration-format' );
 
+// jscs:disable disallowDanglingUnderscores
+
 function DurationFormatter( positiveFormat, negativeFormat, absoluteValue ) {
 	this.positiveFormat = positiveFormat;
 	this.negativeFormat = negativeFormat;
@@ -21,7 +23,6 @@ DurationFormatter.prototype.format = function ( duration ) {
 
 longFormatter = new DurationFormatter( 'h:mm [overtime]', 'h:mm [missing]', true );
 shortFormatter = new DurationFormatter( 'h:mm', 'h:mm', false );
-
 
 function HtmlRenderer( elementName ) {
 	this.overtimeData = {};
@@ -58,7 +59,6 @@ HtmlRenderer.prototype._renderTotal = function ( displayContainer ) {
 	return total;
 };
 
-
 HtmlRenderer.prototype._renderWeeks = function ( displayContainer ) {
 	var weekContainer = displayContainer.append( 'div' ).classed( 'weeks', true ),
 		self = this,
@@ -79,13 +79,12 @@ HtmlRenderer.prototype._renderWeeks = function ( displayContainer ) {
 		.classed( 'total', true )
 		.text( function ( d ) {
 			var timeDelta = 0;
-			if ( typeof self.overtimeData.weeks !== "undefined" && d.week in self.overtimeData.weeks ) {
+			if ( typeof self.overtimeData.weeks !== 'undefined' && d.week in self.overtimeData.weeks ) {
 				timeDelta = self.overtimeData.weeks[ d.week ].timeDelta;
 			}
 			return longFormatter.format( timeDelta );
 		} );
 	return weeks;
 };
-
 
 module.exports = HtmlRenderer;
