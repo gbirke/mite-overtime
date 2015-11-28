@@ -1,3 +1,5 @@
+/*jshint expr: true*/
+
 var expect = require( 'chai' ).expect,
 	WeeklyOvertimeCalculator = require( '../js/weekly_overtime_calculator' ),
 	WorktimeCalculator = require( '../js/worktime_calculator' );
@@ -262,7 +264,7 @@ describe( 'WeeklyOvertimeCalculator', function () {
 		},
 		settings = { hoursPerWeek: 40 },
 		christmas = new Date( 2015, 11, 25 ),
-		holidayFunction = function ( d ) { return d - christmas == 0; },
+		holidayFunction = function ( d ) { return d - christmas === 0; },
 		worktimeCalculator = new WorktimeCalculator( [ 1, 2, 3, 4, 5 ], holidayFunction ),
 		overtimeCalculator = new WeeklyOvertimeCalculator( worktimeCalculator, settings ),
 		result = overtimeCalculator.getOvertime( testData );

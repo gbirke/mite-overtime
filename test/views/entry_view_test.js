@@ -1,10 +1,10 @@
-'use strict';
+/*jshint expr: true*/
+
 var chai = require('chai'),
 	sinon = require('sinon'),
 	sinonChai = require('sinon-chai'),
 	EntryView = require( '../../js/views/entry_view' ),
-	expect = chai.expect
-	;
+	expect = chai.expect;
 
 chai.use(sinonChai);
 
@@ -20,7 +20,7 @@ describe( 'EntryView', function () {
         var entryStore = { listen: sinon.stub() },
             renderer = { render: sinon.spy() },
             view = EntryView.create( renderer, entryStore ),
-            testData = { calendarData: 'calendar', overtimeData: 'overtime'}
+            testData = { calendarData: 'calendar', overtimeData: 'overtime' };
         view.update( testData );
         expect( renderer.render ).to.have.been.calledWith( 'calendar', 'overtime' );
 	} );

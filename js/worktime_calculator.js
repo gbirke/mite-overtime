@@ -87,6 +87,6 @@ WorktimeCalculator.prototype.getWorktimesForWeek = function ( week, month, hours
  */
 WorktimeCalculator.prototype.isAWorkday = function ( date ) {
 	return this.workdaysIndex[ date.day() ] && !this.holidayCallback( date );
-}
+};
 
 module.exports = WorktimeCalculator;
