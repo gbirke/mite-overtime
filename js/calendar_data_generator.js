@@ -16,13 +16,13 @@ CalendarDataGenerator.prototype.generateData = function ( year, month ) {
 	while ( day.month() == month ) {
 		week = day.week();
 		date = day.date();
-		if ( ! data.weeks[ week ] ) {
+		if ( !data.weeks[ week ] ) {
 			data.weeks[ week ] = {
 				week: week,
 				days: {}
 			};
 		}
-		if ( ! data.weeks[ week ].days[ date ] ) {
+		if ( !data.weeks[ week ].days[ date ] ) {
 			dayType = this.worktimeCalculator.isAWorkday( day ) ? DayTypes.WORKDAY : DayTypes.HOLIDAY;
 			data.weeks[ week ].days[ date ] = {
 				date: day.clone(),

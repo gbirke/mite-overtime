@@ -32,25 +32,25 @@ describe( 'CalendarDataGenerator', function () {
 			var result;
 			moment.locale( 'en' );
 			result = generator.generateData( year, month );
-			expect( result.weeks[40].days ).to.have.all.keys( '1', '2', '3' );
-			expect( result.weeks[41].days ).to.have.all.keys( '4', '5', '6', '7', '8', '9', '10' );
+			expect( result.weeks[ 40 ].days ).to.have.all.keys( '1', '2', '3' );
+			expect( result.weeks[ 41 ].days ).to.have.all.keys( '4', '5', '6', '7', '8', '9', '10' );
 		} );
 
 		it( 'generates different date objects for days', function () {
 			var result;
 			moment.locale( 'en' );
 			result = generator.generateData( year, month );
-			expect( result.weeks[40].days[1] ).to.not.deep.equal( result.weeks[40].days[2] );
+			expect( result.weeks[ 40 ].days[ 1 ] ).to.not.deep.equal( result.weeks[ 40 ].days[ 2 ] );
 		} );
 
 		it( 'includes workday info in day info', function () {
 			var result;
 			moment.locale( 'en' );
 			result = generator.generateData( year, month );
-			expect( result.weeks[40].days[1].dayType ).to.equal( DayTypes.WORKDAY );
-			expect( result.weeks[40].days[2].dayType ).to.equal( DayTypes.WORKDAY );
-			expect( result.weeks[40].days[3].dayType ).to.equal( DayTypes.HOLIDAY );
-			expect( result.weeks[41].days[4].dayType ).to.equal( DayTypes.HOLIDAY );
+			expect( result.weeks[ 40 ].days[ 1 ].dayType ).to.equal( DayTypes.WORKDAY );
+			expect( result.weeks[ 40 ].days[ 2 ].dayType ).to.equal( DayTypes.WORKDAY );
+			expect( result.weeks[ 40 ].days[ 3 ].dayType ).to.equal( DayTypes.HOLIDAY );
+			expect( result.weeks[ 41 ].days[ 4 ].dayType ).to.equal( DayTypes.HOLIDAY );
 		} );
 
 	} );

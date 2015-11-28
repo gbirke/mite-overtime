@@ -42,7 +42,7 @@ WorktimeCalculator.prototype.getDaysForWeek = function ( week, month ) {
  * @return {Array} An array with the workdays in the week
  */
 WorktimeCalculator.prototype.getWorkdaysForWeek = function ( week, month ) {
-	var daysOfWeek = this.getDaysForWeek( week, month ), 
+	var daysOfWeek = this.getDaysForWeek( week, month ),
 		days = [],
 		i;
 	for ( i = 0; i < daysOfWeek.length; i++ ) {
@@ -57,9 +57,10 @@ WorktimeCalculator.prototype.getWorkdaysForWeek = function ( week, month ) {
  * Get the required work times for the week
  *
  * If the week consists of days that are not workdays, the required working times are 0.
+ *
  * @param {number} week Week number
  * @param {number} month Month number (0-11)
- * @param {number} hoursPerWeek The number of hours per week 
+ * @param {number} hoursPerWeek The number of hours per week
  * @return {Object} Calculated properties for the week: Number of workdays for the week, hours and minutes per day and week
  */
 WorktimeCalculator.prototype.getWorktimesForWeek = function ( week, month, hoursPerWeek ) {

@@ -37,7 +37,6 @@ describe( 'HtmlRenderer', function () {
 		expect( total.text() ).to.equal( 'Total for November 2015' );
 	} );
 
-
 	it( 'renders the overall time delta', function () {
 		var total;
 		renderer.render( testCalendarData, testOvertimeData );

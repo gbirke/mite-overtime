@@ -6,8 +6,7 @@ module.exports = {
 					var jsonData = JSON.parse( this.responseText );
 					if ( this.status >= 400 ) {
 						errback( jsonData, this );
-					}
-					else {
+					} else {
 						callback( jsonData );
 					}
 				} );
