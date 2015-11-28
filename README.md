@@ -25,6 +25,7 @@ If you want to host your own version of the application, the JavaScript files ha
 
 To build the Javascript, download this repository, go to the folder on the command line and run the following commands:
 
+	export APP_ENV=production
 	npm install
 	npm build
 
