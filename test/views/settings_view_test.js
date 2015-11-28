@@ -23,7 +23,7 @@ describe( 'SettingsView', function () {
     describe( '#handleSubmit', function () {
         it( 'calls the appropriate actions with data', function () {
             var jquery = sinon.stub(),
-                commands = { showEntriesForMonth: sinon.spy() },
+                commands = { showEntries: sinon.spy() },
                 actions = { changeCredentials: sinon.spy(), changeHoursPerWeek: sinon.spy() },
                 view;
             jquery.withArgs( '#api_key' ).returns( { val: function () { return 'test_key'; } } );
