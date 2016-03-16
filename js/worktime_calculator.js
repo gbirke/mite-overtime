@@ -1,7 +1,11 @@
 var moment = require( 'moment' );
 
 /**
+ * Calulate daily and hourly worktimes based on configured work days and holidays
+ *
  * @class WorktimeCalculator
+ * @param {Array} workdays Day numbers (0-6) that are counted as work days
+ * @param {Function=} holidayCallback Callback function that checks if a given date is a holiday
  */
 function WorktimeCalculator( workdays, holidayCallback ) {
 	var i;
@@ -14,11 +18,11 @@ function WorktimeCalculator( workdays, holidayCallback ) {
 }
 
 /**
- * Return the working days of the week for a given month.
+ * Return the calendar dates of a week number for a given month.
  *
  * @param {number} week Week number
  * @param {number} month Month number (0-11)
- * @return {Array} An array with the workdays in the week
+ * @return {moment[]} 
  */
 WorktimeCalculator.prototype.getDaysForWeek = function ( week, month ) {
 	var firstDayOfWeek, dayPointer, i,
