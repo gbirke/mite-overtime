@@ -1,10 +1,48 @@
+/**
+ * @module calendar_data_generator
+ * @requires day_types
+ */
+
+/** 
+ * @external moment 
+ * @see {@link http://momentjs.com/}
+ */
+
 var moment = require( 'moment' ),
 	DayTypes = require( './day_types' );
 
+/**
+ * @typedef {Object} CalendarDataDay
+ * @property {moment} date - date object
+ * @property {day_types.WORKDAY|day_types.HOLIDAY} dayType - Type of day
+ */
+
+/**
+ * @typedef {Object} CalendarDataWeek
+ * @property {number} week - week number between 0 and 52
+ * @property {Object.<number, CalendarDataDay>} days
+ */
+
+/**
+ * @typedef {Object} CalendarData
+ * @property {number} year - 4-digit year
+ * @property {number} month - Month number from 0 to 11
+ * @property {CalendarDataWeek[]} weeks
+ */
+
+/**
+ * Create a calendar obejct
+ *
+ * @class
+ * @param {WorktimeCalculator} worktimeCalculator
+ */
 function CalendarDataGenerator( worktimeCalculator ) {
 	this.worktimeCalculator = worktimeCalculator;
 }
 
+/**
+ * @return {CalendarData}
+ */
 CalendarDataGenerator.prototype.generateData = function ( year, month ) {
 	var data = {
 		year: year,
