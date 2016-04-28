@@ -37,26 +37,27 @@ HtmlRenderer.prototype.render = function ( calendarData, overtimeData ) {
 	displayContainer.selectAll( 'div, h1' )
 		.remove();
 
-	total = this._renderTotal( displayContainer );
-	weeks = this._renderWeeks( displayContainer );
+	this._renderTotal( displayContainer );
+	this._renderWeeks( displayContainer );
 };
 
 HtmlRenderer.prototype._renderTotal = function ( displayContainer ) {
-	var data = displayContainer.data(),
-		currentTime = moment(),
-		self = this,
-		total;
-	currentTime.month( data.month );
-	currentTime.year( data.year );
-	displayContainer.append( 'h1' ).text( 'Total for ' + currentTime.format( 'MMMM YYYY' ) );
-	total = displayContainer.append( 'div' )
+	var self = this,
+		totalElement;
+
+	displayContainer.append( 'h1' ).text( function ( d ) {
+		var headingTime = moment( [ d.year, d.month ] );
+
+		return 'Total for ' + headingTime.format( 'MMMM YYYY' );
+	} );
+	totalElement = displayContainer.append( 'div' )
 		.attr( { id: 'totalOvertime' } )
 		.text( function ( ) {
 			if ( self.overtimeData.timeDelta ) {
 				return longFormatter.format( self.overtimeData.timeDelta );
 			}
 		} );
-	return total;
+	return totalElement;
 };
 
 HtmlRenderer.prototype._renderWeeks = function ( displayContainer ) {

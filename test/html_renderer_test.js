@@ -7,14 +7,12 @@ describe( 'HtmlRenderer', function () {
 
 	var testOvertimeData = {
 		timeDelta: 80,
-		month: 9,
-		year: 2015,
 		weeks: {
-			42: { timeDelta: 100, week: 42 },
-			43: { timeDelta: -20, week: 43 }
+			42: { timeDelta: 100 },
+			43: { timeDelta: -20 }
 		}
 	},
-	dateGenerator = new CalendarDataGenerator( new WorktimeCalculator( [ 1, 2, 3, 4, 5 ] ) ),
+	dateGenerator = new CalendarDataGenerator( new WorktimeCalculator( [ 1, 2, 3, 4, 5 ], null, 2015 ) ),
 	testCalendarData = dateGenerator.generateData( 2015, 9 );
 
 	before( function ( done ) {
@@ -34,7 +32,7 @@ describe( 'HtmlRenderer', function () {
 		renderer.render( testCalendarData, {} );
 		total = displayContainer.select( 'h1' );
 		expect( total.size() ).to.equal( 1 );
-		expect( total.text() ).to.equal( 'Total for November 2015' );
+		expect( total.text() ).to.equal( 'Total for October 2015' );
 	} );
 
 	it( 'renders the overall time delta', function () {
