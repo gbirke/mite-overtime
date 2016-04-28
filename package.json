@@ -2,8 +2,15 @@
   "name": "mite-overtime",
   "version": "0.0.1",
   "description": "Overtime tracker for mite.yo.lk",
-  "repository": "https://github.com/gbirke/ite-overtime",
-  "private": "true",
+  "directories": {
+    "lib": "js",
+    "test": "test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/gbirke/mite-overtime"
+  },
+  "private": true,
   "main": "server.js",
   "browser": {
     "server.js": "./js/main.js"
