@@ -3,6 +3,7 @@ var objectAssign = require( 'object-assign' ),
 	Week = {
 		weekNumber: 0,
 		days: {},
+		dateObject: null,
 		addDay: function ( day ) {
 			this.days[ day.date ] = day;
 		},
@@ -17,7 +18,8 @@ module.exports = {
 	createWeek: function ( date ) {
 		return objectAssign( Object.create( Week ), {
 			weekNumber: date.week(),
-			days: {}
+			days: {},
+			dateObject: date
 		} );
 	}
 };

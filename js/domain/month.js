@@ -16,7 +16,8 @@ var objectAssign = require( 'object-assign' ),
 module.exports = {
 	createMonth: function ( date ) {
 		return objectAssign( Object.create( Month ), {
-			monthNumber: date.month()
+			monthNumber: date.month(),
+			weeks: {}
 		} );
 	}
 };
