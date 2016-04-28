@@ -1,11 +1,15 @@
 var objectAssign = require( 'object-assign' ),
+	_ = require( 'lodash' ),
 	Week = {
 		weekNumber: 0,
 		days: {},
-		minutesWorked: 0,
 		addDay: function ( day ) {
 			this.days[ day.date ] = day;
-			this.minutesWorked += day.minutesWorked;
+		},
+		getMinutesWorked: function () {
+			return _.reduce( this.days, function( minutesWorked, day ) {
+				return minutesWorked + day.getMinutesWorked();
+			}, 0 );
 		}
 	};
 

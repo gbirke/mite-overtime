@@ -14,7 +14,7 @@ describe( 'Week', function () {
 
 	it( 'has a default of zero work minutes', function () {
 		var week = Week.createWeek( createDateStub() );
-		expect( week.minutesWorked ).to.equal( 0 );
+		expect( week.getMinutesWorked() ).to.equal( 0 );
 	} );
 
 	it( 'knows its week number', function () {
@@ -25,17 +25,17 @@ describe( 'Week', function () {
 	it( 'calculates worktime of added days', function () {
 		var firstDay = {
 				date: 1,
-				minutesWorked: 5
+				getMinutesWorked: function () { return 5; }
 			},
 			secondDay = {
-				date: 1,
-				minutesWorked: 5
+				date: 2,
+				getMinutesWorked: function () { return 5; }
 			},
 			week = Week.createWeek( createDateStub() );
 
 		week.addDay( firstDay );
 		week.addDay( secondDay );
-		expect( week.minutesWorked ).to.equal( 10 );
+		expect( week.getMinutesWorked() ).to.equal( 10 );
 	} );
 
 	// TODO more sanity checks: Never add the same day twice, reject days not in the same month etc

@@ -8,6 +8,9 @@ var DayTypes = require( './day_types' ),
 		addWorkMinutes: function ( minutes ) {
 			this.minutesWorked += minutes;
 			return this;
+		},
+		getMinutesWorked: function () {
+			return this.minutesWorked;
 		}
 	};
 

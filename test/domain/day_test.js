@@ -14,7 +14,7 @@ describe( 'Day', function () {
 
 	it( 'has a default of zero work minutes', function () {
 		var day = Day.createWorkDay( createDateStub() );
-		expect( day.minutesWorked ).to.equal( 0 );
+		expect( day.getMinutesWorked() ).to.equal( 0 );
 	} );
 
 	it( 'can add more work minutes', function () {
@@ -22,7 +22,7 @@ describe( 'Day', function () {
 
 		day.addWorkMinutes( 5 );
 		day.addWorkMinutes( 15 );
-		expect( day.minutesWorked ).to.equal( 20 );
+		expect( day.getMinutesWorked() ).to.equal( 20 );
 	} );
 
 	it( 'get initialized with the date', function () {

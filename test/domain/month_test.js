@@ -14,7 +14,7 @@ describe( 'Month', function () {
 
 	it( 'has a default of zero work minutes', function () {
 		var month = Month.createMonth( createDateStub() );
-		expect( month.minutesWorked ).to.equal( 0 );
+		expect( month.getMinutesWorked() ).to.equal( 0 );
 	} );
 
 	it( 'knows its month number', function () {
@@ -25,17 +25,17 @@ describe( 'Month', function () {
 	it( 'calculates worktime of added week', function () {
 		var firstWeek = {
 				weekNumber: 1,
-				minutesWorked: 500
+				getMinutesWorked: function () { return 500; }
 			},
 			secondWeek = {
-				weekNumber: 1,
-				minutesWorked: 600
+				weekNumber: 2,
+				getMinutesWorked: function () { return 600; }
 			},
 			month = Month.createMonth( createDateStub() );
 
 		month.addWeek( firstWeek );
 		month.addWeek( secondWeek );
-		expect( month.minutesWorked ).to.equal( 1100 );
+		expect( month.getMinutesWorked() ).to.equal( 1100 );
 	} );
 
 	// TODO more sanity checks: Never add the same week twice, reject weeks not in the same month etc
