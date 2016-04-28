@@ -32,7 +32,7 @@ module.exports = {
 	createWorkDay: function ( dateObject ) {
 		return createDay( dateObject, DayTypes.WORKDAY );
 	},
-	createHolidayDay: function ( dateObject ) {
+	createHolyDay: function ( dateObject ) {
 		return createDay( dateObject, DayTypes.HOLIDAY );
 	}
 };
