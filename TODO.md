@@ -1,3 +1,8 @@
+# Next steps in the domain-objects branch:
+
+- Instead of passing around some fluffy JSON structure that has to be deciphered and documented, use domain objects.
+- Continue working on weekly-display branch
+
 # Next steps in the weekly-display branch:
 
 - Add ability to exclude certain worktime entries (sick days, holidays, overtime compensation). Don't add overtime compensation to the total. Track/mark special entries in the time data for later display
