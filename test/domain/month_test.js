@@ -7,7 +7,7 @@ function createDateStub() {
 		month: function () {
 			return MONTH_NUMBER;
 		}
-	}
+	};
 }
 
 describe( 'Month', function () {

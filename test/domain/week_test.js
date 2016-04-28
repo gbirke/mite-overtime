@@ -7,7 +7,7 @@ function createDateStub() {
 		week: function () {
 			return WEEK_NUMBER;
 		}
-	}
+	};
 }
 
 describe( 'Week', function () {

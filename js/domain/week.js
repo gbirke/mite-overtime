@@ -7,7 +7,7 @@ var objectAssign = require( 'object-assign' ),
 			this.days[ day.date ] = day;
 		},
 		getMinutesWorked: function () {
-			return _.reduce( this.days, function( minutesWorked, day ) {
+			return _.reduce( this.days, function ( minutesWorked, day ) {
 				return minutesWorked + day.getMinutesWorked();
 			}, 0 );
 		}

@@ -20,7 +20,7 @@ var objectAssign = require( 'object-assign' ),
 				if ( !_.has( days, dayOfMonth ) ) {
 					days[ dayOfMonth ] = self.getDayFromEntry( entry );
 				}
-				days[dayOfMonth].addWorkMinutes( self.getMinutesFromEntry( entry ) );
+				days[ dayOfMonth ].addWorkMinutes( self.getMinutesFromEntry( entry ) );
 				return days;
 			}, {} );
 		},
@@ -33,6 +33,7 @@ var objectAssign = require( 'object-assign' ),
 			}
 
 		},
+		// jscs:disable requireCamelCaseOrUpperCaseIdentifiers
 		getDateForEntry: function ( entry ) {
 			var date = moment( entry.time_entry.date_at );
 			date.locale( this.locale );
@@ -45,10 +46,11 @@ var objectAssign = require( 'object-assign' ),
 				return entry.time_entry.minutes;
 			}
 		}
+		// jscs:enable requireCamelCaseOrUpperCaseIdentifiers
 	};
 
 module.exports = {
-	createEntriesToDaysConverter: function( workdayCalculator, locale ) {
+	createEntriesToDaysConverter: function ( workdayCalculator, locale ) {
 		return objectAssign( Object.create( EntriesToDaysConverter ), {
 			workdayCalculator: workdayCalculator,
 			locale: locale

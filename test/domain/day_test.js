@@ -7,7 +7,7 @@ function createDateStub() {
 		date: function () {
 			return DATE;
 		}
-	}
+	};
 }
 
 describe( 'Day', function () {
