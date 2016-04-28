@@ -22,7 +22,7 @@ function WorktimeCalculator( workdays, holidayCallback ) {
  *
  * @param {number} week Week number
  * @param {number} month Month number (0-11)
- * @return {moment[]} 
+ * @return {moment[]}
  */
 WorktimeCalculator.prototype.getDaysForWeek = function ( week, month ) {
 	var firstDayOfWeek, dayPointer, i,

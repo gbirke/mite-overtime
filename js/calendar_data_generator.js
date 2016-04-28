@@ -3,8 +3,8 @@
  * @requires day_types
  */
 
-/** 
- * @external moment 
+/**
+ * @external moment
  * @see {@link http://momentjs.com/}
  */
 
