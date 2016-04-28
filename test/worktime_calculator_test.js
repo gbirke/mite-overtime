@@ -9,7 +9,7 @@ describe( 'WorktimeCalculator', function () {
 
 	describe( '#getDaysForWeek (English locale)', function () {
 
-		var calculator = new WorktimeCalculator( [ ] );
+		var calculator = new WorktimeCalculator( [ ], null, 2015 );
 
 		it( 'returns all days for normal week', function () {
 			// 4th-10th October 2015
@@ -45,7 +45,7 @@ describe( 'WorktimeCalculator', function () {
 
 	describe( '#getWorkdaysForWeek (English locale)', function () {
 
-		var calculator = new WorktimeCalculator( [ 1, 2, 3, 4, 5 ] );
+		var calculator = new WorktimeCalculator( [ 1, 2, 3, 4, 5 ], null, 2015 );
 
 		it( 'returns all days for normal week', function () {
 			// 4th-10th October 2015
@@ -79,7 +79,7 @@ describe( 'WorktimeCalculator', function () {
 
 	describe( '#getWorkdaysForWeek (German locale)', function () {
 
-		var calculator = new WorktimeCalculator( [ 1, 2, 3, 4, 5 ] );
+		var calculator = new WorktimeCalculator( [ 1, 2, 3, 4, 5 ], null, 2015 );
 
 		it( 'returns all days for normal week', function () {
 			// 5th-11th October 2015
@@ -112,7 +112,7 @@ describe( 'WorktimeCalculator', function () {
 	} );
 
 	describe( '#getWorktimes', function () {
-		var calculator = new WorktimeCalculator( [ 1, 2, 3, 4, 5 ] ),
+		var calculator = new WorktimeCalculator( [ 1, 2, 3, 4, 5 ], null, 2015 ),
 			hoursPerWeek = 40;
 
 		it( 'calculates minutes and hours for normal week', function () {
@@ -173,7 +173,7 @@ describe( 'WorktimeCalculator', function () {
 
 		var holiday = new Date( 2015, 11, 25 ),
 			holidayFunction = function ( d ) { return d - holiday === 0; },
-			calculator = new WorktimeCalculator( [ 1, 2, 3, 4, 5 ], holidayFunction ),
+			calculator = new WorktimeCalculator( [ 1, 2, 3, 4, 5 ], holidayFunction, 2015 ),
 			year = 2015,
 			month = 9;
 

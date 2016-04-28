@@ -6,12 +6,14 @@ var moment = require( 'moment' );
  * @class WorktimeCalculator
  * @param {Array} workdays Day numbers (0-6) that are counted as work days
  * @param {Function=} holidayCallback Callback function that checks if a given date is a holiday
+ * @param {string=} year
  */
-function WorktimeCalculator( workdays, holidayCallback ) {
+function WorktimeCalculator( workdays, holidayCallback, year ) {
 	var i;
 	this.workdays = workdays;
 	this.workdaysIndex = [];
 	this.holidayCallback = holidayCallback || function () { return false; };
+	this.year = year || moment().year();
 	for ( i = 0; i < 7; i++ ) {
 		this.workdaysIndex[ i ] = workdays.indexOf( i ) > -1;
 	}
@@ -27,7 +29,7 @@ function WorktimeCalculator( workdays, holidayCallback ) {
 WorktimeCalculator.prototype.getDaysForWeek = function ( week, month ) {
 	var firstDayOfWeek, dayPointer, i,
 		days = [];
-	firstDayOfWeek = moment( week, 'w' );
+	firstDayOfWeek = moment( [ week, this.year ].join( '-' ), 'w-YYYY' );
 	dayPointer = firstDayOfWeek;
 	for ( i = 0; i < 7; i++ ) {
 		if ( dayPointer.month() == month ) {
