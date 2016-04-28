@@ -1,6 +1,6 @@
 var expect = require( 'chai' ).expect,
 	moment = require( 'moment' ),
-	DayTypes = require( '../js/day_types' ),
+	DayTypes = require( '../js/domain/day_types' ),
 	WorktimeCalculator = require( '../js/worktime_calculator' ),
 	CalendarDataGenerator = require( '../js/calendar_data_generator' );
 

@@ -9,7 +9,7 @@
  */
 
 var moment = require( 'moment' ),
-	DayTypes = require( './day_types' );
+	DayTypes = require( './domain/day_types' );
 
 /**
  * @typedef {Object} CalendarDataDay
