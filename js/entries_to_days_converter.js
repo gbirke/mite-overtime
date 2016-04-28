@@ -14,18 +14,17 @@ var objectAssign = require( 'object-assign' ),
 			var self = this;
 			return _.reduce( entries, function ( days, entry ) {
 				// TODO Add method to determine if entry should counted against working hours (e.g. compensatory time-off)
-				var date = self.getDateForEntry( entry ),
-					dayOfMonth = date.date();
+				var dateString = self.getDateStringForEntry( entry );
 
-				if ( !_.has( days, dayOfMonth ) ) {
-					days[ dayOfMonth ] = self.getDayFromEntry( entry );
+				if ( !_.has( days, dateString ) ) {
+					days[ dateString ] = self.getDayFromEntry( entry );
 				}
-				days[ dayOfMonth ].addWorkMinutes( self.getMinutesFromEntry( entry ) );
+				days[ dateString ].addWorkMinutes( self.getMinutesFromEntry( entry ) );
 				return days;
 			}, {} );
 		},
 		getDayFromEntry: function ( entry ) {
-			var date = this.getDateForEntry( entry );
+			var date = this.getLocalizedDate( this.getDateStringForEntry( entry ) );
 			if ( this.workdayCalculator.isWorkDay( date ) ) {
 				return Day.createWorkDay( date );
 			} else {
@@ -33,11 +32,14 @@ var objectAssign = require( 'object-assign' ),
 			}
 
 		},
-		// jscs:disable requireCamelCaseOrUpperCaseIdentifiers
-		getDateForEntry: function ( entry ) {
-			var date = moment( entry.time_entry.date_at );
+		getLocalizedDate: function ( dateString ) {
+			var date = moment( dateString );
 			date.locale( this.locale );
 			return date;
+		},
+		// jscs:disable requireCamelCaseOrUpperCaseIdentifiers
+		getDateStringForEntry: function ( entry ) {
+			return entry.time_entry.date_at;
 		},
 		getMinutesFromEntry: function ( entry ) {
 			if ( entry.time_entry.tracking ) {

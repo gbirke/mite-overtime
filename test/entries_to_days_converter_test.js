@@ -24,8 +24,8 @@ describe( 'EntriesToDaysConverter', function () {
 			],
 			converter = Converter.createEntriesToDaysConverter( workDayCalculatorStub ),
 			result = converter.getDaysFromEntries( testData );
-		expect( result ).to.have.keys( [ '11' ] );
-		expect( result[ '11' ].getMinutesWorked() ).to.equal( 105 );
+		expect( result ).to.have.keys( [ '2015-10-11' ] );
+		expect( result[ '2015-10-11' ].getMinutesWorked() ).to.equal( 105 );
 	} );
 
 	it( 'generates day objects for different days', function () {
@@ -35,9 +35,9 @@ describe( 'EntriesToDaysConverter', function () {
 			],
 			converter = Converter.createEntriesToDaysConverter( workDayCalculatorStub ),
 			result = converter.getDaysFromEntries( testData );
-		expect( result ).to.have.keys( [ '11', '12' ] );
-		expect( result[ '11' ].getMinutesWorked() ).to.equal( 45 );
-		expect( result[ '12' ].getMinutesWorked() ).to.equal( 60 );
+		expect( result ).to.have.keys( [ '2015-10-11', '2015-10-12' ] );
+		expect( result[ '2015-10-11' ].getMinutesWorked() ).to.equal( 45 );
+		expect( result[ '2015-10-12' ].getMinutesWorked() ).to.equal( 60 );
 	} );
 
 	it( 'adds minutes from running trackers', function () {
@@ -49,8 +49,8 @@ describe( 'EntriesToDaysConverter', function () {
 			],
 			converter = Converter.createEntriesToDaysConverter( workDayCalculatorStub ),
 			result = converter.getDaysFromEntries( testData );
-		expect( result ).to.have.keys( [ '11' ] );
-		expect( result[ '11' ].getMinutesWorked() ).to.equal( 140 );
+		expect( result ).to.have.keys( [ '2015-10-11' ] );
+		expect( result[ '2015-10-11' ].getMinutesWorked() ).to.equal( 140 );
 	} );
 
 } );
