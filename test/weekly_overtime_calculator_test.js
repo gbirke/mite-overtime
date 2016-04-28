@@ -41,21 +41,7 @@ describe( 'WeeklyOvertimeCalculator', function () {
 			expect( result.weeks[ 42 ].timeDelta ).to.equal( 80 );
 			expect( result.weeks[ 43 ].timeDelta ).to.equal( -55 );
 		} );
-
-		it( 'calculates daily overtime', function () {
-			expect( result.weeks[ 42 ].days[ 13 ].timeDelta ).to.equal( 20 );
-			expect( result.weeks[ 42 ].days[ 14 ].timeDelta ).to.equal( 60 );
-			expect( result.weeks[ 43 ].days[ 20 ].timeDelta ).to.equal( -55 );
-			expect( result.weeks[ 43 ].days[ 21 ].timeDelta ).to.equal( 0 );
-		} );
-
-		it( 'copies year and month info', function () {
-			var calculator = new WeeklyOvertimeCalculator( worktimeCalculator, settings ),
-				result = calculator.getOvertime( testData );
-			expect( result.year ).to.equal( 2015 );
-			expect( result.month ).to.equal( 9 );
-		} );
-
+		
 	} );
 
 	describe( '#getOvertime, incomplete week at beginning of month', function () {
@@ -78,17 +64,9 @@ describe( 'WeeklyOvertimeCalculator', function () {
 		overtimeCalculator = new WeeklyOvertimeCalculator( worktimeCalculator, settings ),
 		result = overtimeCalculator.getOvertime( testData );
 
-		it( 'calculates monthly overtime', function () {
-			expect( result.timeDelta ).to.equal( 80 );
-		} );
 
 		it( 'calculates weekly overtime', function () {
 			expect( result.weeks[ 40 ].timeDelta ).to.equal( 80 );
-		} );
-
-		it( 'calculates daily overtime', function () {
-			expect( result.weeks[ 40 ].days[ 1 ].timeDelta ).to.equal( 20 );
-			expect( result.weeks[ 40 ].days[ 2 ].timeDelta ).to.equal( 60 );
 		} );
 
 	} );
@@ -112,17 +90,11 @@ describe( 'WeeklyOvertimeCalculator', function () {
 		overtimeCalculator = new WeeklyOvertimeCalculator( worktimeCalculator, settings ),
 		result = overtimeCalculator.getOvertime( testData );
 
-		it( 'calculates monthly overtime', function () {
-			expect( result.timeDelta ).to.equal( 20 );
-		} );
-
 		it( 'calculates weekly overtime', function () {
 			expect( result.weeks[ 36 ].timeDelta ).to.equal( 20 );
 		} );
 
-		it( 'calculates daily overtime', function () {
-			expect( result.weeks[ 36 ].days[ 31 ].timeDelta ).to.equal( 20 );
-		} );
+
 
 	} );
 
@@ -171,7 +143,7 @@ describe( 'WeeklyOvertimeCalculator', function () {
 
 	} );
 
-	describe( '#getOvertime, working outside worktimes without deficit', function () {
+	describe( '#getOvertime, working on holidays without deficit', function () {
 
 		var testData = {
 			year: 2015,
@@ -195,10 +167,6 @@ describe( 'WeeklyOvertimeCalculator', function () {
 		overtimeCalculator = new WeeklyOvertimeCalculator( worktimeCalculator, settings ),
 		result = overtimeCalculator.getOvertime( testData );
 
-		it( 'calculates monthly overtime', function () {
-			expect( result.timeDelta ).to.equal( 90 );
-		} );
-
 		it( 'calculates weekly overtime', function () {
 			expect( result.weeks[ 42 ].timeDelta ).to.equal( 90 );
 		} );
@@ -208,7 +176,7 @@ describe( 'WeeklyOvertimeCalculator', function () {
 		} );
 	} );
 
-	describe( '#getOvertime, working outside worktimes to alleviate time deficit ', function () {
+	describe( '#getOvertime, working outside on holidays to alleviate time deficit ', function () {
 
 		var testData = {
 			year: 2015,
@@ -232,9 +200,6 @@ describe( 'WeeklyOvertimeCalculator', function () {
 		overtimeCalculator = new WeeklyOvertimeCalculator( worktimeCalculator, settings ),
 		result = overtimeCalculator.getOvertime( testData );
 
-		it( 'calculates monthly overtime', function () {
-			expect( result.timeDelta ).to.equal( 30 );
-		} );
 
 		it( 'calculates weekly overtime', function () {
 			expect( result.weeks[ 42 ].timeDelta ).to.equal( 30 );
