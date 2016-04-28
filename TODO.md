@@ -16,3 +16,4 @@
 - Add daily display to HTML renderer. Render days as a 3-column table (Day, hours, total) below each week
 - Track/mark special entries ( sick days, vacation) in the time data and display it
 - Graphical "hedgehog" display of overtime ( arcs with the same angle for days/weeks in a month and different radii, depending on overtime/undertime)
+- Ability to display time range instead of month
