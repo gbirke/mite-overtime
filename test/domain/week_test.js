@@ -53,7 +53,7 @@ describe( 'Week', function () {
 					getMinutesWorked: function () { return 5; }
 				},
 				week = Week.createWeek( createDateStub()),
-				verySpecifiyFilter = function ( days ) {
+				verySpecificFilter= function ( days ) {
 					return { '2015-09-30': firstDay };
 				}
 			;
@@ -61,8 +61,30 @@ describe( 'Week', function () {
 		week.addDay( firstDay );
 		week.addDay( secondDay );
 
-		expect( week.countDays( verySpecifiyFilter ) ).to.equal( 1 );
+		expect( week.countDays( verySpecificFilter ) ).to.equal( 1 );
 	} );
+
+	it( 'can add missing days', function () {
+		var firstDay = {
+				date: 1,
+				dateObject: moment( '2015-10-01' ),
+				getMinutesWorked: function () { return 5; }
+			},
+			week = Week.createWeek( moment( '2015-10-01' )),
+			filterStub = function ( day ) { return day; },
+			workWeek = { isWorkDay: function () { return true; } }
+				;
+
+		week.addDay( firstDay );
+		week.addMissingDays( workWeek );
+
+		expect( week.countDays( filterStub ) ).to.equal( 7 );
+		expect( week.getMinutesWorked()).to.equal( 5 );
+
+
+	} );
+
+
 
 	// TODO more sanity checks: Never add the same day twice, reject days not in the same month etc
 
