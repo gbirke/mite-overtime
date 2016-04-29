@@ -5,7 +5,7 @@ var objectAssign = require( 'object-assign' ),
 		days: {},
 		dateObject: null,
 		addDay: function ( day ) {
-			this.days[ day.date ] = day;
+			this.days[ day.dateObject.format( 'YYYY-MM-DD' ) ] = day;
 		},
 		getMinutesWorked: function ( dayFilter ) {
 			var days = this.days;
