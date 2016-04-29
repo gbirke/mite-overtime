@@ -4,6 +4,7 @@ var chai = require( 'chai' ),
     moment = require( 'moment'),
     WeeklyOvertimeDecorator = require( '../js/weekly_overtime_decorator' ),
     Day = require( '../js/domain/day' ),
+	Week = require( '../js/domain/week' ),
     expect = chai.expect;
 
 chai.use( sinonChai );
@@ -87,6 +88,29 @@ describe( 'WeeklyOvertimeDecorator', function () {
         decorator.addOvertimeToEntries( weeks );
 
         expect( firstWeek.getMinutesWorked ).to.have.been.calledWith( filter );
+	} );
 
-    } );
+	it( 'should stop counting days as missing after cutoff date', function () {
+		var firstDay = Day.createWorkDay( moment( '2015-10-01' ) ),
+			secondDay = Day.createWorkDay( moment( '2015-10-02' ) ),
+			thirdDay = Day.createWorkDay( moment( '2015-10-03' ) ),
+
+			firstWeek = Week.createWeek( moment( '2015-10-01' ) ),
+			weeks = {
+				40: firstWeek
+			},
+			workWeek = {
+				getHoursPerDay: sinon.stub().returns( 8 )
+			},
+			cutoffDate = moment( '2015-10-02' ),
+			decorator = WeeklyOvertimeDecorator.createWeeklyOvertimeDecorator( workWeek, null, cutoffDate );
+
+		firstWeek.addDay( firstDay );
+		firstWeek.addDay( secondDay );
+		firstWeek.addDay( thirdDay );
+		decorator.addOvertimeToEntries( weeks );
+
+		expect( firstWeek.requiredMinutes ).to.equal( 480 );
+	} );
+
 } );

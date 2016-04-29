@@ -80,11 +80,7 @@ describe( 'Week', function () {
 
 		expect( week.countDays( filterStub ) ).to.equal( 7 );
 		expect( week.getMinutesWorked()).to.equal( 5 );
-
-
 	} );
-
-
 
 	// TODO more sanity checks: Never add the same day twice, reject days not in the same month etc
 

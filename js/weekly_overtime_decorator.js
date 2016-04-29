@@ -12,18 +12,28 @@ var objectAssign = require( 'object-assign' ),
             } );
         },
         addRequiredMinutes: function ( week ) {
-            var workdayFilter = DayFilter.combine( this.filter, DayFilter.workDays() ),
+            var workdayFilter = this.getWorkdayFilter(),
                 workdaysInWeek = week.countDays( workdayFilter );
-            week.requiredMinutes = workdaysInWeek * this.workWeek.getHoursPerDay() * 60
-        }
+            week.requiredMinutes = workdaysInWeek * this.workWeek.getHoursPerDay() * 60;
+        },
+		getWorkdayFilter: function() {
+			// This function result could be cached for more performance
+			var filters = [ DayFilter.workDays() ];
+			if ( this.cutoffDate ) {
+				filters.push( DayFilter.before( this.cutoffDate ) );
+			}
+			filters.push( this.filter );
+			return DayFilter.combine.apply( DayFilter, filters );
+		}
     };
 
 
 module.exports = {
-    createWeeklyOvertimeDecorator: function ( workWeek, filter ) {
+    createWeeklyOvertimeDecorator: function ( workWeek, filter, cutoffDate ) {
         return objectAssign( Object.create( WeeklyOvertimeDecorator ), {
             workWeek: workWeek,
-            filter: filter || DayFilter.all()
+            filter: filter || DayFilter.all(),
+            cutoffDate: cutoffDate
         } );
     }
 };
