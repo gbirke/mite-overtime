@@ -9,7 +9,7 @@ var objectAssign = require( 'object-assign' ),
 	 */
 	EntriesToDaysConverter = {
 		locale: 'en',
-		workdayCalculator: null,
+		workWeek: null,
 		getDaysFromEntries: function ( entries ) {
 			var self = this;
 			return _.reduce( entries, function ( days, entry ) {
@@ -25,7 +25,7 @@ var objectAssign = require( 'object-assign' ),
 		},
 		getDayFromEntry: function ( entry ) {
 			var date = this.getLocalizedDate( this.getDateStringForEntry( entry ) );
-			if ( this.workdayCalculator.isWorkDay( date ) ) {
+			if ( this.workWeek.isWorkDay( date ) ) {
 				return Day.createWorkDay( date );
 			} else {
 				return Day.createHolyDay( date );
@@ -54,7 +54,7 @@ var objectAssign = require( 'object-assign' ),
 module.exports = {
 	createEntriesToDaysConverter: function ( workWeek, locale ) {
 		return objectAssign( Object.create( EntriesToDaysConverter ), {
-			workdayCalculator: workWeek,
+			workWeek: workWeek,
 			locale: locale
 		} );
 	}

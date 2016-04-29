@@ -11,7 +11,7 @@ var objectAssign = require( 'object-assign' ),
                 week.timeDelta = week.getMinutesWorked( self.filter ) - week.requiredMinutes;
             } );
         },
-        addRequiredMinutes: function (week ) {
+        addRequiredMinutes: function ( week ) {
             var workdayFilter = DayFilter.combine( this.filter, DayFilter.workDays() ),
                 workdaysInWeek = week.countDays( workdayFilter );
             week.requiredMinutes = workdaysInWeek * this.workWeek.getHoursPerDay() * 60
