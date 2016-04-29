@@ -65,67 +65,32 @@ describe( 'WeeklyOvertimeDecorator', function () {
 
     } );
 
-    it( 'should filter the days by month', function () {
+    it( 'should allow a filter', function () {
         var days = {
-                '2015-08-30': Day.createDay( moment( '2015-08-30' ) ),
-                '2015-09-01': Day.createDay( moment( '2015-09-01' ) ),
-                '2015-09-02': Day.createDay( moment( '2015-09-01' ) ),
+                '2015-09-01': Day.createDay( moment( '2015-10-01' ) ),
+                '2015-09-02': Day.createDay( moment( '2015-10-02' ) ),
+                '2015-09-03': Day.createDay( moment( '2015-10-03' ) ),
             },
             firstWeek = {
                 weekNumber: 20,
                 days: days,
-                getMinutesWorked: sinon.spy()
+                getMinutesWorked: sinon.stub().returns( 123 )
             },
             weeks = {
                 40: firstWeek
             },
-            month = 8,  // September
+            month = 9,  // October
             worktimeCalculatorStub = {
                 getWorktimesForWeek: sinon.stub().returns( {
                     minutesPerWeek: 2400
                 } )
             },
-            decorator = WeeklyOvertimeDecorator.createWeeklyOvertimeDecorator( worktimeCalculatorStub, hoursPerWeek ),
-            filteredDays;
-
-        decorator.addOvertimeToEntries( weeks, month );
-
-        filteredDays = firstWeek.getMinutesWorked.firstCall.args[ 0 ]( days );
-
-        expect( filteredDays ).to.have.all.keys( [ '2015-09-01', '2015-09-02' ] );
-        expect( filteredDays ).not.to.have.key( '2015-08-30' );
-
-    } );
-
-    it( 'should allow our own filter', function () {
-        var days = {
-                '2015-09-01': Day.createDay( moment( '2015-09-01' ) ),
-                '2015-09-02': Day.createDay( moment( '2015-09-02' ) ),
-                '2015-09-03': Day.createDay( moment( '2015-09-03' ) ),
-            },
-            firstWeek = {
-                weekNumber: 20,
-                days: days,
-                getMinutesWorked: sinon.spy()
-            },
-            weeks = {
-                40: firstWeek
-            },
-            month = 8,  // September
-            worktimeCalculatorStub = {
-                getWorktimesForWeek: sinon.stub().returns( {
-                    minutesPerWeek: 2400
-                } )
-            },
-            filter = sinon.spy(),
+            filter = sinon.stub(),
             decorator = WeeklyOvertimeDecorator.createWeeklyOvertimeDecorator( worktimeCalculatorStub, hoursPerWeek, filter );
 
         decorator.addOvertimeToEntries( weeks, month );
 
-        // Call filter argument
-        firstWeek.getMinutesWorked.firstCall.args[ 0 ]( days );
-
-        expect( filter ).to.have.been.calledWith( days );
+        expect( firstWeek.getMinutesWorked ).to.have.been.calledWith( filter );
 
     } );
 } );

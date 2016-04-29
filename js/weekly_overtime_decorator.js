@@ -6,12 +6,10 @@ var objectAssign = require( 'object-assign' ),
         hoursPerWeek: 0,
         filter: null,
         addOvertimeToEntries: function ( weeks, month ) {
-            var self = this,
-                monthFilter = DayFilter.byMonth( month),
-                filter = DayFilter.combine( monthFilter, this.filter );
+            var self = this;
             _.each( weeks, function ( week ) {
                 var worktimes = self.worktimeCalculator.getWorktimesForWeek( week.weekNumber, month, self.hoursPerWeek);
-                week.timeDelta = week.getMinutesWorked( filter ) - worktimes.minutesPerWeek;
+                week.timeDelta = week.getMinutesWorked( self.filter ) - worktimes.minutesPerWeek;
             } );
         }
     };
