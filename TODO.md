@@ -1,15 +1,16 @@
-# Next steps in the domain-objects branch:
+# Next steps in the domain-objects branch
 
-- Instead of passing around some fluffy JSON structure that has to be deciphered and documented, create domain objects for calculating the work times.
-- Refactor WeeklyWorkTimeCalculator to calculate only the weekly worktime (ignore daily for the moment)
-- Refactor HTML renderer to use new data structure
+**Goal**: Instead of passing around some fluffy JSON structure that has to be deciphered and documented, create domain objects for calculating the work times.
+
+- Create OvertimeFactory for getting an n objects that creates decorated month and week objects from Mite entries
+- Use OvertimeFactory as a parameter in entry store ( instead of OvertimeCalculator )
+- Add cutoff date to decorators to stop calculating time for dates after current day
 - Display week dates ( a bit smaller than the week numbers)
+- Remove unused classes and their tests: `DefaultObject`, `TotalsObjectAggregator`, `WeeklyOvertimeCalculator`, `TimeAggregator`
 - Continue working on weekly-display branch
 
 # Next steps in the weekly-display branch:
-
 - Add ability to exclude overtime compensation entries. Don't add overtime compensation to the total.
-- Don't calculate/show totals/missing time for dates after current day
 - Merge to master
 
 # Next steps in new branch
