@@ -52,9 +52,9 @@ var objectAssign = require( 'object-assign' ),
 	};
 
 module.exports = {
-	createEntriesToDaysConverter: function ( workdayCalculator, locale ) {
+	createEntriesToDaysConverter: function ( workWeek, locale ) {
 		return objectAssign( Object.create( EntriesToDaysConverter ), {
-			workdayCalculator: workdayCalculator,
+			workdayCalculator: workWeek,
 			locale: locale
 		} );
 	}

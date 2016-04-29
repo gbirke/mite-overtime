@@ -2,7 +2,7 @@
 
 var expect = require( 'chai' ).expect,
 	Converter = require( '../js/entries_to_days_converter' ),
-	workDayCalculatorStub = {
+	workWeekCalculatorStub = {
 		isWorkDay: function () {
 			return true;
 		}
@@ -12,7 +12,7 @@ describe( 'EntriesToDaysConverter', function () {
 
 	it( 'returns zero for empty data', function () {
 		var testData = [],
-			converter = Converter.createEntriesToDaysConverter( workDayCalculatorStub ),
+			converter = Converter.createEntriesToDaysConverter( workWeekCalculatorStub ),
 			result = converter.getDaysFromEntries( testData );
 		expect( result ).to.deep.equal( {} );
 	} );
@@ -22,7 +22,7 @@ describe( 'EntriesToDaysConverter', function () {
 				{ time_entry: { date_at: '2015-10-11', minutes: 45 } },
 				{ time_entry: { date_at: '2015-10-11', minutes: 60 } }
 			],
-			converter = Converter.createEntriesToDaysConverter( workDayCalculatorStub ),
+			converter = Converter.createEntriesToDaysConverter( workWeekCalculatorStub ),
 			result = converter.getDaysFromEntries( testData );
 		expect( result ).to.have.keys( [ '2015-10-11' ] );
 		expect( result[ '2015-10-11' ].getMinutesWorked() ).to.equal( 105 );
@@ -33,7 +33,7 @@ describe( 'EntriesToDaysConverter', function () {
 				{ time_entry: { date_at: '2015-10-11', minutes: 45 } },
 				{ time_entry: { date_at: '2015-10-12', minutes: 60 } }
 			],
-			converter = Converter.createEntriesToDaysConverter( workDayCalculatorStub ),
+			converter = Converter.createEntriesToDaysConverter( workWeekCalculatorStub ),
 			result = converter.getDaysFromEntries( testData );
 		expect( result ).to.have.keys( [ '2015-10-11', '2015-10-12' ] );
 		expect( result[ '2015-10-11' ].getMinutesWorked() ).to.equal( 45 );
@@ -47,7 +47,7 @@ describe( 'EntriesToDaysConverter', function () {
 				} } },
 				{ time_entry: { date_at: '2015-10-11', minutes: 60 } }
 			],
-			converter = Converter.createEntriesToDaysConverter( workDayCalculatorStub ),
+			converter = Converter.createEntriesToDaysConverter( workWeekCalculatorStub ),
 			result = converter.getDaysFromEntries( testData );
 		expect( result ).to.have.keys( [ '2015-10-11' ] );
 		expect( result[ '2015-10-11' ].getMinutesWorked() ).to.equal( 140 );
