@@ -32,7 +32,6 @@ var objectAssign = require( 'object-assign' ),
 						week.addMissingDays( workWeek );
 					} );
                     overTimeDecorator.addOvertimeToEntries( month.weeks )
-					console.log(month.weeks);
                 } );
 
             return months;

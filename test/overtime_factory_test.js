@@ -12,7 +12,10 @@ describe( 'OvertimeFactory', function () {
         ],
         workWeek = {
             getHoursPerDay: sinon.stub().returns( 8 ),
-            isWorkDay: function ( date ) { return date.day() != 0 &&  date.day() != 6; }
+            isWorkDay: function ( date ) {
+				// No Sundays and Saturdays
+                return date.day() != 0 &&  date.day() != 6;
+            }
         };
 
     describe( '#createMonthsFromEntries', function () {
@@ -35,14 +38,18 @@ describe( 'OvertimeFactory', function () {
             var factory = OvertimeFactory.createOvertimeFactory( workWeek, 'de'),
                 months = factory.getMonthsFromEntries( testData );
 
-			//expect( months[ '8' ].weeks[ '40' ].requiredMinutes ).to.equal( 3 * 8 * 60 );
-			expect( months[ '9' ].weeks[ '40' ].requiredMinutes ).to.equal( 2 * 8 * 60 );
-
-			// TODO in another test
-            //expect( months[ '8' ].weeks[ '40' ].timeDelta ).to.equal( -1690 );
-            //expect( months[ '9' ].weeks[ '40' ].timeDelta ).to.equal( 30 );
-
+			expect( months[ '8' ].weeks[ '40' ].requiredMinutes ).to.equal( 1440 );
+			expect( months[ '9' ].weeks[ '40' ].requiredMinutes ).to.equal( 960 );
         } );
+
+		it( 'should decorate weeks with time deltas, each month counted separately', function () {
+			var factory = OvertimeFactory.createOvertimeFactory( workWeek, 'de'),
+				months = factory.getMonthsFromEntries( testData );
+
+			expect( months[ '8' ].weeks[ '40' ].timeDelta ).to.equal( -1210 );
+			expect( months[ '9' ].weeks[ '40' ].timeDelta ).to.equal( 30 );
+
+		} );
 
     } );
 

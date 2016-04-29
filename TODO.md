@@ -4,10 +4,10 @@
 - Instead of passing around some fluffy JSON structure that has to be deciphered and documented, create domain objects for calculating the work times.
 - Accomodate the new overtime rules with different hierarchical calculation models:
   - Monthly view, only days in weeks belonging to the month are counted (as before)
-  - Date range view, all days in range are counted
+  - Date range view, all days in range are counted (will be implemented later)
 
-- Fix tests in OvertimeFactory. They return the wrong values for required minutes, why? Probably some filter (holiday, month) is not working?
 - Use DayFilter.before in OvertimeFactory to stop calculating time for dates after current day.
+- Add MonthlyOvertime to OvertimeFactory.
 - Use OvertimeFactory as a parameter in entry store ( instead of OvertimeCalculator )
 - Display missing timeDelta values in HTML renderer as 0, do not fail if their're missing
 - Display week dates ( a bit smaller than the week numbers)
@@ -19,11 +19,9 @@
 - Merge to master
 
 # Next steps in new branches
-- Maybe Refactor weekly and monthly overtimedecorators?
-    - Weekly should show the week, without filtering by month.
-    - Monthly should show the total by month, with which excludes time from neighboring months
 - Add daily overtime decorator
 - Add daily display to HTML renderer. Render days as a 3-column table (Day, hours, total) below each week
+- Add date range view (4 weeks),
 - Track/mark special entries ( sick days, vacation) in the time data and display it
 - Refactor CalendarGenerator to generate domain objects, refactor EntriesToDaysConverter to EntriesToDaysDecorator, simplify EntriesStore andÂ´HTML renderer to use the new singular data structure.
 - Graphical "hedgehog" display of overtime ( arcs with the same angle for days/weeks in a month and different radii, depending on overtime/undertime)
