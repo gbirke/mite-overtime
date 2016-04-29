@@ -34,10 +34,10 @@ var moment = require( 'moment' ),
  * Create a calendar obejct
  *
  * @class
- * @param {WorktimeCalculator} worktimeCalculator
+ * @param {WorkWeek} workWeek
  */
-function CalendarDataGenerator( worktimeCalculator ) {
-	this.worktimeCalculator = worktimeCalculator;
+function CalendarDataGenerator( workWeek ) {
+	this.workWeek = workWeek;
 }
 
 /**
@@ -61,7 +61,7 @@ CalendarDataGenerator.prototype.generateData = function ( year, month ) {
 			};
 		}
 		if ( !data.weeks[ week ].days[ date ] ) {
-			dayType = this.worktimeCalculator.isAWorkday( day ) ? DayTypes.WORKDAY : DayTypes.HOLIDAY;
+			dayType = this.workWeek.isWorkDay( day ) ? DayTypes.WORKDAY : DayTypes.HOLIDAY;
 			data.weeks[ week ].days[ date ] = {
 				date: day.clone(),
 				dayType: dayType

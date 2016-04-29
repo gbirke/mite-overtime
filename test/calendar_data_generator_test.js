@@ -1,15 +1,19 @@
 var expect = require( 'chai' ).expect,
 	moment = require( 'moment' ),
 	DayTypes = require( '../js/domain/day_types' ),
-	WorktimeCalculator = require( '../js/worktime_calculator' ),
 	CalendarDataGenerator = require( '../js/calendar_data_generator' );
 
 describe( 'CalendarDataGenerator', function () {
 
 	describe( '#generateData, English locale', function () {
 
-		var worktime = new WorktimeCalculator( [ 1, 2, 3, 4, 5 ] ),
-			generator = new CalendarDataGenerator( worktime ),
+		var workweekStub = {
+				isWorkDay: function ( date ) {
+					// No Sundays and Saturdays
+					return date.day() != 0 &&  date.day() != 6;
+				}
+			},
+			generator = new CalendarDataGenerator( workweekStub ),
 			year = 2015,
 			month = 9;
 
