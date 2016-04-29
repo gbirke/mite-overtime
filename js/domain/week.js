@@ -1,10 +1,5 @@
 var objectAssign = require( 'object-assign' ),
-	_ = require( 'lodash' ),
-	calculateMinutesWorkedFromDays = function ( days ) {
-		return _.reduce( days, function ( minutesWorked, day ) {
-			return minutesWorked + day.getMinutesWorked();
-		}, 0 );
-	},
+	_ = require( 'lodash'),
 	Week = {
 		weekNumber: 0,
 		days: {},
@@ -12,15 +7,15 @@ var objectAssign = require( 'object-assign' ),
 		addDay: function ( day ) {
 			this.days[ day.date ] = day;
 		},
-		getMinutesWorked: function () {
-			return calculateMinutesWorkedFromDays( this.days )
-		},
-		getMinutesWorkedInMonth: function ( month ) {
-			return calculateMinutesWorkedFromDays(
-					_.pickBy( this.days, function ( day ) {
-						return day.dateObject.month() == month;
-					} )
-			);
+		getMinutesWorked: function ( dayFilter ) {
+			var days = this.days;
+			if ( dayFilter ) {
+				days = dayFilter( days );
+			}
+			return _.reduce( days, function ( minutesWorked, day ) {
+				return minutesWorked + day.getMinutesWorked();
+			}, 0 );
+
 		}
 	};
 

@@ -4,7 +4,7 @@ var expect = require( 'chai' ).expect,
     buildMonthsFromWeeks = require( '../js/build_months_from_weeks' );
 
 
-function createDate( year, month, day, weekNumber ) {
+function createDate( year, month, day ) {
     var date = moment( [ year, month, day ] );
     date.locale( 'de' );
     return date;
