@@ -54,4 +54,13 @@ describe( 'buildMonthsFromWeeks', function () {
         expect( months[ '10' ].weeks ).to.have.all.keys( [ '44' ] );
     } );
 
+    it( 'should clone weeks when building multiple months from a week across month boundaries', function () {
+        var firstWeek = Week.createWeek( createDate( 2015, 9, 1, 40 ) ), // 28th Sep - 4th Oct
+            weeks = { 40: firstWeek },
+                months = buildMonthsFromWeeks( weeks );
+
+        expect( months ).to.have.all.keys( [ '8', '9' ] );
+        expect( months[ '8' ].weeks[ '40' ] ).not.to.equal( months[ '9' ].weeks[ '40' ] );
+    } );
+
 } );
