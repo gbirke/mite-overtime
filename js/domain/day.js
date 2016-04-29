@@ -11,6 +11,9 @@ var DayTypes = require( './day_types' ),
 		},
 		getMinutesWorked: function () {
 			return this.minutesWorked;
+		},
+		isWorkDay: function() {
+			return this.type === DayTypes.WORKDAY;
 		}
 	};
 

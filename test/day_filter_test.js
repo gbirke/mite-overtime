@@ -80,6 +80,33 @@ describe( 'DayFilter', function () {
 
     } );
 
+    describe( '#workDays', function () {
+
+        it( 'removes non-workdays', function () {
+            var filter = DayFilter.workDays(),
+                workday = function() { return true; },
+                holiday = function() { return false; },
+                firstDay = {
+                    isAWorkDay: workday
+                },
+                secondDay = {
+                    isAWorkDay: workday
+                },
+                thirdDay = {
+                    isAWorkDay: holiday
+                },
+                days = {
+                    '2015-08-30': firstDay,
+                    '2015-09-01': secondDay,
+                    '2015-09-02': thirdDay
+                },
+                result = filter( days );
+            expect( result ).to.have.all.keys( [ '2015-08-30', '2015-09-01' ] );
+            expect( result ).not.to.have.key( [ '2015-09-02' ] );
+        } );
+
+    } );
+
     describe( '#combine', function () {
 
         it( 'leaves days that pass all filters', function () {

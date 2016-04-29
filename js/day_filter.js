@@ -23,6 +23,14 @@ module.exports = {
         }
     },
 
+    workDays: function () {
+        return function ( days ) {
+            return _.pickBy( days, function ( day ) {
+                return day.isWorkDay();
+            } );
+        }
+    },
+
     combine: function () {
         var args = arguments;
         return function ( days ) {
