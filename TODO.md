@@ -6,12 +6,12 @@
   - Monthly view, only days in weeks belonging to the month are counted (as before)
   - Date range view, all days in range are counted
 
-- Create OvertimeFactory for getting an object that creates decorated month and week objects from Mite entries
+- Fix tests in OvertimeFactory. They return the wrong values for required minutes, why? Probably some filter (holiday, month) is not working?
 - Use DayFilter.before in OvertimeFactory to stop calculating time for dates after current day.
 - Use OvertimeFactory as a parameter in entry store ( instead of OvertimeCalculator )
 - Display missing timeDelta values in HTML renderer as 0, do not fail if their're missing
 - Display week dates ( a bit smaller than the week numbers)
-- Remove unused classes and their tests: `DefaultObject`, `TotalsObjectAggregator`, `WeeklyOvertimeCalculator`, `TimeAggregator`
+- Remove unused classes and their tests: `DefaultObject`, `TotalsObjectAggregator`, `WeeklyOvertimeCalculator`, `TimeAggregator`, `WorkTimeCalculator`
 - Continue working on weekly-display branch
 
 # Next steps in the weekly-display branch:
