@@ -1,4 +1,5 @@
 var expect = require( 'chai' ).expect,
+	moment = require( 'moment'),
 	Week = require( '../../js/domain/week' ),
 	WEEK_NUMBER = 12;
 
@@ -6,14 +7,6 @@ function createDateStub() {
 	return {
 		week: function () {
 			return WEEK_NUMBER;
-		}
-	};
-}
-
-function createMonthDateStub( monthNumber ) {
-	return {
-		month: function () {
-			return monthNumber;
 		}
 	};
 }
@@ -33,10 +26,12 @@ describe( 'Week', function () {
 	it( 'calculates worktime of added days', function () {
 		var firstDay = {
 				date: 1,
+				dateObject: moment( '2015-10-01' ),
 				getMinutesWorked: function () { return 5; }
 			},
 			secondDay = {
 				date: 2,
+				dateObject: moment( '2015-10-02' ),
 				getMinutesWorked: function () { return 5; }
 			},
 			week = Week.createWeek( createDateStub() );
@@ -46,22 +41,27 @@ describe( 'Week', function () {
 		expect( week.getMinutesWorked() ).to.equal( 10 );
 	} );
 
-	it( 'calculates worktime of added days in a specific month', function () {
+	it( 'can count days with filtering', function () {
 		var firstDay = {
 					date: 30,
-					dateObject: createMonthDateStub( 8 ),
+					dateObject: moment( '2015-09-30' ),
 					getMinutesWorked: function () { return 5; }
 				},
 				secondDay = {
 					date: 1,
-					dateObject: createMonthDateStub( 9 ),
+					dateObject: moment( '2015-10-01' ),
 					getMinutesWorked: function () { return 5; }
 				},
-				week = Week.createWeek( createDateStub() );
+				week = Week.createWeek( createDateStub()),
+				verySpecifiyFilter = function ( days ) {
+					return { '2015-09-30': firstDay };
+				}
+			;
 
 		week.addDay( firstDay );
 		week.addDay( secondDay );
-		expect( week.getMinutesWorkedInMonth( 9 ) ).to.equal( 5 );
+
+		expect( week.countDays( verySpecifiyFilter ) ).to.equal( 1 );
 	} );
 
 	// TODO more sanity checks: Never add the same day twice, reject days not in the same month etc

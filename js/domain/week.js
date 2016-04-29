@@ -16,6 +16,9 @@ var objectAssign = require( 'object-assign' ),
 				return minutesWorked + day.getMinutesWorked();
 			}, 0 );
 
+		},
+		countDays: function ( dayFilter ) {
+			return _.keys( dayFilter( this.days ) ).length;
 		}
 	};
 
