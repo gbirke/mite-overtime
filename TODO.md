@@ -6,7 +6,6 @@
   - Monthly view, only days in weeks belonging to the month are counted (as before)
   - Date range view, all days in range are counted (will be implemented later)
 
-- Add MonthlyOvertime to OvertimeFactory.
 - Use OvertimeFactory as a parameter in entry store ( instead of OvertimeCalculator )
 - Display missing timeDelta values in HTML renderer as 0, do not fail if their're missing
 - Display week dates ( a bit smaller than the week numbers)

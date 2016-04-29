@@ -48,7 +48,16 @@ describe( 'OvertimeFactory', function () {
 
 			expect( months[ '8' ].weeks[ '40' ].timeDelta ).to.equal( -1210 );
 			expect( months[ '9' ].weeks[ '40' ].timeDelta ).to.equal( 30 );
+		} );
 
+		it( 'should decorate the month with required minutes and time deltas', function () {
+			var factory = OvertimeFactory.createOvertimeFactory( workWeek, 'de'),
+				months = factory.getMonthsFromEntries( testData );
+
+			expect( months[ '8' ].requiredMinutes ).to.equal( 1440 );
+			expect( months[ '9' ].requiredMinutes ).to.equal( 960 );
+			expect( months[ '8' ].timeDelta ).to.equal( -1210 );
+			expect( months[ '9' ].timeDelta ).to.equal( 30 );
 		} );
 
     } );
