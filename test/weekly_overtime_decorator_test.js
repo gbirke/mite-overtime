@@ -9,7 +9,7 @@ chai.use( sinonChai );
 function createWeek( weekNumber, minutesWorked ) {
     return {
         weekNumber: weekNumber,
-        getMinutesWorked: sinon.stub().returns( minutesWorked )
+        getMinutesWorkedInMonth: sinon.stub().returns( minutesWorked )
     };
 }
 

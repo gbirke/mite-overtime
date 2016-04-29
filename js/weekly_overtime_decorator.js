@@ -7,7 +7,7 @@ var objectAssign = require( 'object-assign' ),
             var self = this;
             _.each( weeks, function ( week ) {
                 var worktimes = self.worktimeCalculator.getWorktimesForWeek( week.weekNumber, month, self.hoursPerWeek);
-                week.timeDelta = week.getMinutesWorked() - worktimes.minutesPerWeek;
+                week.timeDelta = week.getMinutesWorkedInMonth( month ) - worktimes.minutesPerWeek;
             } );
         }
     };
