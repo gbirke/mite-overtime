@@ -87,13 +87,13 @@ describe( 'DayFilter', function () {
                 workday = function() { return true; },
                 holiday = function() { return false; },
                 firstDay = {
-                    isAWorkDay: workday
+                    isWorkDay: workday
                 },
                 secondDay = {
-                    isAWorkDay: workday
+                    isWorkDay: workday
                 },
                 thirdDay = {
-                    isAWorkDay: holiday
+                    isWorkDay: holiday
                 },
                 days = {
                     '2015-08-30': firstDay,

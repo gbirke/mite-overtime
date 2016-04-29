@@ -8,34 +8,30 @@ var chai = require( 'chai' ),
 
 chai.use( sinonChai );
 
-function createWeekStub(weekNumber, minutesWorked ) {
+function createWeekStub( weekNumber, minutesWorked, daysWorked ) {
     return {
         weekNumber: weekNumber,
-        getMinutesWorked: sinon.stub().returns( minutesWorked )
+        getMinutesWorked: sinon.stub().returns( minutesWorked ),
+        countDays: sinon.stub().returns( daysWorked )
     };
 }
 
 
 describe( 'WeeklyOvertimeDecorator', function () {
 
-    var hoursPerWeek = 40;
-
-    it( 'should add the timedelta property to weeks', function () {
-        var firstWeek = createWeekStub( 40, 2400 ),
-            secondWeek = createWeekStub( 41, 2468 ),
+    it( 'should add the timedelta properties to weeks', function () {
+        var firstWeek = createWeekStub( 40, 2400, 5 ),
+            secondWeek = createWeekStub( 41, 2468, 5 ),
             weeks = {
                 40: firstWeek,
                 41: secondWeek
             },
-            month = 9,
-            worktimeCalculatorStub = {
-                getWorktimesForWeek: sinon.stub().returns( {
-                    minutesPerWeek: 2400
-                } )
+            workWeek = {
+                getHoursPerDay: sinon.stub().returns( 8 )
             },
-            decorator = WeeklyOvertimeDecorator.createWeeklyOvertimeDecorator( worktimeCalculatorStub, hoursPerWeek );
+            decorator = WeeklyOvertimeDecorator.createWeeklyOvertimeDecorator( workWeek );
 
-        decorator.addOvertimeToEntries( weeks, month );
+        decorator.addOvertimeToEntries( weeks );
 
         expect( firstWeek ).to.have.property( 'timeDelta' );
         expect( firstWeek.timeDelta ).to.equal( 0 );
@@ -45,50 +41,50 @@ describe( 'WeeklyOvertimeDecorator', function () {
 
     } );
 
-    it( 'should call the worktime calculator with week number, month and hours per week', function () {
-        var firstWeek = createWeekStub( 20, 2400 ),
-            weeks = {
-                20: firstWeek,
-            },
-            month = 9,
-            getWorktimesForWeek = sinon.stub().returns( {
-                minutesPerWeek: 2400
-            } ),
-            worktimeCalculatorSpy = {
-                getWorktimesForWeek: getWorktimesForWeek
-            },
-            decorator = WeeklyOvertimeDecorator.createWeeklyOvertimeDecorator( worktimeCalculatorSpy, hoursPerWeek );
+	it( 'should add the requiredMinutes properties to weeks', function () {
+		var firstWeek = createWeekStub( 40, 2400, 5 ),
+			secondWeek = createWeekStub( 41, 2468, 5 ),
+			weeks = {
+				40: firstWeek,
+				41: secondWeek
+			},
+			workWeek = {
+				getHoursPerDay: sinon.stub().returns( 8 )
+			},
+			decorator = WeeklyOvertimeDecorator.createWeeklyOvertimeDecorator( workWeek );
 
-        decorator.addOvertimeToEntries( weeks, month );
+		decorator.addOvertimeToEntries( weeks );
 
-        expect( getWorktimesForWeek ).to.have.been.calledWith( 20, month, hoursPerWeek );
+		expect( firstWeek ).to.have.property( 'requiredMinutes' );
+		expect( firstWeek.requiredMinutes ).to.equal( 2400 );
 
-    } );
+		expect( secondWeek ).to.have.property( 'requiredMinutes' );
+		expect( secondWeek.requiredMinutes ).to.equal( 2400 );
 
-    it( 'should allow a filter', function () {
+	} );
+
+	it( 'should allow a filter', function () {
         var days = {
                 '2015-09-01': Day.createDay( moment( '2015-10-01' ) ),
                 '2015-09-02': Day.createDay( moment( '2015-10-02' ) ),
-                '2015-09-03': Day.createDay( moment( '2015-10-03' ) ),
+                '2015-09-03': Day.createDay( moment( '2015-10-03' ) )
             },
             firstWeek = {
                 weekNumber: 20,
                 days: days,
-                getMinutesWorked: sinon.stub().returns( 123 )
+                getMinutesWorked: sinon.stub().returns( 123 ),
+				countDays: sinon.stub().returns( 3 )
             },
             weeks = {
                 40: firstWeek
             },
-            month = 9,  // October
-            worktimeCalculatorStub = {
-                getWorktimesForWeek: sinon.stub().returns( {
-                    minutesPerWeek: 2400
-                } )
-            },
+			workWeek = {
+				getHoursPerDay: sinon.stub().returns( 8 )
+			},
             filter = sinon.stub(),
-            decorator = WeeklyOvertimeDecorator.createWeeklyOvertimeDecorator( worktimeCalculatorStub, hoursPerWeek, filter );
+            decorator = WeeklyOvertimeDecorator.createWeeklyOvertimeDecorator( workWeek, filter );
 
-        decorator.addOvertimeToEntries( weeks, month );
+        decorator.addOvertimeToEntries( weeks );
 
         expect( firstWeek.getMinutesWorked ).to.have.been.calledWith( filter );
 
