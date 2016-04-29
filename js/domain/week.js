@@ -31,7 +31,7 @@ var objectAssign = require( 'object-assign' ),
 				date.weekday( i );
 				dayKey = getDayKey( date );
 				if( !_.has( this.days, dayKey ) ) {
-					this.days[ dayKey ] = workWeek.isWorkDay( date ) ? Day.createWorkDay( date ) : Day.createHolyDay( date );
+					this.days[ dayKey ] = workWeek.isWorkDay( date ) ? Day.createWorkDay( date.clone() ) : Day.createHolyDay( date.clone() );
 				}
 			}
 		}
