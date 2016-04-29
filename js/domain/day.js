@@ -26,7 +26,7 @@ function createDay( dateObject, dayType ) {
 	return objectAssign( Object.create( Day ), {
 		date: dateObject.date(),
 		dateObject: dateObject,
-		dayType: dayType
+		type: dayType
 	} );
 }
 

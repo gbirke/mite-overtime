@@ -10,7 +10,7 @@ function createDateStub() {
 	};
 }
 
-describe( 'Day', function () {
+describe( 'WorkDay', function () {
 
 	it( 'has a default of zero work minutes', function () {
 		var day = Day.createWorkDay( createDateStub() );
@@ -30,4 +30,15 @@ describe( 'Day', function () {
 		expect( day.date ).to.equal( DATE );
 	} );
 
+	it( 'should identify as workday', function () {
+		var day = Day.createWorkDay( createDateStub() );
+		expect( day.isWorkDay() ).to.equal( true );
+	} );
+} );
+
+describe( 'Holiday', function () {
+	it( 'should identify as holiday', function () {
+		var day = Day.createHolyDay( createDateStub() );
+		expect( day.isWorkDay() ).to.equal( false );
+	} )
 } );
