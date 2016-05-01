@@ -6,7 +6,6 @@
   - Monthly view, only days in weeks belonging to the month are counted (as before)
   - Date range view, all days in range are counted (will be implemented later)
 
-- Use OvertimeFactory as a parameter in entry store ( instead of OvertimeCalculator )
 - Display missing timeDelta values in HTML renderer as 0, do not fail if their're missing
 - Display week dates ( a bit smaller than the week numbers)
 - Remove unused classes and their tests: `DefaultObject`, `TotalsObjectAggregator`, `WeeklyOvertimeCalculator`, `TimeAggregator`, `WorkTimeCalculator`
@@ -14,6 +13,7 @@
 
 # Next steps in the weekly-display branch:
 - Add ability to exclude overtime compensation entries. Don't add overtime compensation to the total.
+- Update README
 - Merge to master
 
 # Next steps in new branches

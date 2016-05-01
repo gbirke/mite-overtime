@@ -1,10 +1,9 @@
 var serverActions = require( '../actions/server' ),
 	commands = require( '../actions/commands' ),
-	Reflux = require( 'reflux-core' ),
-	TimeAggregator = require( '../time_aggregator' );
+	Reflux = require( 'reflux-core' );
 
 module.exports = {
-	create: function ( serverConnector, overtimeCalculator, calendarDataGenerator, dateStore ) {
+	create: function ( serverConnector, overtimeFactory, calendarDataGenerator, dateStore ) {
 		return Reflux.createStore( {
 			init: function () {
 				this.listenToMany( serverActions );
@@ -22,8 +21,8 @@ module.exports = {
 				serverConnector.getData( year, month, serverActions.load.completed, serverActions.load.failed );
 			},
 			onLoadCompleted: function ( result ) {
-				var agggregator = new TimeAggregator( result );
-				this.entries = overtimeCalculator.getOvertime( agggregator.getAggregatedData() );
+				var months = overtimeFactory.getMonthsFromEntries( result );
+				this.entries = months[ dateStore.getMonth() ];
 				this.trigger( { calendarData: this.calendarData, overtimeData: this.entries } );
 			}, // onLoadFailed is handled in ErrorStore
 			calendarData: {},

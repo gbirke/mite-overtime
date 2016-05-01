@@ -1,11 +1,11 @@
-var jQuery = require( 'jQuery' ),
+var jQuery = require( 'jquery' ),
 	SettingsActions = require( './actions/settings' ),
 	Commands = require( './actions/commands' ),
 	settingsStore = require( './stores/settings' ),
 	ServerConnector = require( './server_connector' ),
 	CalendarDataGenerator = require( './calendar_data_generator' ),
-	WorkTimeCalculator = require( './worktime_calculator' ),
-	OvertimeCalculator = require( './weekly_overtime_calculator' ),
+	WorkWeek = require( './domain/workweek' ),
+	OvertimeFactory = require( './overtime_factory' ),
 	HtmlRenderer = require( './html_renderer' ),
 	DateStore = require( './stores/date' ),
 	EntriesStore = require( './stores/entries' ),
@@ -18,13 +18,11 @@ var jQuery = require( 'jQuery' ),
 
 $( function () {
 	var serverConnector = ServerConnector.create( settingsStore, new XMLHttpRequest() ),
-		worktimeCalculator = new WorkTimeCalculator( [ 1, 2, 3, 4, 5 ] ),
-		calendarDataGenerator = new CalendarDataGenerator( worktimeCalculator ),
-		overtimeCalculator = new OvertimeCalculator( worktimeCalculator, settingsStore ),
-		entriesStore = EntriesStore.create( serverConnector, overtimeCalculator, calendarDataGenerator, DateStore );
+		workWeek = WorkWeek.createWorkWeek( [ 1, 2, 3, 4, 5 ], 40 ), // TODO make hours per week dynamic from settingsStore
+		calendarDataGenerator = new CalendarDataGenerator( workWeek ),
+		overtimeFactory = OvertimeFactory.createOvertimeFactory( workWeek, 'de' ), // TODO make locale configurable
+		entriesStore = EntriesStore.create( serverConnector, overtimeFactory, calendarDataGenerator, DateStore );
 
-	// TODO: Check environment vars and set API url accordingly
-	// Real API URL: https://corsapi.mite.yo.lk/time_entries.json
 	SettingsActions.changeApiUrl( config.apiURL );
 	errorStore.init();
 	DateStore.init( config.startDate );
