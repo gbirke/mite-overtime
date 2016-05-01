@@ -13,7 +13,8 @@
   "private": true,
   "main": "server.js",
   "browser": {
-    "server.js": "./js/main.js"
+    "server.js": "./js/main.js",
+    "bootstrap": "node_modules/bootstrap/dist/js/bootstrap.js"
   },
   "scripts": {
     "start": "node server.js",
@@ -49,5 +50,12 @@
     "morgan": "^1.5.2",
     "object-assign": "^4.0.1",
     "reflux-core": "^0.3.0"
+  },
+  "browserify": {
+    "browserify-shim": {
+        "bootstrap": {
+            "depends": [ "jquery:jQuery" ]
+        }
+    }
   }
 }

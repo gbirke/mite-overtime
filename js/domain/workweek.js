@@ -4,7 +4,7 @@ var objectAssign = require( 'object-assign' ),
 		workingDays: [],
 		holidayFunction: null,
 		hoursPerWeek: 0,
-		isAWorkDay: function ( date ) {
+		isWorkDay: function ( date ) {
 			return this.workingDays.indexOf( date.day() ) > -1 && !this.holidayFunction( date );
 		},
 		getDaysPerWeek: function () {

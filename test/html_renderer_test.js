@@ -1,7 +1,7 @@
 var expect = require( 'chai' ).expect,
 	benv = require( 'benv' ),
 	CalendarDataGenerator = require( '../js/calendar_data_generator' ),
-	WorktimeCalculator = require( '../js/worktime_calculator' );
+	createWorkWeek = require( '../js/domain/workweek' ).createWorkWeek;
 
 describe( 'HtmlRenderer', function () {
 
@@ -12,7 +12,7 @@ describe( 'HtmlRenderer', function () {
 			43: { timeDelta: -20 }
 		}
 	},
-	dateGenerator = new CalendarDataGenerator( new WorktimeCalculator( [ 1, 2, 3, 4, 5 ], null, 2015 ) ),
+	dateGenerator = new CalendarDataGenerator( createWorkWeek( [ 1, 2, 3, 4, 5 ], 40 ) ),
 	testCalendarData = dateGenerator.generateData( 2015, 9 );
 
 	before( function ( done ) {

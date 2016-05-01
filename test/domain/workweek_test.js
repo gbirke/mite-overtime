@@ -17,18 +17,18 @@ describe( 'WorkWeek', function () {
 
 	it( 'can determine workdays', function () {
 		var workWeek = WorkWeek.createWorkWeek( workdays, hoursPerWeek );
-		expect( workWeek.isAWorkDay( createDateStub( 1 ) ) ).to.equal( true );
-		expect( workWeek.isAWorkDay( createDateStub( 0 ) ) ).to.equal( false );
+		expect( workWeek.isWorkDay( createDateStub( 1 ) ) ).to.equal( true );
+		expect( workWeek.isWorkDay( createDateStub( 0 ) ) ).to.equal( false );
 	} );
 
 	it( 'can determine holidays with a holiday function', function () {
 		var everyDayIsAHoliday = function () { return true; },
 			workWeek = WorkWeek.createWorkWeek( workdays, hoursPerWeek, everyDayIsAHoliday );
-		expect( workWeek.isAWorkDay( createDateStub( 1 ) ) ).to.equal( false );
-		expect( workWeek.isAWorkDay( createDateStub( 2 ) ) ).to.equal( false );
-		expect( workWeek.isAWorkDay( createDateStub( 3 ) ) ).to.equal( false );
-		expect( workWeek.isAWorkDay( createDateStub( 4 ) ) ).to.equal( false );
-		expect( workWeek.isAWorkDay( createDateStub( 5 ) ) ).to.equal( false );
+		expect( workWeek.isWorkDay( createDateStub( 1 ) ) ).to.equal( false );
+		expect( workWeek.isWorkDay( createDateStub( 2 ) ) ).to.equal( false );
+		expect( workWeek.isWorkDay( createDateStub( 3 ) ) ).to.equal( false );
+		expect( workWeek.isWorkDay( createDateStub( 4 ) ) ).to.equal( false );
+		expect( workWeek.isWorkDay( createDateStub( 5 ) ) ).to.equal( false );
 	} );
 
 	it( 'can calculate hours per day', function () {
