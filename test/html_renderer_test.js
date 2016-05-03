@@ -12,7 +12,7 @@ describe( 'HtmlRenderer', function () {
 			43: { timeDelta: -20 }
 		}
 	},
-	dateGenerator = new CalendarDataGenerator( createWorkWeek( [ 1, 2, 3, 4, 5 ], 40 ) ),
+	dateGenerator = new CalendarDataGenerator( createWorkWeek( [ 1, 2, 3, 4, 5 ], 40 ), 'en' ),
 	testCalendarData = dateGenerator.generateData( 2015, 9 );
 
 	before( function ( done ) {
@@ -64,10 +64,21 @@ describe( 'HtmlRenderer', function () {
 		expect( displayContainer.select( '.week:nth-child(5) h2' ).text() ).to.equal( 'Week 44' );
 	} );
 
-	// TODO: Test it renders 0 timedelta as "0:00 overtime", not "0:00 missing"
+	it( 'renders the dates for each week', function () {
+		var weeks;
+		renderer.render( testCalendarData, testOvertimeData );
+		weeks = displayContainer.selectAll( '.week h3' );
+		expect( weeks.size() ).to.equal( 5 );
+		expect( displayContainer.select( '.week:nth-child(1) h3' ).text() ).to.equal( '27.09. - 03.10.' );
+		expect( displayContainer.select( '.week:nth-child(2) h3' ).text() ).to.equal( '04. - 10.10.' );
+		expect( displayContainer.select( '.week:nth-child(3) h3' ).text() ).to.equal( '11. - 17.10.' );
+		expect( displayContainer.select( '.week:nth-child(4) h3' ).text() ).to.equal( '18. - 24.10.' );
+		expect( displayContainer.select( '.week:nth-child(5) h3' ).text() ).to.equal( '25. - 31.10.' );
+	} );
+
+	// TODO: Test it renders 0 timedelta as empty string, not "0:00 missing"
 	// TODO: test it renders week 1 of following year as last column, with year
 	// TODO: test it renders week 52 of previous year as first column, with year
-	// TODO: It render dates (from-to) below week numbers
 
 	after( function () {
 		benv.teardown();

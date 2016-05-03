@@ -16,10 +16,13 @@ var jQuery = require( 'jquery' ),
 	config = require( './config' );
 
 jQuery( function () {
-	var serverConnector = ServerConnector.create( settingsStore, new XMLHttpRequest() ),
+	var locale = 'de', // TODO make locale configurable
+		// load locale object to make browserify include locale data
+		loadedLocale = require( 'moment/locale/de' ), // see https://github.com/moment/moment/issues/2007
+		serverConnector = ServerConnector.create( settingsStore, new XMLHttpRequest() ),
 		workWeek = WorkWeek.createWorkWeek( [ 1, 2, 3, 4, 5 ], 40 ), // TODO make hours per week dynamic from settingsStore
-		calendarDataGenerator = new CalendarDataGenerator( workWeek ),
-		overtimeFactory = OvertimeFactory.createOvertimeFactory( workWeek, 'de' ), // TODO make locale configurable
+		calendarDataGenerator = new CalendarDataGenerator( workWeek, locale ),
+		overtimeFactory = OvertimeFactory.createOvertimeFactory( workWeek, locale ),
 		entriesStore = EntriesStore.create( serverConnector, overtimeFactory, calendarDataGenerator, DateStore );
 
 	SettingsActions.changeApiUrl( config.apiURL );

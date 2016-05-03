@@ -46,7 +46,9 @@ HtmlRenderer.prototype._renderTotal = function ( displayContainer ) {
 		totalElement;
 
 	displayContainer.append( 'h1' ).text( function ( d ) {
-		var headingTime = moment( [ d.year, d.month ] );
+		var headingTime;
+		moment.locale( 'en' ); // use english locale to display english month names
+		headingTime = moment( [ d.year, d.month ] );
 
 		return 'Total for ' + headingTime.format( 'MMMM YYYY' );
 	} );
@@ -74,7 +76,23 @@ HtmlRenderer.prototype._renderWeeks = function ( displayContainer ) {
 	weeks.append( 'h2' )
 		.text( function ( d ) {
 			return 'Week ' + d.week;
-		} );
+		} )
+		.classed( 'weekNumber', true );
+
+	weeks.append( 'h3' )
+			.text( function ( d ) {
+				var datePieces = [];
+				if ( d.start.month() === d.end.month() ) {
+					datePieces.push(  d.start.format( 'DD.' ) );
+					datePieces.push(  d.end.format( 'DD.MM.' ) );
+				}
+				else {
+					datePieces.push(  d.start.format( 'DD.MM.' ) );
+					datePieces.push(  d.end.format( 'DD.MM.' ) );
+				}
+				return datePieces.join( ' - '  );
+			} )
+			.classed( 'weekDates', true );
 
 	weeks.append( 'div' )
 		.classed( 'total', true )

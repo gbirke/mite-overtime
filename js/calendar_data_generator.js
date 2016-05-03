@@ -21,6 +21,7 @@ var moment = require( 'moment' ),
  * @typedef {Object} CalendarDataWeek
  * @property {number} week - week number between 0 and 52
  * @property {Object.<number, CalendarDataDay>} days
+ * @property {moment} start
  */
 
 /**
@@ -31,13 +32,15 @@ var moment = require( 'moment' ),
  */
 
 /**
- * Create a calendar obejct
+ * Create a calendar object
  *
  * @class
  * @param {WorkWeek} workWeek
+ * @param {string} locale
  */
-function CalendarDataGenerator( workWeek ) {
+function CalendarDataGenerator( workWeek, locale ) {
 	this.workWeek = workWeek;
+	this.locale = locale;
 }
 
 /**
@@ -49,15 +52,19 @@ CalendarDataGenerator.prototype.generateData = function ( year, month ) {
 		month: month,
 		weeks: {}
 	},
-	day = moment( [ year, month, 1 ] ),
-	week, date, dayType;
+	day, week, date, dayType;
+	moment.locale( this.locale );
+	day = moment( [ year, month, 1 ] );
 	while ( day.month() == month ) {
 		week = day.week();
 		date = day.date();
 		if ( !data.weeks[ week ] ) {
 			data.weeks[ week ] = {
 				week: week,
-				days: {}
+				days: {},
+				// TODO make it configurable if week starts/ends at month boundaries (for month view) or weekday boundaries (for 4-week view)
+				start: day.clone().weekday( 0 ),
+				end: day.clone().weekday( 6 )
 			};
 		}
 		if ( !data.weeks[ week ].days[ date ] ) {
