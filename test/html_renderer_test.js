@@ -50,6 +50,7 @@ describe( 'HtmlRenderer', function () {
 		expect( weeks.size() ).to.equal( 5 );
 		expect( displayContainer.select( '.week:nth-child(3) .total' ).text() ).to.equal( '1:40 overtime' );
 		expect( displayContainer.select( '.week:nth-child(4) .total' ).text() ).to.equal( '0:20 missing' );
+		expect( displayContainer.select( '.week:nth-child(5) .total' ).text() ).to.equal( '' );
 	} );
 
 	it( 'renders the week number', function () {
@@ -76,7 +77,6 @@ describe( 'HtmlRenderer', function () {
 		expect( displayContainer.select( '.week:nth-child(5) h3' ).text() ).to.equal( '25. - 31.10.' );
 	} );
 
-	// TODO: Test it renders 0 timedelta as empty string, not "0:00 missing"
 	// TODO: test it renders week 1 of following year as last column, with year
 	// TODO: test it renders week 52 of previous year as first column, with year
 

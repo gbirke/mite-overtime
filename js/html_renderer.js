@@ -97,11 +97,11 @@ HtmlRenderer.prototype._renderWeeks = function ( displayContainer ) {
 	weeks.append( 'div' )
 		.classed( 'total', true )
 		.text( function ( d ) {
-			var timeDelta = 0;
 			if ( typeof self.overtimeData.weeks !== 'undefined' && d.week in self.overtimeData.weeks ) {
-				timeDelta = self.overtimeData.weeks[ d.week ].timeDelta;
+				return longFormatter.format( self.overtimeData.weeks[ d.week ].timeDelta );
+			} else {
+				return '';
 			}
-			return longFormatter.format( timeDelta );
 		} );
 	return weeks;
 };
