@@ -16,7 +16,7 @@ describe( 'SettingsView', function () {
 		it( 'registers as a listener for the submit button', function () {
 			var handler = sinon.spy(),
 			jquery = sinon.stub().returns( { on: handler } ),
-			view = SettingsView.createAndInit( jquery, {}, {} );
+			view = SettingsView.createAndInit( jquery, {} );
 			expect( handler ).to.have.been.calledWith( 'click', view.handleSubmit );
 		} );
 	} );
@@ -24,17 +24,15 @@ describe( 'SettingsView', function () {
 	describe( '#handleSubmit', function () {
 		it( 'calls the appropriate actions with data', function () {
 			var jquery = sinon.stub(),
-			commands = { showEntries: sinon.spy() },
 			actions = { changeCredentials: sinon.spy(), changeHoursPerWeek: sinon.spy() },
 			view;
 			jquery.withArgs( '#api_key' ).returns( { val: function () { return 'test_key'; } } );
 			jquery.withArgs( '#account' ).returns( { val: function () { return 'test_account'; } } );
 			jquery.withArgs( '#hours_per_week' ).returns( { val: function () { return '40'; } } );
-			view =  SettingsView.create( jquery, actions, commands );
+			view =  SettingsView.create( jquery, actions );
 			view.handleSubmit();
 			expect( actions.changeCredentials ).to.have.been.calledWith( { apiKey: 'test_key', account: 'test_account' } );
 			expect( actions.changeHoursPerWeek ).to.have.been.calledWith( 40 );
-			expect( commands.showEntries ).to.have.been.called;
 		} );
 	} );
 } );

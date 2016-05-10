@@ -22,7 +22,12 @@ var Reflux = require( 'reflux-core' ),
 			account: '',
 			apiKey: ''
 		},
-		apiUrl: ''
+		apiUrl: '',
+
+		// not changeable at the moment
+		workingDays: [ 1, 2, 3, 4, 5 ],
+		locale: 'de',
+		holidayFunction: null
 	} );
 
 module.exports = settingsStore;

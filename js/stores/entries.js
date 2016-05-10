@@ -3,26 +3,25 @@ var serverActions = require( '../actions/server' ),
 	Reflux = require( 'reflux-core' );
 
 module.exports = {
-	create: function ( serverConnector, overtimeFactory, calendarDataGenerator, dateStore ) {
+	create: function ( serverConnector, overtimeFactory, calendarDataStore ) {
 		return Reflux.createStore( {
 			init: function () {
+				this.listenTo( calendarDataStore, this.onCalendarData );
 				this.listenToMany( serverActions );
 				this.listenToMany( commands );
 				this.entries = {};
 				this.calendarData = {};
 			},
-			onShowEntries: function () {
-				var year = dateStore.getYear(),
-					month = dateStore.getMonth();
-				this.calendarData = calendarDataGenerator.generateData( year, month );
-				serverActions.load( year, month );
+			onCalendarData: function () {
+				this.calendarData = calendarDataStore.calendarData;
+				serverActions.load( this.calendarData.year, this.calendarData.month );
 			},
 			onLoad: function ( year, month ) {
 				serverConnector.getData( year, month, serverActions.load.completed, serverActions.load.failed );
 			},
 			onLoadCompleted: function ( result ) {
 				var months = overtimeFactory.getMonthsFromEntries( result );
-				this.entries = months[ dateStore.getMonth() ];
+				this.entries = months[ this.calendarData.month ];
 				this.trigger( { calendarData: this.calendarData, overtimeData: this.entries } );
 			}, // onLoadFailed is handled in ErrorStore
 			calendarData: {},
