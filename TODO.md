@@ -7,7 +7,7 @@
   - Date range view, all days in range are counted (will be implemented later)
 
 ## Steps
-- React to changes when hours per week is changed (Regenerate entries domain objects with without requesting entries again)
+- Show only start of month in month view, even when the week starts/ends in a different month
 - Continue working on weekly-display branch
 
 # Next steps in the weekly-display branch:
@@ -18,7 +18,7 @@
 # Next steps in new branches
 - Add pagination for months.
 - Add daily overtime decorator
-- Add daily display to HTML renderer. Render days as a 3-column table (Day, hours, total) below each week
+- Add daily display to HTML renderer. Render days as a 3-column table (Day, hours, total) below each week. Use different colors for holidays and days from other months.
 - Add date range view (4 weeks),
 - Track/mark special entries ( sick days, vacation) in the time data and display it
 - Refactor CalendarGenerator to generate domain objects, refactor EntriesToDaysConverter to EntriesToDaysDecorator, simplify EntriesStore and HTML renderer to use the new singular data structure.

@@ -15,13 +15,8 @@ module.exports = {
 				this.trigger( this.workWeek );
 			},
 			onSettings: function () {
-				var newWorkWeek = WorkWeek.createWorkWeek(
-					settingsStore.workingDays,
-					settingsStore.hoursPerWeek,
-					settingsStore.holidayFunction
-				);
-				if ( !_.isEqual( this.workWeek, newWorkWeek ) ) {
-					this.workWeek = newWorkWeek;
+				if ( this.workWeek.hoursPerWeek !== settingsStore.hoursPerWeek ) {
+					this.workWeek.hoursPerWeek = settingsStore.hoursPerWeek;
 					this.trigger();
 				}
 			}
