@@ -17,7 +17,7 @@ var objectAssign = require( 'object-assign' ),
          * Weekly overtime is counted month-wise
          *
          * @param {Array} entries Mite entries
-         * @returns {Object}
+         * @returns {Object} Month number => month
          */
         getMonthsFromEntries: function ( entries ) {
             var days = this.getDaysFromEntries( entries),
