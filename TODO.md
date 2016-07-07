@@ -4,7 +4,6 @@
 - Instead of passing around some fluffy JSON structure that has to be deciphered and documented, create domain objects for calculating the work times.
 
 ## Steps
-- Show only start dates of month in month view, even when the week starts/ends in a different month
 - merge to weekly-display branch
 
 # Next steps in the weekly-display branch:

@@ -24,6 +24,30 @@ DurationFormatter.prototype.format = function ( duration ) {
 longFormatter = new DurationFormatter( 'h:mm [overtime]', 'h:mm [missing]', true );
 shortFormatter = new DurationFormatter( 'h:mm', 'h:mm', false );
 
+/**
+ * Create a weekly date range formatter that shows only weekdays of current month
+ *
+ * @return {Function}
+ */
+function createMonthlyWeekRangesFormatter( currentMonth ) {
+	return function( d ) {
+		var datePieces = [];
+		if ( d.start.month() === d.end.month() ) {
+			datePieces.push(  d.start.format( 'DD.' ) );
+			datePieces.push(  d.end.format( 'DD.MM.' ) );
+		}
+		else if ( d.start.month() < currentMonth ) {
+			datePieces.push(  '01.' );
+			datePieces.push(  d.end.format( 'DD.MM.' ) );
+		}
+		else {
+			datePieces.push(  d.start.format( 'DD.' ) );
+			datePieces.push(  d.end.date(-1).format( 'DD.MM.' ) );
+		}
+		return datePieces.join( ' - '  );
+	}
+}
+
 function HtmlRenderer( elementName ) {
 	this.overtimeData = {};
 	this.elementName = elementName;
@@ -65,33 +89,24 @@ HtmlRenderer.prototype._renderTotal = function ( displayContainer ) {
 HtmlRenderer.prototype._renderWeeks = function ( displayContainer ) {
 	var weekContainer = displayContainer.append( 'div' ).classed( 'weeks', true ),
 		self = this,
+		weekDateFormatter = null,
 		weeks = weekContainer.selectAll( '.week' )
-			.data( function ( d ) {
-				return d3.values( d.weeks );
+			.data( function ( calendarData ) {
+				weekDateFormatter = createMonthlyWeekRangesFormatter( calendarData.month );
+				return d3.values( calendarData.weeks );
 			} )
 			.enter()
 			.append( 'div' )
 			.classed( 'week', true );
 
 	weeks.append( 'h2' )
-		.text( function ( d ) {
-			return 'Week ' + d.week;
+		.text( function ( week ) {
+			return 'Week ' + week.week;
 		} )
 		.classed( 'weekNumber', true );
 
 	weeks.append( 'h3' )
-			.text( function ( d ) {
-				var datePieces = [];
-				if ( d.start.month() === d.end.month() ) {
-					datePieces.push(  d.start.format( 'DD.' ) );
-					datePieces.push(  d.end.format( 'DD.MM.' ) );
-				}
-				else {
-					datePieces.push(  d.start.format( 'DD.MM.' ) );
-					datePieces.push(  d.end.format( 'DD.MM.' ) );
-				}
-				return datePieces.join( ' - '  );
-			} )
+			.text( weekDateFormatter )
 			.classed( 'weekDates', true );
 
 	weeks.append( 'div' )
