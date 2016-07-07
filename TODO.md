@@ -1,11 +1,3 @@
-# Next steps in the domain-objects branch
-
-## Goals:
-- Instead of passing around some fluffy JSON structure that has to be deciphered and documented, create domain objects for calculating the work times.
-
-## Steps
-- merge to weekly-display branch
-
 # Next steps in the weekly-display branch:
 - Update README
 - Merge to master
