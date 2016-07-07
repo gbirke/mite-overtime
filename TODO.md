@@ -1,6 +1,17 @@
 # Next steps in the weekly-display branch:
+- Update README
+- Merge to master
 
-- Add ability to exclude certain worktime entries (sick days, holidays, overtime compensation). Don't add overtime compensation to the total. Track/mark special entries in the time data for later display
-- Add daily display to HTML renderer. Render days as a 3-column table (Day, hours, total) below each week
-- Don't calculate/show totals/missing time for dates after current day
-- Display week dates a bit smaller
+# Next steps in new branches
+- Add pagination for months.
+- Add daily overtime decorator
+- Add daily display to HTML renderer. Render days as a 3-column table (Day, hours, total) below each week. Use different colors for holidays and days from other months.
+- Store configuration data in localStorage, "logout" cleans it
+- Add date range view (4 weeks or date entry), all days in range are counted (will be implemented later). For date rangers > 1 year, the weeks calculated in `OvertimeFactory` need to be stored with different keys (year-weekNumber instead of weekNumber)
+- Track/mark special entries ( sick days, vacation) in the time data and display it
+- Refactor CalendarGenerator to generate domain objects, refactor EntriesToDaysConverter to EntriesToDaysDecorator, simplify EntriesStore and HTML renderer to use the new singular data structure.
+- Graphical "hedgehog" display of overtime ( arcs with the same angle for days/weeks in a month and different radii, depending on overtime/undertime)
+- Prettier design
+- Refactor to use Redux instead of Reflux
+- Use ES6 and babel/webpack instead of browserify
+- Load & cache entries in the background

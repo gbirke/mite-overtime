@@ -1,5 +1,5 @@
 module.exports = {
-	create: function ( $, settingsActions, commands ) {
+	create: function ( $, settingsActions ) {
 		return Object.create( {
 			init: function () {
 				$( '#submit_settings' ).on( 'click', this.handleSubmit );
@@ -11,13 +11,12 @@ module.exports = {
 
 				settingsActions.changeCredentials( { apiKey: apiKey, account: account } );
 				settingsActions.changeHoursPerWeek( parseInt( hoursPerWeek, 10 ) );
-				commands.showEntries();
 				return;
 			}
 		} );
 	},
-	createAndInit: function ( $, settingsActions, commands ) {
-		var view = this.create( $, settingsActions, commands );
+	createAndInit: function ( $, settingsActions ) {
+		var view = this.create( $, settingsActions );
 		view.init();
 		return view;
 	}

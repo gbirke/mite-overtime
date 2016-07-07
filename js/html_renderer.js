@@ -24,6 +24,30 @@ DurationFormatter.prototype.format = function ( duration ) {
 longFormatter = new DurationFormatter( 'h:mm [overtime]', 'h:mm [missing]', true );
 shortFormatter = new DurationFormatter( 'h:mm', 'h:mm', false );
 
+/**
+ * Create a weekly date range formatter that shows only weekdays of current month
+ *
+ * @return {Function}
+ */
+function createMonthlyWeekRangesFormatter( currentMonth ) {
+	return function( d ) {
+		var datePieces = [];
+		if ( d.start.month() === d.end.month() ) {
+			datePieces.push(  d.start.format( 'DD.' ) );
+			datePieces.push(  d.end.format( 'DD.MM.' ) );
+		}
+		else if ( d.start.month() < currentMonth ) {
+			datePieces.push(  '01.' );
+			datePieces.push(  d.end.format( 'DD.MM.' ) );
+		}
+		else {
+			datePieces.push(  d.start.format( 'DD.' ) );
+			datePieces.push(  d.end.date(-1).format( 'DD.MM.' ) );
+		}
+		return datePieces.join( ' - '  );
+	}
+}
+
 function HtmlRenderer( elementName ) {
 	this.overtimeData = {};
 	this.elementName = elementName;
@@ -37,52 +61,62 @@ HtmlRenderer.prototype.render = function ( calendarData, overtimeData ) {
 	displayContainer.selectAll( 'div, h1' )
 		.remove();
 
-	total = this._renderTotal( displayContainer );
-	weeks = this._renderWeeks( displayContainer );
+	this._renderTotal( displayContainer );
+	this._renderWeeks( displayContainer );
 };
 
 HtmlRenderer.prototype._renderTotal = function ( displayContainer ) {
-	var data = displayContainer.data(),
-		currentTime = moment(),
-		self = this,
-		total;
-	currentTime.month( data.month );
-	currentTime.year( data.year );
-	displayContainer.append( 'h1' ).text( 'Total for ' + currentTime.format( 'MMMM YYYY' ) );
-	total = displayContainer.append( 'div' )
+	var self = this,
+		totalElement;
+
+	displayContainer.append( 'h1' ).text( function ( d ) {
+		var headingTime;
+		moment.locale( 'en' ); // use english locale to display english month names
+		headingTime = moment( [ d.year, d.month ] );
+
+		return 'Total for ' + headingTime.format( 'MMMM YYYY' );
+	} );
+	totalElement = displayContainer.append( 'div' )
 		.attr( { id: 'totalOvertime' } )
 		.text( function ( ) {
 			if ( self.overtimeData.timeDelta ) {
 				return longFormatter.format( self.overtimeData.timeDelta );
 			}
 		} );
-	return total;
+	return totalElement;
 };
 
 HtmlRenderer.prototype._renderWeeks = function ( displayContainer ) {
 	var weekContainer = displayContainer.append( 'div' ).classed( 'weeks', true ),
 		self = this,
+		weekDateFormatter = null,
 		weeks = weekContainer.selectAll( '.week' )
-			.data( function ( d ) {
-				return d3.values( d.weeks );
+			.data( function ( calendarData ) {
+				weekDateFormatter = createMonthlyWeekRangesFormatter( calendarData.month );
+				return d3.values( calendarData.weeks );
 			} )
 			.enter()
 			.append( 'div' )
 			.classed( 'week', true );
 
 	weeks.append( 'h2' )
-		.text( function ( d ) {
-			return 'Week ' + d.week;
-		} );
+		.text( function ( week ) {
+			return 'Week ' + week.week;
+		} )
+		.classed( 'weekNumber', true );
+
+	weeks.append( 'h3' )
+			.text( weekDateFormatter )
+			.classed( 'weekDates', true );
 
 	weeks.append( 'div' )
 		.classed( 'total', true )
 		.text( function ( d ) {
-			var timeDelta = 0;
 			if ( typeof self.overtimeData.weeks !== 'undefined' && d.week in self.overtimeData.weeks ) {
-				timeDelta = self.overtimeData.weeks[ d.week ].timeDelta;
+				return longFormatter.format( self.overtimeData.weeks[ d.week ].timeDelta );
+			} else {
+				return '';
 			}
-			return longFormatter.format( timeDelta );
 		} );
 	return weeks;
 };
