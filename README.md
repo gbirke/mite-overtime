@@ -10,11 +10,11 @@ Enter the credentials in the fields and press the "Check" button. You will be pr
 
 ### How is the overtime calculated?
 
-At the moment the calculation is day-based: For every day that has one or more entries in Mite, the hours worked on that day are compared against the hours per workday. This works great if you do mostly 9-5 work on specific days, some days more, some days less than the configured hours per workday. 
+Based on the hours per week, the required worktime for each day and each week in a month is calculated. This is compared to the Mite entries for each day.
 
-**Warning:** The current counting method will lead to *missing time* if you spread out a 40-hour workweek to the weekend or work some hours overtime on the weekend or holdidays!!!
+If the week start in one month and ends in another, only the overtime for the days inside the currently displayed month is calculated.
 
-In the next version the counting method will be workweek-based instead of workday-based and take weekends and German holidays into account. 
+German holidays are **not** taken into account at the moment. 
 
 
 ## Installation
@@ -34,6 +34,7 @@ Now you can copy the contents of the `web` folder to your web server and use it 
 	npm start
 
 to start a web server on you local machine. You can then use the application with the URL http://localhost:8080/
+
 
 ## FAQ
 
