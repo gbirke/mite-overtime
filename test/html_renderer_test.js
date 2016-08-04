@@ -70,7 +70,7 @@ describe( 'HtmlRenderer', function () {
 		renderer.render( testCalendarData, testOvertimeData );
 		weeks = displayContainer.selectAll( '.week h3' );
 		expect( weeks.size() ).to.equal( 5 );
-		expect( displayContainer.select( '.week:nth-child(1) h3' ).text() ).to.equal( '27.09. - 03.10.' );
+		expect( displayContainer.select( '.week:nth-child(1) h3' ).text() ).to.equal( '01. - 03.10.' );
 		expect( displayContainer.select( '.week:nth-child(2) h3' ).text() ).to.equal( '04. - 10.10.' );
 		expect( displayContainer.select( '.week:nth-child(3) h3' ).text() ).to.equal( '11. - 17.10.' );
 		expect( displayContainer.select( '.week:nth-child(4) h3' ).text() ).to.equal( '18. - 24.10.' );
