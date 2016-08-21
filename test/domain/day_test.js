@@ -40,5 +40,5 @@ describe( 'Holiday', function () {
 	it( 'should identify as holiday', function () {
 		var day = Day.createHolyDay( createDateStub() );
 		expect( day.isWorkDay() ).to.equal( false );
-	} )
+	} );
 } );

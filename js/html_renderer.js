@@ -45,7 +45,7 @@ function createMonthlyWeekRangesFormatter( currentMonth ) {
 			datePieces.push(  d.end.date(-1).format( 'DD.MM.' ) );
 		}
 		return datePieces.join( ' - '  );
-	}
+	};
 }
 
 function HtmlRenderer( elementName ) {

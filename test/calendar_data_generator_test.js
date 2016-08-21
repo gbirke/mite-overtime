@@ -10,7 +10,7 @@ describe( 'CalendarDataGenerator', function () {
 		var workweekStub = {
 				isWorkDay: function ( date ) {
 					// No Sundays and Saturdays
-					return date.day() != 0 &&  date.day() != 6;
+					return date.day() !== 0 && date.day() !== 6;
 				}
 			},
 			generator = new CalendarDataGenerator( workweekStub, 'en' ),

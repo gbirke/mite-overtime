@@ -5,7 +5,7 @@ var commands = require( '../actions/commands' ),
 		init: function ( date ) {
 			this.listenToMany( commands );
 			this.date = moment( date || new Date() );
-			this.now = moment( new Date() )
+			this.now = moment( new Date() );
 		},
 		onSetDate: function ( date ) {
 			this.date = moment( date );

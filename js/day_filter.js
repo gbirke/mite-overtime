@@ -4,7 +4,7 @@ module.exports = {
     all: function () {
         return function ( days ) {
             return days;
-        }
+        };
     },
 
     byMonth: function ( month ) {
@@ -12,7 +12,7 @@ module.exports = {
             return _.pickBy( days, function ( day ) {
                 return day.dateObject.month() == month;
             } );
-        }
+        };
     },
 
     before: function ( date ) {
@@ -20,7 +20,7 @@ module.exports = {
             return _.pickBy( days, function ( day ) {
                 return day.dateObject.isBefore( date );
             } );
-        }
+        };
     },
 
     workDays: function () {
@@ -28,7 +28,7 @@ module.exports = {
             return _.pickBy( days, function ( day ) {
                 return day.isWorkDay();
             } );
-        }
+        };
     },
 
     combine: function () {
@@ -37,7 +37,7 @@ module.exports = {
             return _.reduce( args, function( remainingDays, filterFunction ) {
                 return filterFunction( remainingDays );
             }, days );
-        }
+        };
     }
 
 };
