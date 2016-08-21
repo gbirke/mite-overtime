@@ -1,5 +1,5 @@
 var expect = require( 'chai' ).expect,
-	moment = require( 'moment'),
+	moment = require( 'moment' ),
 	WorkWeek = require( '../../js/domain/workweek' );
 
 function createDateStub( dayOfWeek ) {

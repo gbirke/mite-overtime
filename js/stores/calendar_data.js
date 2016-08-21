@@ -1,4 +1,4 @@
-var _ = require( 'lodash'),
+var _ = require( 'lodash' ),
 	CalendarDataGenerator = require( '../calendar_data_generator' ),
 	Reflux = require( 'reflux-core' );
 

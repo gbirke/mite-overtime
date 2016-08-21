@@ -1,5 +1,5 @@
 var expect = require( 'chai' ).expect,
-	moment = require( 'moment'),
+	moment = require( 'moment' ),
 	Week = require( '../../js/domain/week' ),
 	WEEK_NUMBER = 12;
 
@@ -52,8 +52,8 @@ describe( 'Week', function () {
 					dateObject: moment( '2015-10-01' ),
 					getMinutesWorked: function () { return 5; }
 				},
-				week = Week.createWeek( createDateStub()),
-				verySpecificFilter= function ( days ) {
+				week = Week.createWeek( createDateStub() ),
+				verySpecificFilter = function ( days ) {
 					return { '2015-09-30': firstDay };
 				}
 			;
@@ -70,7 +70,7 @@ describe( 'Week', function () {
 				dateObject: moment( '2015-10-01' ),
 				getMinutesWorked: function () { return 5; }
 			},
-			week = Week.createWeek( moment( '2015-10-01' )),
+			week = Week.createWeek( moment( '2015-10-01' ) ),
 			filterStub = function ( day ) { return day; },
 			workWeek = { isWorkDay: function () { return true; } }
 				;
@@ -79,7 +79,7 @@ describe( 'Week', function () {
 		week.addMissingDays( workWeek );
 
 		expect( week.countDays( filterStub ) ).to.equal( 7 );
-		expect( week.getMinutesWorked()).to.equal( 5 );
+		expect( week.getMinutesWorked() ).to.equal( 5 );
 	} );
 
 	// TODO more sanity checks: Never add the same day twice, reject days not in the same month etc

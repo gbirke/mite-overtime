@@ -1,5 +1,5 @@
-var _ = require( 'lodash'),
-	WorkWeek = require( '../domain/workweek'),
+var _ = require( 'lodash' ),
+	WorkWeek = require( '../domain/workweek' ),
 	Reflux = require( 'reflux-core' );
 
 module.exports = {

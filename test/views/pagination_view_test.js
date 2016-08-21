@@ -46,7 +46,7 @@ describe( 'PaginationView', function () {
 				view = PaginationView.createAndInit( prevElement, nextElement, newDateStoreStub( '2016-07-16' ), commandActions );
 			view.handlePrevious( dummyEvent );
 			expect( commandActions.setDate ).to.have.been.called;
-			expect( commandActions.setDate.args[0][0].isSame( moment( '2016-06-16' ) ) ).to.be.true;
+			expect( commandActions.setDate.args[ 0 ][ 0 ].isSame( moment( '2016-06-16' ) ) ).to.be.true;
 		} );
 
 		it( 'rolls over to previous year', function () {
@@ -58,7 +58,7 @@ describe( 'PaginationView', function () {
 				view = PaginationView.createAndInit( prevElement, nextElement, newDateStoreStub( '2016-01-16' ), commandActions );
 			view.handlePrevious( dummyEvent );
 			expect( commandActions.setDate ).to.have.been.called;
-			expect( commandActions.setDate.args[0][0].format() ).to.equal( moment( '2015-12-16' ).format() );
+			expect( commandActions.setDate.args[ 0 ][ 0 ].format() ).to.equal( moment( '2015-12-16' ).format() );
 		} );
 
 		it( 'does not add more than one month for shorter months', function () {
@@ -70,7 +70,7 @@ describe( 'PaginationView', function () {
 				view = PaginationView.createAndInit( prevElement, nextElement, newDateStoreStub( '2016-03-31' ), commandActions );
 			view.handlePrevious( dummyEvent );
 			expect( commandActions.setDate ).to.have.been.called;
-			expect( commandActions.setDate.args[0][0].format() ).to.equal( moment( '2016-02-29' ).format() );
+			expect( commandActions.setDate.args[ 0 ][ 0 ].format() ).to.equal( moment( '2016-02-29' ).format() );
 		} );
 
 	} );
@@ -85,7 +85,7 @@ describe( 'PaginationView', function () {
 				view = PaginationView.createAndInit( prevElement, nextElement, newDateStoreStub( '2016-07-16' ), commandActions );
 			view.handleNext( dummyEvent );
 			expect( commandActions.setDate ).to.have.been.called;
-			expect( commandActions.setDate.args[0][0].isSame( moment( '2016-08-16' ) ) ).to.be.true;
+			expect( commandActions.setDate.args[ 0 ][ 0 ].isSame( moment( '2016-08-16' ) ) ).to.be.true;
 		} );
 
 		it( 'rolls over to next year', function () {
@@ -97,7 +97,7 @@ describe( 'PaginationView', function () {
 				view = PaginationView.createAndInit( prevElement, nextElement, newDateStoreStub( '2015-12-16' ), commandActions );
 			view.handleNext( dummyEvent );
 			expect( commandActions.setDate ).to.have.been.called;
-			expect( commandActions.setDate.args[0][0].format() ).to.equal( moment( '2016-01-16' ).format() );
+			expect( commandActions.setDate.args[ 0 ][ 0 ].format() ).to.equal( moment( '2016-01-16' ).format() );
 		} );
 
 		it( 'does not add more than one month for shorter months', function () {
@@ -109,7 +109,7 @@ describe( 'PaginationView', function () {
 				view = PaginationView.createAndInit( prevElement, nextElement, newDateStoreStub( '2016-01-31' ), commandActions );
 			view.handleNext( dummyEvent );
 			expect( commandActions.setDate ).to.have.been.called;
-			expect( commandActions.setDate.args[0][0].format() ).to.equal( moment( '2016-02-29' ).format() );
+			expect( commandActions.setDate.args[ 0 ][ 0 ].format() ).to.equal( moment( '2016-02-29' ).format() );
 		} );
 
 		it( 'does paginate into the future', function () {

@@ -1,5 +1,5 @@
 var objectAssign = require( 'object-assign' ),
-	_ = require( 'lodash'),
+	_ = require( 'lodash' ),
 	WorkWeek = {
 		workingDays: [],
 		holidayFunction: null,
