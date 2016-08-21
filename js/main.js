@@ -14,6 +14,7 @@ var jQuery = require( 'jquery' ),
 	EntryView = require( './views/entry_view' ),
 	ErrorView = require( './views/error_view' ),
 	SettingsView = require( './views/settings_view' ),
+	PaginationView = require( './views/pagination_view' ),
 	config = require( './config' );
 
 jQuery( function () {
@@ -31,5 +32,6 @@ jQuery( function () {
 	EntryView.createAndInit( new HtmlRenderer( '#displayContainer' ), entriesStore );
 	ErrorView.createAndInit( jQuery( '#errorModal' ), errorStore );
 	SettingsView.createAndInit( jQuery, SettingsActions );
+	PaginationView.createAndInit( jQuery( '#nav-prev a' ), jQuery( '#nav-next a' ), DateStore, Commands );
 	Commands.setDate( config.startDate );
 } );

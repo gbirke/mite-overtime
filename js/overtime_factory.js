@@ -10,7 +10,7 @@ var objectAssign = require( 'object-assign' ),
 
     OvertimeFactory = {
         workWeek: null,
-        getDaysFromEntries: null,
+        getDaysFromEntries: null, // days calculator is assigned on init
 		/**
          * Return overtime entries for each month.
          *
