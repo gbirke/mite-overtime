@@ -17,7 +17,7 @@
   },
   "scripts": {
     "start": "node server.js",
-    "watch": "watchify -o web/js/app.js -v -d .",
+    "watch": "watchify -o web/js/app.js -t envify -v -d .",
     "test": "mocha --recursive",
     "build": "browserify -o web/js/app.js -t envify js/main.js",
     "lint": "jshint js test",
