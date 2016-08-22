@@ -79,6 +79,7 @@ describe( 'HtmlRenderer', function () {
 
 	// TODO: test it renders week 1 of following year as last column, with year
 	// TODO: test it renders week 52 of previous year as first column, with year
+	// TODO: test it renders "one-day-weeks" (1st or last day of month is the beginning of the week) without range. See May 2016
 
 	after( function () {
 		benv.teardown();
