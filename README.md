@@ -44,6 +44,8 @@ The data is queried directly from the Mite API and is protected with SSL encrypt
 ### Why is the D3 framework used instead of a templating or component framework?
 I plan to do a nice visualization of the overtime data instead of rendering HTML. The HTML is only a stopgap measure until I found time for prettier display options.
 
+### Y U no use React???
+I'll probably use React oder Vue.js later. For now I'll use jQuery-based views, because I like slow climbing learning curves. I already have babel and webpack in place and plan to replace Reflux with Redux. 
 
 
 
