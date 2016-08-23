@@ -66,6 +66,9 @@
   <body>
     <div class="container">
       <div class="row">
+        <div class="col-md-10 col-md-offset-1" id="errmsg" style="display:none"></div>
+      </div>
+      <div class="row">
         <div id="settings" class="col-md-10 col-md-offset-1 panel panel-default">
             <div class="panel-body">
               <form class="form-inline" id="settingsForm">
@@ -81,7 +84,7 @@
                   <label for="hours_per_week">Hours per week</label>
                   <input type="number" class="form-control" id="hours_per_week" value="40" >
                 </div>
-                <button type="button" id="submit_settings" class="btn btn-default">Check</button>
+                <button type="button" class="btn btn-default submit">Save</button>
               </form>
       </div>
         </div>
@@ -94,23 +97,6 @@
       <div id="nav-next" class="col-md-1"><a href="#" class="pagination-nav">▶</a></div>
     </div>
   </div>
-
-  <div class="modal fade" id="errorModal">
-    <div class="modal-dialog">
-      <div class="modal-content">
-        <div class="modal-header">
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-          <h4 class="modal-title">An Error occured</h4>
-        </div>
-        <div class="modal-body">
-          <p>Error message will be put here.</p>
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
-        </div>
-      </div><!-- /.modal-content -->
-    </div><!-- /.modal-dialog -->
-  </div><!-- /.modal -->
 
     <script src="js/app.js"></script>
   </body>

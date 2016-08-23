@@ -5,43 +5,42 @@ var objectAssign = require( 'object-assign' ),
     buildMonthsFromWeeks = require( './build_months_from_weeks' ),
     createWeeklyOvertimeDecorator = require( './weekly_overtime_decorator' ).createWeeklyOvertimeDecorator,
     createMonthlyOvertimeDecorator = require( './monthly_overtime_decorator' ).createMonthlyOvertimeDecorator,
-    DayFilter = require( './day_filter' )
-    ;
+    DayFilter = require( './day_filter' ),
 
     OvertimeFactory = {
-	workWeek: null,
-	getDaysFromEntries: null, // days calculator is assigned on init
-	/**
-        * Return overtime entries for each month.
-        *
-        * Weekly overtime is counted month-wise
-        *
-        * @param {Array} entries Mite entries
-        * @returns {Object} Month number => month
-        */
-	getMonthsFromEntries: function ( entries ) {
-		var days = this.getDaysFromEntries( entries ),
-		weeks = buildWeeksFromDays( days ),
-		months = buildMonthsFromWeeks( weeks ),
-		workWeek = this.workWeek,
-		monthlyOvertimeDecorator = createMonthlyOvertimeDecorator()
-		;
+		workWeek: null,
+		getDaysFromEntries: null, // days calculator is assigned on init
+		/**
+			* Return overtime entries for each month.
+			*
+			* Weekly overtime is counted month-wise
+			*
+			* @param {Array} entries Mite entries
+			* @returns {Object} Month number => month
+			*/
+		getMonthsFromEntries: function ( entries ) {
+			var days = this.getDaysFromEntries( entries ),
+			weeks = buildWeeksFromDays( days ),
+			months = buildMonthsFromWeeks( weeks ),
+			workWeek = this.workWeek,
+			monthlyOvertimeDecorator = createMonthlyOvertimeDecorator()
+			;
 
-		// Decorate weeks
-		_.each( months, function ( month, monthNumber ) {
-			var filter = DayFilter.byMonth( monthNumber ),
-			overTimeDecorator = createWeeklyOvertimeDecorator( workWeek, filter );
-			_.each( month.weeks, function ( week ) {
-				week.addMissingDays( workWeek );
+			// Decorate weeks
+			_.each( months, function ( month, monthNumber ) {
+				var filter = DayFilter.byMonth( monthNumber ),
+				overTimeDecorator = createWeeklyOvertimeDecorator( workWeek, filter );
+				_.each( month.weeks, function ( week ) {
+					week.addMissingDays( workWeek );
+				} );
+				overTimeDecorator.addOvertimeToEntries( month.weeks );
 			} );
-			overTimeDecorator.addOvertimeToEntries( month.weeks );
-		} );
 
-		// decorate months
-		monthlyOvertimeDecorator.addOvertimeToEntries( months );
+			// decorate months
+			monthlyOvertimeDecorator.addOvertimeToEntries( months );
 
-		return months;
-	}
+			return months;
+		}
     }
 
     ;

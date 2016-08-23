@@ -1,23 +1,35 @@
-module.exports = {
-	create: function ( $, settingsActions ) {
-		return Object.create( {
-			init: function () {
-				$( '#submit_settings' ).on( 'click', this.handleSubmit );
-			},
-			handleSubmit: function () {
-				var apiKey = $( '#api_key' ).val(),
-					account = $( '#account' ).val(),
-					hoursPerWeek = $( '#hours_per_week' ).val();
+export default class SettingsView {
+	constructor( $el, store, actions, createServerConnector ) {
+		this.$el = $el;
+		this.store = store;
+		this.createServerConnector = createServerConnector;
+		this.actions = actions;
 
-				settingsActions.changeCredentials( { apiKey: apiKey, account: account } );
-				settingsActions.changeHoursPerWeek( parseInt( hoursPerWeek, 10 ) );
-				return;
-			}
-		} );
-	},
-	createAndInit: function ( $, settingsActions ) {
-		var view = this.create( $, settingsActions );
-		view.init();
-		return view;
+		this.store.subscribe( this.update.bind( this) );
+		this.$el.find( '.submit' ).on( 'click', this.handleSubmit.bind( this ) );
 	}
-};
+
+	update() {
+		const state = this.store.getState();
+		this.$el.find( '#api_key' ).val( state.settings.credentials.apiKey );
+		this.$el.find( '#account' ).val( state.settings.credentials.account );
+		this.$el.find( '#hours_per_week' ).val( state.settings.hoursPerWeek );
+	}
+
+	handleSubmit( evt ) {
+		evt.preventDefault();
+		let apiKey = this.$el.find( '#api_key' ).val(),
+			account = this.$el.find( '#account' ).val(),
+			hoursPerWeek = this.$el.find( '#hours_per_week' ).val();
+
+		const state = this.store.getState();
+
+		this.store.dispatch( this.actions.changeCredentials( { apiKey: apiKey, account: account } ) );
+
+		// TODO validate hours per week to be >= 0
+		this.store.dispatch( this.actions.configure( { hoursPerWeek: parseInt( hoursPerWeek, 10 ) } ) );
+
+		let serverConnector = this.createServerConnector( state.settings, new XMLHttpRequest() );
+		this.store.dispatch( this.actions.loadEntries( state.currentDate, serverConnector ) );
+	}
+}

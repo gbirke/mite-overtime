@@ -4,8 +4,7 @@ var webpack = require('webpack');
 module.exports = {
 	entry: [
 		'babel-polyfill',
-		'./js/main',
-		'webpack-dev-server/client?http://localhost:8080'
+		'./js/main'
 	],
 	output: {
 		path: path.resolve( __dirname, 'web/js' ),

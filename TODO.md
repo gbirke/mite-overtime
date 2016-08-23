@@ -1,8 +1,6 @@
 # Next steps:
-- Refactor to use Redux instead of Reflux
 - Fix control flow: No server requests and display of time data until credentials have been entered. Show login state in main content area until login is successful.
 - Fix pagination error: After navigating away from current month you can't navigate back.
-- Fix display of error messages (broken by removal of Bootstrap libraries in dba89e8573a3d7fa64e05ebec2f3efd1639a497c)
 - Add German holidays.
 - Add daily overtime decorator
 - Add daily display to HTML renderer. Render days as a 3-column table (Day, hours, total) below each week. Use different colors for holidays and days from other months.
