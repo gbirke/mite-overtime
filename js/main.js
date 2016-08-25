@@ -10,6 +10,10 @@ import EntryConverter from './views/util/entry_converter'
 import * as actions from './redux_actions'
 import { create } from './server_connector'
 
+import { MainNavigation } from './components/MainNavigation'
+import React from 'react'
+import ReactDOM from 'react-dom'
+
 let jQuery = require( 'jquery' ),
 	OvertimeFactory = require( './overtime_factory' ),
 	HtmlRenderer = require( './html_renderer' ),
@@ -29,7 +33,9 @@ jQuery( function () {
 	const converter = new EntryConverter ( OvertimeFactory.createOvertimeFactory );
 	new EntriesView( new HtmlRenderer( '#displayContainer' ), store, converter );
 	new SettingsView( jQuery( '#settings' ), store, actions, create );
-	new PaginationView( jQuery( '#nav-prev a' ), jQuery( '#nav-next a' ), store, setDate )
+	new PaginationView( jQuery( '#nav-prev a' ), jQuery( '#nav-next a' ), store, setDate );
 	new ErrorView( jQuery( '#errmsg' ), store );
+
+	ReactDOM.render( MainNavigation, document.getElementById( 'app' ) );
 
 } );

@@ -16,16 +16,19 @@ module.exports = {
 	module: {
 		loaders: [
 			{
-				test: /\.js$/,
+				test: /\.jsx?$/,
 				include: path.join( __dirname, 'js' ),
 				loader: 'babel-loader',
 				query: {
-					presets: ['es2015']
+					presets: [ 'react' , 'es2015' ]
 				}
 			}
 		]
 	},
 	devServer: {
 		contentBase: "./web"
+	},
+	resolve: {
+		extensions: ['', '.js', '.jsx'],
 	}
 };
