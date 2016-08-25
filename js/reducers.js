@@ -1,4 +1,3 @@
-import { combineReducers } from 'redux'
 import { SET_DATE, CONFIGURE, CHANGE_CREDENTIALS, LOAD_ENTRIES_FAILURE, LOAD_ENTRIES_SUCCESS } from './redux_actions'
 
 const DEFAULT_STATE = {
@@ -58,11 +57,11 @@ function loadError( state = '', action ) {
 	}
 }
 
-const miteOvertimeApp = combineReducers( {
+const miteOvertimeApp = {
 	entries,
 	settings,
 	currentDate,
 	loadError
-} );
+} ;
 
 export default miteOvertimeApp

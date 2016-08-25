@@ -1,41 +1,40 @@
-import { configure, setDate } from './redux_actions'
-import { applyMiddleware, createStore } from 'redux'
-import ReduxThunk from 'redux-thunk'
-import SettingsView from './views/settings_view'
-import EntriesView from './views/entry_view'
-import PaginationView from './views/pagination_view'
-import ErrorView from './views/error_view'
-import miteOvertimeApp from './reducers'
-import EntryConverter from './views/util/entry_converter'
-import * as actions from './redux_actions'
-import { create } from './server_connector'
-
-import { MainNavigation } from './components/MainNavigation'
+import { createStore, combineReducers, applyMiddleware } from 'redux'
 import React from 'react'
 import ReactDOM from 'react-dom'
+import { Router, Route, IndexRoute, browserHistory, hashHistory } from 'react-router'
+import ReduxThunk from 'redux-thunk'
 
-let jQuery = require( 'jquery' ),
-	OvertimeFactory = require( './overtime_factory' ),
+import { configure, setDate } from './redux_actions'
+import miteOvertimeApp from './reducers'
+
+import { App } from './components/App'
+import { Login } from './components/Login'
+import { LoginRequired } from './components/LoginRequired'
+
+
+let OvertimeFactory = require( './overtime_factory' ),
 	HtmlRenderer = require( './html_renderer' ),
 	config = require( './config' );
 
-jQuery( function () {
+document.addEventListener("DOMContentLoaded", () => {
 	const locale = 'de', // TODO make locale configurable
 		// load locale object to make browserify include locale data
-		loadedLocale = require( 'moment/locale/de' ), // see https://github.com/moment/moment/issues/2007
+		loadedLocale = require('moment/locale/de'), // see https://github.com/moment/moment/issues/2007
 
 		// redux store
-		store = createStore( miteOvertimeApp, applyMiddleware( ReduxThunk ) );
+		store = createStore( combineReducers( miteOvertimeApp ), applyMiddleware(ReduxThunk) );
 
-	store.dispatch( configure( { apiUrl: config.apiUrl } ) );
-	store.dispatch( setDate( config.startDate ) );
+	store.dispatch(configure({apiUrl: config.apiUrl}));
+	store.dispatch(setDate(config.startDate));
 
-	const converter = new EntryConverter ( OvertimeFactory.createOvertimeFactory );
-	new EntriesView( new HtmlRenderer( '#displayContainer' ), store, converter );
-	new SettingsView( jQuery( '#settings' ), store, actions, create );
-	new PaginationView( jQuery( '#nav-prev a' ), jQuery( '#nav-next a' ), store, setDate );
-	new ErrorView( jQuery( '#errmsg' ), store );
 
-	ReactDOM.render( MainNavigation, document.getElementById( 'app' ) );
+	ReactDOM.render(
+		(<Router history={hashHistory}>
+				<Route path="/" component={App}>
+					<IndexRoute component={LoginRequired}/>
+					<Route path="/login" component={Login}/>
+				</Route>
+			</Router>
+		), document.getElementById('app'));
 
 } );
