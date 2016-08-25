@@ -1,7 +1,7 @@
 import React from 'react';
 import { Grid, Row, Col } from 'react-bootstrap'
 
-import { MainNavigation } from './MainNavigation'
+import MainNavigation from './MainNavigation'
 import { LoginRequired } from './LoginRequired'
 
 export class App extends React.Component {
@@ -15,11 +15,7 @@ export class App extends React.Component {
 			<div>
 				<MainNavigation/>
 				<Grid>
-					<Row>
-						<Col md={12}>
 							{this.props.children || <LoginRequired/> }
-						</Col>
-					</Row>
 				</Grid>
 			</div>
 		);

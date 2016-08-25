@@ -1,11 +1,7 @@
-import { SET_DATE, CONFIGURE, CHANGE_CREDENTIALS, LOAD_ENTRIES_FAILURE, LOAD_ENTRIES_SUCCESS } from './redux_actions'
+import { SET_DATE, CONFIGURE, LOGIN_SUCCESS, LOGIN_FAILURE, LOAD_ENTRIES_FAILURE, LOAD_ENTRIES_SUCCESS } from './redux_actions'
 
 const DEFAULT_STATE = {
 	hoursPerWeek: 40,
-	credentials: {
-		account: '',
-		apiKey: ''
-	},
 	apiUrl: '',
 
 	// not changeable at the moment
@@ -14,13 +10,28 @@ const DEFAULT_STATE = {
 	holidayFunction: null
 };
 
+const DEFAULT_CREDENTIALS = {
+	account: '',
+	apiKey: '',
+	valid: false
+};
+
 function settings( state = DEFAULT_STATE, action ) {
 	switch ( action.type ) {
 		case CONFIGURE:
-			// TODO: Filter allowed fields from payload, don't allow credentials
+			// TODO: Filter allowed fields from payload
 			return Object.assign( {}, state, action.payload );
-		case CHANGE_CREDENTIALS:
-			return Object.assign( {}, state, { credentials: action.payload } );
+		default:
+			return state;
+	}
+}
+
+function credentials( state = DEFAULT_CREDENTIALS, action ) {
+	switch ( action.type ) {
+		case LOGIN_SUCCESS:
+			return Object.assign({}, state, { valid: true }, action.payload);
+		case LOGIN_FAILURE:
+			return Object.assign({}, state, { valid: false }, action.payload);
 		default:
 			return state;
 	}
@@ -58,6 +69,7 @@ function loadError( state = '', action ) {
 }
 
 const miteOvertimeApp = {
+	credentials,
 	entries,
 	settings,
 	currentDate,

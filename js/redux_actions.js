@@ -1,9 +1,11 @@
 export const SET_DATE = 'SET_DATE';
 export const CONFIGURE = 'CONFIGURE';
-export const CHANGE_CREDENTIALS = 'CHANGE_CREDENTIALS';
 export const LOAD_ENTRIES_REQUEST = 'LOAD_ENTRIES_REQUEST';
 export const LOAD_ENTRIES_SUCCESS = 'LOAD_ENTRIES_SUCCESS';
 export const LOAD_ENTRIES_FAILURE = 'LOAD_ENTRIES_FAILURE';
+export const LOGIN_REQUEST = 'LOGIN_REQUEST';
+export const LOGIN_SUCCESS = 'LOGIN_SUCCESS';
+export const LOGIN_FAILURE = 'LOGIN_FAILURE';
 
 export function configure( configData ) {
 	return {
@@ -12,9 +14,9 @@ export function configure( configData ) {
 	}
 }
 
-export function changeCredentials( credentials ) {
+export function login( credentials ) {
 	return {
-		type: CONFIGURE,
+		type: LOGIN_REQUEST,
 		payload: credentials
 	}
 }
