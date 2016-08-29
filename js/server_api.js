@@ -11,12 +11,14 @@ export default class ServerApi {
 			const xhr = new XMLHttpRequest();
 			xhr.addEventListener( 'load', function () {
 				if ( this.status !== 200 ) {
+					// TODO Use Error subclass instead
 					reject( ERROR_CREDENTIALS );
 				} else {
 					resolve( true );
 				}
 			} );
 			xhr.addEventListener( 'error', function () {
+				// TODO Use Error subclass instead
 				reject( ERROR_SERVER );
 			} );
 			xhr.open( 'HEAD', this.baseUrl + 'myself.json', true );
@@ -32,17 +34,20 @@ export default class ServerApi {
 			xhr.addEventListener( 'load', function () {
 				let entries = [];
 				if ( this.status !== 200 ) {
+					// TODO Use Error subclass instead
 					reject( ERROR_CREDENTIALS );
 				} else {
 					try {
 						entries = JSON.parse( this.responseText )
 					} catch ( e ) {
+						// TODO Use Error subclass instead
 						reject( ERROR_SERVER );
 					}
 					resolve( entries );
 				}
 			} );
 			xhr.addEventListener( 'error', function () {
+				// TODO Use Error subclass instead
 				reject( ERROR_SERVER );
 			} );
 			xhr.open( 'GET', this.baseUrl + 'time_entries.json', true );

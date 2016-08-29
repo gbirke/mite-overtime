@@ -21,6 +21,20 @@ export function login( credentials ) {
 	}
 }
 
+export function loginSucceeded( credentials ) {
+	return {
+		type: LOGIN_SUCCESS,
+		payload: credentials
+	}
+}
+
+export function loginFailed( reason ) {
+	return {
+		type: LOGIN_FAILURE,
+		payload: reason
+	}
+}
+
 export function setDate( date ) {
 	return {
 		type: SET_DATE,

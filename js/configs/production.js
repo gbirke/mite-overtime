@@ -1,4 +1,4 @@
 module.exports = {
-	apiUrl: 'https://corsapi.mite.yo.lk/time_entries.json',
+	baseUrl: 'https://corsapi.mite.yo.lk/',
 	startDate: new Date().toISOString()
 };

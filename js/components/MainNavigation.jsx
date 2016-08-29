@@ -4,6 +4,7 @@ import { LinkContainer } from 'react-router-bootstrap'
 import { IndexLink } from 'react-router'
 import { connect } from 'react-redux'
 
+import { login } from '../redux_actions'
 
 class MainNavigation extends React.Component {
 	constructor(props) {
@@ -28,7 +29,7 @@ class MainNavigation extends React.Component {
 					) : (
 						<Nav pullRight>
 							<LinkContainer to={{ pathname: '/login' }}>
-							<NavItem eventKey={2} href="#">Login</NavItem>
+								<NavItem eventKey={2} href="#">Login</NavItem>
 							</LinkContainer>
 						</Nav>
 						)
