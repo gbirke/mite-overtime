@@ -1,6 +1,6 @@
 import React from 'react';
 import { Field, reduxForm } from 'redux-form';
-import { Row, Col } from 'react-bootstrap'
+import { Row, Col, Panel } from 'react-bootstrap'
 import { PROMISE } from 'redux-form-saga'
 import { login, LOGIN_SUCCESS, LOGIN_FAILURE } from '../redux_actions'
 
@@ -36,17 +36,27 @@ function createFormAction (requestAction, types, payloadCreator = identity) {
 
 const formAction = createFormAction( login, [LOGIN_SUCCESS, LOGIN_FAILURE] );
 
+function renderError(submitFailed) {
+	if (!submitFailed) {
+		return;
+	}
+	return (
+		<Panel bsStyle="danger" header="Error">Problems while logging in. Please check your credentials.</Panel>
+	);
+}
+
 class LoginComponent extends React.Component {
 	constructor(props) {
 		super(props);
 	}
 
 	render() {
-		const { handleSubmit } = this.props;
+		const { handleSubmit, submitFailed, isSubmitting } = this.props;
 		// TODO Bootstrap components
 		return (
 			<Row>
 				<Col xs={10} xsOffset={1} md={4} mdOffset={4}>
+					{renderError(submitFailed)}
 					<form id="settingsForm" onSubmit={handleSubmit(formAction)}>
 						<div className="form-group">
 							<label htmlFor="account">Account</label>

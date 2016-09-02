@@ -1,11 +1,13 @@
 # Next steps in react branch
-- Check for errors when logging in - what happens to the form
-- use Real server API instead of dummy server API
-- Write tests
+- use real server API instead of dummy server API
+- Add Overtime display for current month
+- Add pagination
+- Write tests for components and sagas
 - Squash commits / change WIP in react commit
 
 # Planned UI/UX improvements
 - Show spinning indicators in login form while it's being sent to server
+- Try to distinguish between genuine login errors (check value of ServerApi.checkCredentials Promise reject) and HTTP errors.
 
 # Next steps:
 - Fix control flow: No server requests and display of time data until credentials have been entered. Show login state in main content area until login is successful.
