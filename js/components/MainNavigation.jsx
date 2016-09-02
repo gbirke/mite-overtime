@@ -4,7 +4,7 @@ import { LinkContainer } from 'react-router-bootstrap'
 import { IndexLink } from 'react-router'
 import { connect } from 'react-redux'
 
-import { logout } from '../redux_actions'
+import { logout, loadEntries } from '../redux_actions'
 
 class MainNavigation extends React.Component {
 	constructor(props) {
@@ -27,6 +27,7 @@ class MainNavigation extends React.Component {
 						</Nav>
 					) : (
 						<Nav pullRight>
+							<NavItem eventKey={2} onClick={() => { dispatch(loadEntries({apiKey:'foo',account:'bar'},2016,10)); } } href="#/">Test loading entries</NavItem>
 							<LinkContainer to={{ pathname: '/login' }}>
 								<NavItem eventKey={2} href="#">Login</NavItem>
 							</LinkContainer>

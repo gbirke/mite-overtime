@@ -26,8 +26,8 @@ function createRootSaga( serverApi ) {
 	return function* rootSaga() {
 		yield [
 			createLoginFlow( serverApi )(),
-			formActionSaga()
-			//createLoadEntries( serverApi )()
+			createLoadEntries( serverApi )(),
+			formActionSaga(),
 		]
 	}
 }

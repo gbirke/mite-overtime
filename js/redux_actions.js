@@ -47,34 +47,29 @@ export function setDate( date ) {
 	}
 }
 
-function loadEntriesRequest() {
+export function loadEntries( credentials, year, month) {
 	return {
-		type: LOAD_ENTRIES_REQUEST
+		type: LOAD_ENTRIES_REQUEST,
+		payload: {
+			apiKey: credentials.apiKey,
+			account: credentials.account,
+			year: year,
+			month: month
+		}
 	}
 }
 
-function loadEntriesSuccess( entries ) {
+export function loadEntriesSuccess( entries ) {
 	return {
 		type: LOAD_ENTRIES_SUCCESS,
 		payload: entries
 	}
 }
 
-function loadEntriesFailure( errmsg ) {
+export function loadEntriesFailure( errmsg ) {
 	return {
 		type: LOAD_ENTRIES_FAILURE,
 		payload: errmsg
 	}
 }
 
-export function loadEntries( startDate, serverConnector ) {
-	return dispatch => {
-		dispatch( loadEntriesRequest() );
-		serverConnector.getData(
-			startDate.year,
-			startDate.month,
-			jsonData => dispatch( loadEntriesSuccess( jsonData ) ),
-			( errmsg, connector ) => dispatch( loadEntriesFailure( errmsg ) )
-		);
-	}
-}

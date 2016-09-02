@@ -1,9 +1,9 @@
 # Next steps in react branch
 - Add Overtime display for current month
     - wrap overtime display in redux.connect
-    - load entries with current date on login (add action to login success saga)
     - display entry state (loaded/not loaded)
     - render entries with react-faux-dom
+    - Remove load nav entry, load entries with current date on login (add action to login success saga)
 - Add pagination
 - Write tests for components and sagas
 - Manually test with production API 

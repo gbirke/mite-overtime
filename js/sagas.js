@@ -1,12 +1,18 @@
 import { take, put, call } from 'redux-saga/effects'
-import { LOGIN_REQUEST, LOAD_ENTRIES_REQUEST, loginSucceeded, loginFailed } from './redux_actions'
+import { LOGIN_REQUEST, LOAD_ENTRIES_REQUEST, loginSucceeded, loginFailed, loadEntriesSuccess, loadEntriesFailure } from './redux_actions'
 
 
 export function createLoadEntries( serverApi ) {
 	return function *loadEntries() {
 		while( true ) {
-			let loadParams = yield take( LOAD_ENTRIES_REQUEST );
-			// TODO serverApi.loadEntries
+			let action = yield take( LOAD_ENTRIES_REQUEST );
+			let { account, apiKey, year, month } = action.payload;
+			try {
+				const result = yield call( [ serverApi, serverApi.loadEntries ], account, apiKey, year, month );
+				yield put ( loadEntriesSuccess( result ) );
+			} catch ( ex ) {
+				yield put( loadEntriesFailure( ex ) );
+			}
 		}
 	}
 }
