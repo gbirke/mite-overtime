@@ -1,8 +1,8 @@
 # Next steps in react branch
-- use real server API instead of dummy server API
 - Add Overtime display for current month
 - Add pagination
 - Write tests for components and sagas
+- Manually test with production API 
 - Squash commits / change WIP in react commit
 
 # Planned UI/UX improvements

@@ -54,14 +54,13 @@ document.addEventListener("DOMContentLoaded", () => {
 				setTimeout( () => { console.log("server successful"); resolve( true ); }, 1000 );
 			} );
 		} },
-		//serverApi = new ServerApi( config.baseUrl ),
+		serverApi = new ServerApi( config.baseUrl ),
 
 		// TODO only create logger if process.env.APP_ENV !== 'production'
 		store = createStore( reducer, applyMiddleware( sagaMiddleware, createLogger() ) );
 
-	sagaMiddleware.run( createRootSaga( fakeServerApi ) );
+	sagaMiddleware.run( createRootSaga( serverApi ) );
 
-	store.dispatch(configure({apiUrl: config.apiUrl}));
 	store.dispatch(setDate(config.startDate));
 
 
