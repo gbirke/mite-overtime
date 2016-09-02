@@ -25,6 +25,9 @@ module.exports = {
 			}
 		]
 	},
+	plugins: [
+		new webpack.EnvironmentPlugin(['APP_ENV','NODE_ENV'])
+	],
 	devServer: {
 		contentBase: "./web"
 	},

@@ -16,7 +16,7 @@
     "start": "webpack-dev-server",
     "watch": "webpack --watch",
     "test": "mocha --recursive --require babel-core/register",
-    "build": "webpack --define process.env.APP_ENV='\"production\"'",
+    "build": "APP_ENV=production NODE_ENV=production webpack",
     "lint": "jshint js test",
     "cs": "jscs js test",
     "fulltest": "npm run lint && npm run cs && mocha"

@@ -56,8 +56,13 @@ document.addEventListener("DOMContentLoaded", () => {
 		} },
 		serverApi = new ServerApi( config.baseUrl ),
 
-		// TODO only create logger if process.env.APP_ENV !== 'production'
-		store = createStore( reducer, applyMiddleware( sagaMiddleware, createLogger() ) );
+		middlewares = [ sagaMiddleware ];
+
+	if ( process.env.APP_ENV !== 'production' ) {
+		middlewares.push( createLogger() );
+	}
+
+	const store = createStore( reducer, applyMiddleware( ...middlewares ) );
 
 	sagaMiddleware.run( createRootSaga( serverApi ) );
 

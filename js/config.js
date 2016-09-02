@@ -5,4 +5,8 @@ var env = process.env.APP_ENV || 'development',
 		production: require( './configs/production.js' )
 	};
 
+if ( !env || !( env in config ) ) {
+	throw new Error( 'Unknown value in APP_ENV: ' + env );
+}
+
 module.exports = config[ env ];
