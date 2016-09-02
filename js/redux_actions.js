@@ -6,6 +6,7 @@ export const LOAD_ENTRIES_FAILURE = 'LOAD_ENTRIES_FAILURE';
 export const LOGIN_REQUEST = 'LOGIN_REQUEST';
 export const LOGIN_SUCCESS = 'LOGIN_SUCCESS';
 export const LOGIN_FAILURE = 'LOGIN_FAILURE';
+export const LOGOUT = 'LOGOUT';
 
 export function configure( configData ) {
 	return {
@@ -33,6 +34,10 @@ export function loginFailed( reason ) {
 		type: LOGIN_FAILURE,
 		payload: reason
 	}
+}
+
+export function logout() {
+	return { type: LOGOUT };
 }
 
 export function setDate( date ) {

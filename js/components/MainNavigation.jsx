@@ -4,7 +4,7 @@ import { LinkContainer } from 'react-router-bootstrap'
 import { IndexLink } from 'react-router'
 import { connect } from 'react-redux'
 
-import { login } from '../redux_actions'
+import { logout } from '../redux_actions'
 
 class MainNavigation extends React.Component {
 	constructor(props) {
@@ -12,6 +12,7 @@ class MainNavigation extends React.Component {
 	}
 
 	render() {
+		const { dispatch } = this.props;
 		return (
 			<Navbar>
 				<Navbar.Header>
@@ -22,7 +23,7 @@ class MainNavigation extends React.Component {
 					{ this.props.isLoggedIn ? (
 						<Nav pullRight>
 							<NavItem eventKey={1} href="#">Settings</NavItem>
-							<NavItem eventKey={2} href="#">Logout</NavItem>
+							<NavItem eventKey={2} onClick={() => { dispatch(logout()); } } href="#/">Logout</NavItem>
 						</Nav>
 					) : (
 						<Nav pullRight>

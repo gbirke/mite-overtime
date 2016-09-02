@@ -1,4 +1,4 @@
-import { SET_DATE, CONFIGURE, LOGIN_SUCCESS, LOGIN_FAILURE, LOAD_ENTRIES_FAILURE, LOAD_ENTRIES_SUCCESS } from './redux_actions'
+import { SET_DATE, CONFIGURE, LOGIN_SUCCESS, LOGIN_FAILURE, LOGOUT, LOAD_ENTRIES_FAILURE, LOAD_ENTRIES_SUCCESS } from './redux_actions'
 
 const DEFAULT_STATE = {
 	hoursPerWeek: 40,
@@ -34,6 +34,8 @@ function credentials( state = DEFAULT_CREDENTIALS, action ) {
 		case LOGIN_FAILURE:
 			console.log("login failed in store", action.payload);
 			return Object.assign({}, state, action.payload, { valid: false } );
+		case LOGOUT:
+			return Object.assign({}, state, { valid: false } );
 		default:
 			return state;
 	}
