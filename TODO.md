@@ -1,9 +1,19 @@
+# Next steps in react branch
+- Check for errors when logging in - what happens to the form
+- use Real server API instead of dummy server API
+- Write tests
+- Squash commits / change WIP in react commit
+
+# Planned UI/UX improvements
+- Show spinning indicators in login form while it's being sent to server
+
 # Next steps:
 - Fix control flow: No server requests and display of time data until credentials have been entered. Show login state in main content area until login is successful.
 - Fix pagination error: After navigating away from current month you can't navigate back.
 - Add German holidays.
 - Add daily overtime decorator
 - Add daily display to HTML renderer. Render days as a 3-column table (Day, hours, total) below each week. Use different colors for holidays and days from other months.
+- Change Reject in ServerAPI to throw proper errors? Not until we can subclass Error in babel properly.
 - Store configuration data in localStorage, "logout" cleans it. Separate settings and credentials (both visually and in the data store). Show/hide settings and login panel as needed.
 - Refactor CalendarGenerator to generate domain objects, refactor EntriesToDaysConverter to EntriesToDaysDecorator, simplify EntriesStore and HTML renderer to use the new singular data structure.
 - Check earliest date to avoid navigating to empty months
