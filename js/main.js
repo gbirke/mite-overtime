@@ -12,8 +12,9 @@ import { configure, setDate } from './redux_actions'
 import miteOvertimeApp from './reducers'
 import { createLoginFlow, createLoadEntries } from './sagas'
 
-import { App } from './components/App'
+import App from './components/App'
 import Login from './components/Login'
+import Home from './components/Home'
 import { LoginRequired } from './components/LoginRequired'
 import ServerApi from './server_api'
 
@@ -69,7 +70,7 @@ document.addEventListener("DOMContentLoaded", () => {
 			<Provider store={store}>
 				<Router history={hashHistory}>
 					<Route path="/" component={App}>
-						<IndexRoute component={LoginRequired}/>
+						<IndexRoute component={Home}/>
 						<Route path="/login" component={Login} />
 					</Route>
 				</Router>

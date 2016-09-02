@@ -22,9 +22,7 @@ class MainNavigation extends React.Component {
 					{ this.props.isLoggedIn ? (
 						<Nav pullRight>
 							<NavItem eventKey={1} href="#">Settings</NavItem>
-							<LinkContainer to={{ pathname: '/login' }}>
-								<NavItem eventKey={2} href="#">Logout</NavItem>
-							</LinkContainer>
+							<NavItem eventKey={2} href="#">Logout</NavItem>
 						</Nav>
 					) : (
 						<Nav pullRight>

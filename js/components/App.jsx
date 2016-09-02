@@ -2,20 +2,19 @@ import React from 'react';
 import { Grid, Row, Col } from 'react-bootstrap'
 
 import MainNavigation from './MainNavigation'
-import { LoginRequired } from './LoginRequired'
+import Home from './Home'
 
-export class App extends React.Component {
+export default class App extends React.Component {
 	constructor(props) {
 		super(props);
 	}
 
 	render() {
-		// TODO More fancy children selection, depending on login state
 		return (
-			<div>
+			<div className="xtc">
 				<MainNavigation/>
 				<Grid>
-							{this.props.children || <LoginRequired/> }
+							{this.props.children || Home }
 				</Grid>
 			</div>
 		);
