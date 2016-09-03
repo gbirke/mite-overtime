@@ -1,13 +1,13 @@
 # Next steps in react branch
-- Add Overtime display for current month
-    - Remove load nav entry, load entries with current date on login (add action to login success saga)
 - Add pagination (with date in route)
-- Write tests for components and sagas
 - Add settings form with hours per week
+- Proper month and year handling in server API
 - Manually test with production API 
+- Write tests for components and sagas
 - Squash commits / change WIP in react commit
 
 # Planned UI/UX improvements
+- Show overtime in green and missing time in red.
 - Show "No entries fot Month X" when there are no entries for month x.
 - Show spinning indicators in login form while it's being sent to server
 - Try to distinguish between genuine login errors (check value of ServerApi.checkCredentials Promise reject) and HTTP errors.

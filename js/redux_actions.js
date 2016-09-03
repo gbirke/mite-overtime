@@ -47,7 +47,20 @@ export function setDate( date ) {
 	}
 }
 
-export function loadEntries( credentials, year, month) {
+export function loadEntriesForCurrentMonth( credentials ) {
+	const now = new Date();
+	return {
+		type: LOAD_ENTRIES_REQUEST,
+		payload: {
+			apiKey: credentials.apiKey,
+			account: credentials.account,
+			year: now.getFullYear(),
+			month: now.getMonth()
+		}
+	}
+}
+
+export function loadEntries( credentials, year, month ) {
 	return {
 		type: LOAD_ENTRIES_REQUEST,
 		payload: {

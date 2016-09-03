@@ -1,5 +1,5 @@
 import { take, put, call } from 'redux-saga/effects'
-import { LOGIN_REQUEST, LOAD_ENTRIES_REQUEST, loginSucceeded, loginFailed, loadEntriesSuccess, loadEntriesFailure } from './redux_actions'
+import { LOGIN_REQUEST, LOAD_ENTRIES_REQUEST, loginSucceeded, loginFailed, loadEntriesForCurrentMonth, loadEntriesSuccess, loadEntriesFailure } from './redux_actions'
 
 
 export function createLoadEntries( serverApi ) {
@@ -27,6 +27,7 @@ export function createLoginFlow( serverApi ) {
 			try {
 				yield call( [ serverApi, serverApi.checkCredentials ], account, apiKey );
 				yield put( loginSucceeded( action.payload ) );
+				yield put( loadEntriesForCurrentMonth( action.payload ) );
 			} catch ( ex ) {
 				yield put( loginFailed( ex ) );
 			}
