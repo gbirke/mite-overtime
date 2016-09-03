@@ -1,8 +1,7 @@
 import { SET_DATE, CONFIGURE, LOGIN_SUCCESS, LOGIN_FAILURE, LOGOUT, LOAD_ENTRIES_FAILURE, LOAD_ENTRIES_SUCCESS } from './redux_actions'
 
-const DEFAULT_STATE = {
+const DEFAULT_SETTINGS = {
 	hoursPerWeek: 40,
-	apiUrl: '',
 
 	// not changeable at the moment
 	workingDays: [ 1, 2, 3, 4, 5 ],
@@ -16,7 +15,7 @@ const DEFAULT_CREDENTIALS = {
 	valid: false
 };
 
-function settings( state = DEFAULT_STATE, action ) {
+function settings( state = DEFAULT_SETTINGS, action ) {
 	switch ( action.type ) {
 		case CONFIGURE:
 			// TODO: Filter allowed fields from payload

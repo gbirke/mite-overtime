@@ -18,9 +18,7 @@ import Home from './components/Home'
 import { LoginRequired } from './components/LoginRequired'
 import ServerApi from './server_api'
 
-let OvertimeFactory = require( './overtime_factory' ),
-	HtmlRenderer = require( './html_renderer' ),
-	config = require( './config' );
+const config = require( './config' );
 
 function createRootSaga( serverApi ) {
 	return function* rootSaga() {

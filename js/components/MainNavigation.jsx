@@ -24,6 +24,7 @@ class MainNavigation extends React.Component {
 						<Nav pullRight>
 							<NavItem eventKey={1} href="#">Settings</NavItem>
 							<NavItem eventKey={2} onClick={() => { dispatch(logout()); } } href="#/">Logout</NavItem>
+							<NavItem eventKey={2} onClick={() => { dispatch(loadEntries({apiKey:'foo',account:'bar'},2016,10)); } } href="#/">Test loading entries</NavItem>
 						</Nav>
 					) : (
 						<Nav pullRight>
