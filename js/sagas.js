@@ -14,7 +14,7 @@ export function *loadEntriesWithCurrentState() {
 		if ( !credentials.valid ) {
 			continue;
 		}
-		yield put( loadEntriesWithCredentials( credentials, currentDate.getYear(), currentDate.getMonth() ) );
+		yield put( loadEntriesWithCredentials( credentials, currentDate.getFullYear(), currentDate.getMonth() ) );
 	}
 }
 

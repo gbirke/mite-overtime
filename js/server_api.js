@@ -1,3 +1,5 @@
+const moment = require( 'moment' );
+
 export const ERROR_SERVER = 500;
 export const ERROR_CREDENTIALS = 403;
 
@@ -31,6 +33,9 @@ export default class ServerApi {
 	loadEntries( account, apiKey, year, month ) {
 		return new Promise( ( resolve, reject ) => {
 			const xhr = new XMLHttpRequest();
+			let from = moment( [ year, month ] );
+			let to = moment( from ).add( 1, 'month' ).subtract( 1, 'day' );
+			let params = '?from=' + from.format( 'YYYY-MM-DD' ) + '&to=' + to.format( 'YYYY-MM-DD' );
 			xhr.addEventListener( 'load', function () {
 				let entries = [];
 				if ( this.status !== 200 ) {
@@ -50,7 +55,8 @@ export default class ServerApi {
 				// TODO Use Error subclass instead
 				reject( ERROR_SERVER );
 			} );
-			xhr.open( 'GET', this.baseUrl + 'time_entries.json', true );
+
+			xhr.open( 'GET', this.baseUrl + 'time_entries.json' + params, true );
 			xhr.setRequestHeader( 'X-MiteAccount', account );
 			xhr.setRequestHeader( 'X-MiteApiKey', apiKey );
 			xhr.send();

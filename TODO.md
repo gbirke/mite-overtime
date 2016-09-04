@@ -1,9 +1,9 @@
 # Next steps in react branch
-- Add settings form with hours per week
-- Proper month and year handling in server API
 - Manually test with production API
-- Write test for date reducer to tets "Don't go over current month" functionality.
+- Add settings form with hours per week
+- Write test for date reducer to test "Don't go over current month" functionality.
 - Write tests for components and sagas
+- Write test for server api loadEntries and params
 - Remove views folder and tests
 - Squash commits / change WIP in react commit
 
