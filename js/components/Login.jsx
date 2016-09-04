@@ -64,7 +64,7 @@ class LoginComponent extends React.Component {
 						</div>
 						<div className="form-group">
 							<label htmlFor="api_key">API Key</label>
-							<Field type="password" component="input" className="form-control" id="api_key" placeholder="c0ffee" name="api_key" />
+							<Field type="password" component="input" className="form-control" id="apiKey" placeholder="c0ffee" name="apiKey" />
 						</div>
 						<button type="submit" className="btn btn-default submit">Save</button>
 					</form>

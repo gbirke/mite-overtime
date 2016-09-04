@@ -1,5 +1,4 @@
 # Next steps in react branch
-- Manually test with production API
 - Add settings form with hours per week
 - Write test for date reducer to test "Don't go over current month" functionality.
 - Write tests for components and sagas
@@ -11,6 +10,7 @@
 - Show overtime in green and missing time in red.
 - Show "No entries fot Month X" when there are no entries for month x.
 - Show spinning indicators in login form while it's being sent to server
+- User always has to enter hours per week after login - store settings data in localStorage
 - Try to distinguish between genuine login errors (check value of ServerApi.checkCredentials Promise reject) and HTTP errors.
 
 # Next steps:
@@ -19,7 +19,6 @@
 - Add daily overtime decorator
 - Add daily display to HTML renderer. Render days as a 3-column table (Day, hours, total) below each week. Use different colors for holidays and days from other months.
 - Change Reject in ServerAPI to throw proper errors? Not until we can subclass Error in babel properly.
-- Store settings data in localStorage.
 - Refactor CalendarGenerator to generate domain objects, refactor EntriesToDaysConverter to EntriesToDaysDecorator, simplify EntriesStore and HTML renderer to use the new singular data structure.
 - Check earliest date to avoid navigating to empty months
 - Calculate yearly overtime (with offset from previous year), to see your current "balance".
