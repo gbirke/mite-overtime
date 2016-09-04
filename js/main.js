@@ -2,7 +2,7 @@ import { createStore, combineReducers, applyMiddleware } from 'redux'
 import { reducer as formReducer } from 'redux-form'
 import React from 'react'
 import ReactDOM from 'react-dom'
-import { Router, Route, IndexRoute, browserHistory, hashHistory } from 'react-router'
+import { Router, Route, IndexRoute, hashHistory } from 'react-router'
 import createSagaMiddleware from 'redux-saga'
 import { Provider } from 'react-redux'
 import { formActionSaga } from 'redux-form-saga'
@@ -14,7 +14,6 @@ import { createLoginFlow, createLoadEntries, loadEntriesWithCurrentState, loadEn
 
 import App from './components/App'
 import Login from './components/Login'
-import Home from './components/Home'
 import Overtime from './components/Overtime'
 import ServerApi from './server_api'
 
@@ -68,23 +67,34 @@ document.addEventListener("DOMContentLoaded", () => {
 
 	store.dispatch(setDate(config.startDate));
 
-	function dummyEnter( route ) {
+	function handleEnterOvertime( route, replace ) {
 		const { year, month } = route.params;
+		if ( !store.getState().credentials.valid ) {
+			replace( {
+				pathname: '/login',
+				state: { year, month }
+			} )
+		}
+
 		if ( year && month ) {
 			store.dispatch( setDate( (new Date( year, month ) ).toISOString() ) );
 		}
-
 	}
 
+	function redirectIfLoggedIn( route, replace ) {
+		if ( store.getState().credentials.valid ) {
+			replace( { pathname: '/overtime' } );
+		}
+	}
 
 	ReactDOM.render(
 		(
 			<Provider store={store}>
 				<Router history={hashHistory}>
 					<Route path="/" component={App}>
-						<IndexRoute component={Home}/>
-						<Route path="/login" component={Login} />
-						<Route path="/overtime(/:year/:month)" component={Overtime} onEnter={dummyEnter} />
+						<IndexRoute component={Overtime} onEnter={handleEnterOvertime} />
+						<Route path="/login" component={Login} onEnter={redirectIfLoggedIn} />
+						<Route path="/overtime(/:year/:month)" component={Overtime} onEnter={handleEnterOvertime} />
 					</Route>
 				</Router>
 			</Provider>

@@ -1,4 +1,5 @@
 import { take, put, call, select } from 'redux-saga/effects'
+import { hashHistory } from 'react-router'
 import { LOGIN_REQUEST, SET_DATE, LOAD_ENTRIES, LOAD_ENTRIES_REQUEST, loginSucceeded, loginFailed, loadEntriesWithCredentials, loadEntries, loadEntriesSuccess, loadEntriesFailure } from './redux_actions'
 
 export function *loadEntriesWithCurrentState() {
@@ -50,6 +51,7 @@ export function createLoginFlow( serverApi ) {
 				yield call( [ serverApi, serverApi.checkCredentials ], account, apiKey );
 				yield put( loginSucceeded( action.payload ) );
 				yield put( loadEntries() );
+				yield call( () => { hashHistory.replace('/overtime') } );
 			} catch ( ex ) {
 				yield put( loginFailed( ex ) );
 			}

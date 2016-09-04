@@ -1,5 +1,4 @@
 # Next steps in react branch
-- Remove Home component, check login status instead in onEnter of App route
 - Add settings form with hours per week
 - Proper month and year handling in server API
 - Manually test with production API

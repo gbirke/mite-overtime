@@ -2,7 +2,6 @@ import React from 'react';
 import { Grid, Row, Col } from 'react-bootstrap'
 
 import MainNavigation from './MainNavigation'
-import Home from './Home'
 
 export default class App extends React.Component {
 	constructor(props) {
@@ -14,7 +13,7 @@ export default class App extends React.Component {
 			<div className="xtc">
 				<MainNavigation/>
 				<Grid>
-							{this.props.children || Home }
+							{this.props.children }
 				</Grid>
 			</div>
 		);
