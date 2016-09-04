@@ -3,9 +3,11 @@ import { Row, Col } from 'react-bootstrap'
 import { connect } from 'react-redux'
 import ReactFauxDOM from 'react-faux-dom'
 import EntryConverter from '../views/util/entry_converter'
+import { withRouter } from 'react-router'
 
 const OvertimeFactory = require( '../overtime_factory' ),
-	HtmlRenderer = require( '../html_renderer' );
+	HtmlRenderer = require( '../html_renderer' ),
+	moment = require('moment');
 
 class OvertimeDisplay extends React.Component {
 	constructor(props) {
@@ -13,8 +15,17 @@ class OvertimeDisplay extends React.Component {
 	}
 
 	render() {
-		const { entries, currentDate, workingDays, hoursPerWeek, holidayFunction, locale } = this.props;
+		const { entries, currentDate, workingDays, hoursPerWeek, holidayFunction, locale, router } = this.props;
 		const converter = new EntryConverter( this.props.overtimeFactory );
+
+		function createPaginationHandler( monthDifference ) {
+			return function ( evt ) {
+				evt.preventDefault();
+				const d = moment( currentDate ).add( monthDifference, 'month' );
+				router.push( [ '/overtime', d.year(), d.month() ].join( '/' ) );
+			}
+		}
+
 		function renderEntries(entries) {
 			let el = ReactFauxDOM.createElement( 'div' );
 			const renderer = new HtmlRenderer(el);
@@ -24,13 +35,18 @@ class OvertimeDisplay extends React.Component {
 			);
 			return el.toReact();
 		}
+
 		return (
 			<Row>
-				<Col md={1}/>
+				<Col md={1}>
+					<a href="#" onClick={createPaginationHandler( -1 )} className="pagination-nav">◀</a>
+				</Col>
 				<Col md={10}>
 					<div>{renderEntries(entries)}</div>
 				</Col>
-				<Col md={1}/>
+				<Col md={1}>
+					<a href="#" onClick={createPaginationHandler( 1 )} className="pagination-nav">▶</a>
+				</Col>
 			</Row>
 		);
 	}
@@ -66,6 +82,6 @@ const mapStateToProps = (state) => {
 	};
 };
 
-const VisibleOvertimeDisplay = connect( mapStateToProps )( OvertimeDisplay );
+const VisibleOvertimeDisplay = withRouter( connect( mapStateToProps )( OvertimeDisplay ) );
 
 export default VisibleOvertimeDisplay;

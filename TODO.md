@@ -1,10 +1,11 @@
 # Next steps in react branch
-- Add pagination (with date in route)
-- Add settings form with hours per week
 - Remove Home component, check login status instead in onEnter of App route
+- Add settings form with hours per week
 - Proper month and year handling in server API
-- Manually test with production API 
+- Manually test with production API
+- Write test for date reducer to tets "Don't go over current month" functionality.
 - Write tests for components and sagas
+- Remove views folder and tests
 - Squash commits / change WIP in react commit
 
 # Planned UI/UX improvements
@@ -15,7 +16,6 @@
 
 # Next steps:
 - Fix control flow: No server requests and display of time data until credentials have been entered. Show login state in main content area until login is successful.
-- Fix pagination error: After navigating away from current month you can't navigate back.
 - Add German holidays.
 - Add daily overtime decorator
 - Add daily display to HTML renderer. Render days as a 3-column table (Day, hours, total) below each week. Use different colors for holidays and days from other months.

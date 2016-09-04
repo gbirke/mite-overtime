@@ -43,6 +43,12 @@ function credentials( state = DEFAULT_CREDENTIALS, action ) {
 function currentDate( state = null, action ) {
 	switch ( action.type ) {
 		case SET_DATE:
+			const newDate = new Date(action.payload);
+			const now = new Date();
+			if ( newDate.getFullYear() > now.getFullYear() ||
+				( newDate.getFullYear() == now.getFullYear() && newDate.getMonth() > now.getMonth() ) ) {
+				return state;
+			}
 			return action.payload;
 		default:
 			return state;
