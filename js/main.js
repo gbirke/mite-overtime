@@ -15,6 +15,7 @@ import { createLoginFlow, createLoadEntries, loadEntriesWithCurrentState, loadEn
 import App from './components/App'
 import Login from './components/Login'
 import Overtime from './components/Overtime'
+import Settings from './components/Settings'
 import ServerApi from './server_api'
 
 const config = require( './config' );
@@ -95,6 +96,7 @@ document.addEventListener("DOMContentLoaded", () => {
 						<IndexRoute component={Overtime} onEnter={handleEnterOvertime} />
 						<Route path="/login" component={Login} onEnter={redirectIfLoggedIn} />
 						<Route path="/overtime(/:year/:month)" component={Overtime} onEnter={handleEnterOvertime} />
+						<Route path="/settings" component={Settings} />
 					</Route>
 				</Router>
 			</Provider>

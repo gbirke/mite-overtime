@@ -22,13 +22,15 @@ class MainNavigation extends React.Component {
 				</Navbar.Header>
 					{ this.props.isLoggedIn ? (
 						<Nav pullRight>
-							<NavItem eventKey={1} href="#">Settings</NavItem>
+							<LinkContainer to={{ pathname: '/settings' }}>
+								<NavItem eventKey={1} href="#">Settings</NavItem>
+							</LinkContainer>
 							<NavItem eventKey={2} onClick={() => { dispatch(logout()); } } href="#/">Logout</NavItem>
 						</Nav>
 					) : (
 						<Nav pullRight>
 							<LinkContainer to={{ pathname: '/login' }}>
-								<NavItem eventKey={2} href="#">Login</NavItem>
+								<NavItem eventKey={2} href="#/login">Login</NavItem>
 							</LinkContainer>
 						</Nav>
 						)

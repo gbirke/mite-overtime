@@ -57,7 +57,7 @@ class LoginComponent extends React.Component {
 			<Row>
 				<Col xs={10} xsOffset={1} md={4} mdOffset={4}>
 					{renderError(submitFailed)}
-					<form id="settingsForm" onSubmit={handleSubmit(formAction)}>
+					<form id="LoginForm" onSubmit={handleSubmit(formAction)}>
 						<div className="form-group">
 							<label htmlFor="account">Account</label>
 							<Field type="text" component="input" className="form-control" id="account" placeholder="account name" value="wmd" name="account" />
@@ -66,7 +66,7 @@ class LoginComponent extends React.Component {
 							<label htmlFor="api_key">API Key</label>
 							<Field type="password" component="input" className="form-control" id="apiKey" placeholder="c0ffee" name="apiKey" />
 						</div>
-						<button type="submit" className="btn btn-default submit">Save</button>
+						<button type="submit" className="btn btn-default submit">Login</button>
 					</form>
 				</Col>
 			</Row>
