@@ -1,6 +1,28 @@
-import { take, put, call } from 'redux-saga/effects'
-import { LOGIN_REQUEST, LOAD_ENTRIES_REQUEST, loginSucceeded, loginFailed, loadEntriesForCurrentMonth, loadEntriesSuccess, loadEntriesFailure } from './redux_actions'
+import { take, put, call, select } from 'redux-saga/effects'
+import { LOGIN_REQUEST, SET_DATE, LOAD_ENTRIES, LOAD_ENTRIES_REQUEST, loginSucceeded, loginFailed, loadEntriesWithCredentials, loadEntries, loadEntriesSuccess, loadEntriesFailure } from './redux_actions'
 
+export function *loadEntriesWithCurrentState() {
+	while( true) {
+		yield take( LOAD_ENTRIES );
+		const { credentials, currentDate } = yield select( ( state ) => {
+			return {
+				credentials: state.credentials,
+				currentDate: new Date( state.currentDate )
+			}
+		} );
+		if ( !credentials.valid ) {
+			continue;
+		}
+		yield put( loadEntriesWithCredentials( credentials, currentDate.getYear(), currentDate.getMonth() ) );
+	}
+}
+
+export function *loadEntriesOnDateChange() {
+	while( true) {
+		yield take( SET_DATE );
+		yield put( loadEntries() );
+	}
+}
 
 export function createLoadEntries( serverApi ) {
 	return function *loadEntries() {
@@ -27,7 +49,7 @@ export function createLoginFlow( serverApi ) {
 			try {
 				yield call( [ serverApi, serverApi.checkCredentials ], account, apiKey );
 				yield put( loginSucceeded( action.payload ) );
-				yield put( loadEntriesForCurrentMonth( action.payload ) );
+				yield put( loadEntries() );
 			} catch ( ex ) {
 				yield put( loginFailed( ex ) );
 			}

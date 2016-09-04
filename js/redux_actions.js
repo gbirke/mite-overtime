@@ -1,5 +1,6 @@
 export const SET_DATE = 'SET_DATE';
 export const CONFIGURE = 'CONFIGURE';
+export const LOAD_ENTRIES = 'LOAD_ENTRIES';
 export const LOAD_ENTRIES_REQUEST = 'LOAD_ENTRIES_REQUEST';
 export const LOAD_ENTRIES_SUCCESS = 'LOAD_ENTRIES_SUCCESS';
 export const LOAD_ENTRIES_FAILURE = 'LOAD_ENTRIES_FAILURE';
@@ -47,20 +48,17 @@ export function setDate( date ) {
 	}
 }
 
-export function loadEntriesForCurrentMonth( credentials ) {
-	const now = new Date();
+export function loadEntries( year, month ) {
 	return {
-		type: LOAD_ENTRIES_REQUEST,
+		type: LOAD_ENTRIES,
 		payload: {
-			apiKey: credentials.apiKey,
-			account: credentials.account,
-			year: now.getFullYear(),
-			month: now.getMonth()
+			year: year,
+			month: month
 		}
 	}
 }
 
-export function loadEntries( credentials, year, month ) {
+export function loadEntriesWithCredentials(credentials, year, month ) {
 	return {
 		type: LOAD_ENTRIES_REQUEST,
 		payload: {

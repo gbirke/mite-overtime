@@ -8,14 +8,14 @@ import { Provider } from 'react-redux'
 import { formActionSaga } from 'redux-form-saga'
 import createLogger from 'redux-logger';
 
-import { configure, setDate } from './redux_actions'
+import { configure, setDate, loadEntries } from './redux_actions'
 import miteOvertimeApp from './reducers'
-import { createLoginFlow, createLoadEntries } from './sagas'
+import { createLoginFlow, createLoadEntries, loadEntriesWithCurrentState, loadEntriesOnDateChange } from './sagas'
 
 import App from './components/App'
 import Login from './components/Login'
 import Home from './components/Home'
-import { LoginRequired } from './components/LoginRequired'
+import Overtime from './components/Overtime'
 import ServerApi from './server_api'
 
 const config = require( './config' );
@@ -23,6 +23,8 @@ const config = require( './config' );
 function createRootSaga( serverApi ) {
 	return function* rootSaga() {
 		yield [
+			loadEntriesWithCurrentState(),
+			loadEntriesOnDateChange(),
 			createLoginFlow( serverApi )(),
 			createLoadEntries( serverApi )(),
 			formActionSaga(),
@@ -66,6 +68,14 @@ document.addEventListener("DOMContentLoaded", () => {
 
 	store.dispatch(setDate(config.startDate));
 
+	function dummyEnter( route ) {
+		const { year, month } = route.params;
+		if ( year && month ) {
+			store.dispatch( setDate( (new Date( year, month ) ).toISOString() ) );
+		}
+
+	}
+
 
 	ReactDOM.render(
 		(
@@ -74,6 +84,7 @@ document.addEventListener("DOMContentLoaded", () => {
 					<Route path="/" component={App}>
 						<IndexRoute component={Home}/>
 						<Route path="/login" component={Login} />
+						<Route path="/overtime(/:year/:month)" component={Overtime} onEnter={dummyEnter} />
 					</Route>
 				</Router>
 			</Provider>

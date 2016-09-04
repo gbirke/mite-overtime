@@ -1,6 +1,7 @@
 # Next steps in react branch
 - Add pagination (with date in route)
 - Add settings form with hours per week
+- Remove Home component, check login status instead in onEnter of App route
 - Proper month and year handling in server API
 - Manually test with production API 
 - Write tests for components and sagas

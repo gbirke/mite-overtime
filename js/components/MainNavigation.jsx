@@ -4,7 +4,7 @@ import { LinkContainer } from 'react-router-bootstrap'
 import { IndexLink } from 'react-router'
 import { connect } from 'react-redux'
 
-import { logout, loadEntries } from '../redux_actions'
+import { logout } from '../redux_actions'
 
 class MainNavigation extends React.Component {
 	constructor(props) {
