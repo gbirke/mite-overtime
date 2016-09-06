@@ -1,4 +1,5 @@
 import React from 'react';
+import { connect } from 'react-redux'
 import { Field, reduxForm } from 'redux-form';
 import { Row, Col, Panel } from 'react-bootstrap'
 import { configure } from '../redux_actions'
@@ -18,13 +19,13 @@ class SettingsComponent extends React.Component {
 	}
 
 	render() {
-		const { handleSubmit, dispatch, submitSucceeded } = this.props;
+		const { handleSubmit, save, submitSucceeded } = this.props;
 		// TODO Bootstrap components
 		return (
 			<Row>
 				<Col xs={10} xsOffset={1} md={4} mdOffset={4}>
 					{renderSuccess(submitSucceeded)}
-					<form id="settingsForm" onSubmit={handleSubmit( ( data ) => { dispatch( configure( data ) ) } )}>
+					<form id="settingsForm" onSubmit={handleSubmit( save )}>
 						<div className="form-group">
 							<label htmlFor="hoursPerWeek">Hours per week</label>
 							<Field type="number" component="input" className="form-control" id="hoursPerWeek" name="hoursPerWeek" />
@@ -42,4 +43,11 @@ const Settings = reduxForm( {
 
 } )( SettingsComponent );
 
-export default Settings;
+const InitializedSettings = connect(
+	state => ( {
+		initialValues: state.settings
+	}),
+	{ save: configure }
+)(Settings);
+
+export default InitializedSettings;
