@@ -7,6 +7,7 @@ import { withRouter } from 'react-router'
 
 const OvertimeFactory = require( '../overtime_factory' ),
 	HtmlRenderer = require( '../html_renderer' ),
+	HolidayFactory = require( '../holiday_factory' ),
 	moment = require('moment');
 
 class OvertimeDisplay extends React.Component {
@@ -15,8 +16,9 @@ class OvertimeDisplay extends React.Component {
 	}
 
 	render() {
-		const { entries, currentDate, workingDays, hoursPerWeek, holidayFunction, locale, router } = this.props;
+		const { entries, currentDate, workingDays, hoursPerWeek, holidayQualifier, locale, router } = this.props;
 		const converter = new EntryConverter( this.props.overtimeFactory );
+		const holidayFunction = HolidayFactory.getHolidayFunction( locale, holidayQualifier );
 
 		function createPaginationHandler( monthDifference ) {
 			return function ( evt ) {
@@ -57,7 +59,7 @@ OvertimeDisplay.propTypes = {
 	currentDate: React.PropTypes.string,
 	workingDays: React.PropTypes.array,
 	hoursPerWeek: React.PropTypes.number,
-	holidayFunction: React.PropTypes.func,
+	holidayQualifier: React.PropTypes.string,
 	locale: React.PropTypes.string,
 	overtimeFactory: React.PropTypes.func,
 	htmlRenderer: React.PropTypes.object
@@ -67,7 +69,7 @@ OvertimeDisplay.defaultProps = {
 	entries: [],
 	workingDays: [1,2,3,4,5],
 	hoursPerWeek: 40,
-	holidayFunction: null,
+	holidayQualifier: '',
 	locale: 'de_DE',
 	overtimeFactory: OvertimeFactory.createOvertimeFactory
 };
@@ -78,6 +80,7 @@ const mapStateToProps = (state) => {
 		currentDate: state.currentDate,
 		workingDays: state.settings.workingDays,
 		hoursPerWeek: state.settings.hoursPerWeek,
+		holidayQualifier: state.settings.holidayQualifier,
 		locale: state.settings.locale
 	};
 };

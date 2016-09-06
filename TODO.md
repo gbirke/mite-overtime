@@ -1,5 +1,4 @@
 # Next steps:
-- Add German holidays.
 - Test if build to gh-pages still works.
 - Use [envlist](https://www.npmjs.com/package/envlist) to translate between APP_ENV and NODE_ENV.
 - User always has to enter hours per week after login - store settings data in localStorage.
@@ -17,12 +16,15 @@
 - Add date range view (4 weeks or date entry), all days in range are counted. For date ranges > 1 year, the weeks calculated in `OvertimeFactory` need to be stored with different keys (year-weekNumber instead of weekNumber)
 - Prettier design
 - Load & cache entries in the background: Load current date on start, load next 12 months when paginating.
+- Make holidays configurable in settings by selecting locale and locale-dependent qualifier. Some locales might have regional holidays (like German counties) or allowances for special religions, that are not covered by locale.
+- I18N: Make all strings translatable.  
 
 # Planned UI/UX improvements
 - Show overtime in green and missing time in red.
 - Show "No entries for Month X" when there are no entries for month x.
 - Show spinning indicators in login form while it's being sent to server
 - Try to distinguish between genuine login errors (check value of ServerApi.checkCredentials Promise reject) and HTTP errors.
+- Add "Remember me" function (with warning that it's unsafe to do that because it stores the API key locally).
 
 # Planned code quality improvements
 - Write test for date reducer to test "Don't go over current month" functionality.

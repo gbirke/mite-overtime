@@ -8,7 +8,7 @@ import { Provider } from 'react-redux'
 import { formActionSaga } from 'redux-form-saga'
 import createLogger from 'redux-logger';
 
-import { configure, setDate, loadEntries } from './redux_actions'
+import { configure, setDate } from './redux_actions'
 import miteOvertimeApp from './reducers'
 import { createLoginFlow, createLoadEntries, loadEntriesWithCurrentState, loadEntriesOnDateChange } from './sagas'
 
@@ -66,7 +66,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
 	sagaMiddleware.run( createRootSaga( serverApi ) );
 
-	store.dispatch(setDate(config.startDate));
+	store.dispatch( configure( { holidayQualifier: config.holidayQualifier } ) );
+	store.dispatch( setDate( config.startDate ) );
 
 	function handleEnterOvertime( route, replace ) {
 		const { year, month } = route.params;

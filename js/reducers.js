@@ -6,7 +6,7 @@ const DEFAULT_SETTINGS = {
 	// not changeable at the moment
 	workingDays: [ 1, 2, 3, 4, 5 ],
 	locale: 'de',
-	holidayFunction: null
+	holidayQualifier: '',
 };
 
 const DEFAULT_CREDENTIALS = {

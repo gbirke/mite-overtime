@@ -14,8 +14,8 @@ Based on the hours per week (configurable in "Settings" after you logged in), th
 
 If the week starts in one month and ends in another, only the overtime for the days inside the currently displayed month is calculated.
 
-German holidays are **not** taken into account at the moment. 
-
+**The calculation of working days for each week is fixed to the 'Berlin, Germany' locale!** That means that German holidays (as they are defined for the county 'Berlin') don't count as required working days.
+  
 
 ## Installation
 
