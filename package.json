@@ -19,7 +19,8 @@
     "build": "APP_ENV=production NODE_ENV=production webpack",
     "lint": "jshint js test",
     "cs": "jscs js test",
-    "fulltest": "npm run lint && npm run cs && mocha"
+    "fulltest": "npm run lint && npm run cs && mocha",
+    "deploy": "npm build && gh-pages -d web"
   },
   "author": "Gabriel Birke <gb@birke-software.de>",
   "license": "MIT",
@@ -31,6 +32,7 @@
     "benv": "^3.0.0",
     "chai": "^3.3.0",
     "chai-as-promised": "^5.3.0",
+    "gh-pages": "^0.11.0",
     "jscs": "^2.3.1",
     "jshint": "^2.8.0",
     "mocha": "^2.3.3",

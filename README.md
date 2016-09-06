@@ -25,15 +25,20 @@ If you want to host your own version of the application, the JavaScript files ha
 
 To build the Javascript, download this repository, go to the folder on the command line and run the following commands:
 
-	export APP_ENV=production
 	npm install
-	npm build
+	npm run build
 
-Now you can copy the contents of the `web` folder to your web server and use it there. Alternatively, you can run
+Now you can copy the contents of the `web` folder to your web server and use it there. 
+
+### Running in development mode
+If you want to run the application in development mode (where you don't need a Mite API), run
 
 	npm start
 
-to start a web server on you local machine. You can then use the application with the URL http://localhost:8080/
+to start a web server on you local machine. You can then use the application with the URL http://localhost:8080/ For the server request to work, you either have to change `js/config/development` or download some data from your mite account with the following commands:
+
+    curl  -H 'X-MiteApiKey: YOUR_API_KEY'  https://wmd.mite.yo.lk/myself.json > web/myself.json
+    curl  -H 'X-MiteApiKey: YOUR_API_KEY'  https://wmd.mite.yo.lk/time_entries.json > web/time_entries.json
 
 
 ## FAQ
