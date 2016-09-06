@@ -6,13 +6,13 @@ This JavaScript application calculates the overtime of a month, using data from 
 
 To use this application you need two pieces of information: your **Mite account name** and your **API key**. The account name is the last bit of your Mite URL, e.g. if you access Mite normally via https://wmd.mite.yo.lk, then your account name is `wmd`. Your API key can be found on the Mite user account page. You can go to the Mite account page by clicking on your name in the top right corner of the Mite page after you logged in to Mite. 
 
-Enter the credentials in the fields and press the "Check" button. You will be presented with the overtime amounts for the current month. The times shown are hours and minutes.
+Enter the credentials in the fields and press the "Login" button. You will be presented with the overtime amounts for the current month. The times shown are hours and minutes.
 
 ### How is the overtime calculated?
 
-Based on the hours per week, the required worktime for each day and each week in a month is calculated. This is compared to the Mite entries for each day.
+Based on the hours per week (configurable in "Settings" after you logged in), the required worktime for each day and each week in a month is calculated. This is compared to the Mite entries for each day.
 
-If the week start in one month and ends in another, only the overtime for the days inside the currently displayed month is calculated.
+If the week starts in one month and ends in another, only the overtime for the days inside the currently displayed month is calculated.
 
 German holidays are **not** taken into account at the moment. 
 
@@ -41,11 +41,11 @@ to start a web server on you local machine. You can then use the application wit
 ### What about data security? Will the government and everybody else on my network read all my timesheet entries?
 The data is queried directly from the Mite API and is protected with SSL encryption. For more security, place the web app on an SSL-protected web server.
 
-### Why is the D3 framework used instead of a templating or component framework?
-I plan to do a nice visualization of the overtime data instead of rendering HTML. The HTML is only a stopgap measure until I found time for prettier display options.
+### Why is the D3 framework used for rendering the overtime?
+Historical reasons: I planned to do a nice visualization of the overtime data and wanted to have the same rendering "API" both for HTML and the SVG graph. I did the HTML first. Then the visualization got pushed very low down on the todo list. Rewriting it in React would be nice but there is so much other stuff to do.
 
-### Y U no use React???
-I'll probably use React oder Vue.js later. For now I'll use jQuery-based views, because I like slow climbing learning curves. I already have babel and webpack in place and plan to replace Reflux with Redux. 
+### What's with the `views` folder?
+The folder contains jQuery-based views that were used before I switched the view part of tge application to React. Since I was totally out of my depth with this new framework I kind of "fiddled" the application together until it displayed what I wanted. Thus, I have no unit tests for my components at this time. I keep the `test/views` folder to remind me of the expected behavior of the views. They will be the basis of the units tests for the components. I keep the `views` folder to make the old tests pass.   
 
 
 
