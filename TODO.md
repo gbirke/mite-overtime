@@ -1,6 +1,4 @@
 # Next steps:
-- Use [envlist](https://www.npmjs.com/package/envlist) to translate between APP_ENV and NODE_ENV.
-- User always has to enter hours per week after login - store settings data in localStorage.
 - Fix overtime display in January - previous week should not show up.
 - Fix overtime display in May 2016 - display 1-day weeks differently and show a value.
 - Change routing URL to have human-readable month names instead of 1-digit, zero-based month number. 

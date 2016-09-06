@@ -11,6 +11,7 @@ import createLogger from 'redux-logger';
 import { configure, setDate } from './redux_actions'
 import miteOvertimeApp from './reducers'
 import { createLoginFlow, createLoadEntries, loadEntriesWithCurrentState, loadEntriesOnDateChange } from './sagas'
+import { getSettingsFromLocalStorage, saveSettingsMiddleware } from './reducer_persistence'
 
 import App from './components/App'
 import Login from './components/Login'
@@ -56,7 +57,7 @@ document.addEventListener("DOMContentLoaded", () => {
 		} },
 		serverApi = new ServerApi( config.baseUrl ),
 
-		middlewares = [ sagaMiddleware ];
+		middlewares = [ sagaMiddleware, saveSettingsMiddleware ];
 
 	if ( process.env.APP_ENV !== 'production' ) {
 		middlewares.push( createLogger() );
@@ -66,7 +67,11 @@ document.addEventListener("DOMContentLoaded", () => {
 
 	sagaMiddleware.run( createRootSaga( serverApi ) );
 
-	store.dispatch( configure( { holidayQualifier: config.holidayQualifier } ) );
+	store.dispatch( configure( Object.assign(
+		{},
+		{ holidayQualifier: config.holidayQualifier },
+		getSettingsFromLocalStorage( window)
+		) ) );
 	store.dispatch( setDate( config.startDate ) );
 
 	function handleEnterOvertime( route, replace ) {
