@@ -28,10 +28,8 @@ function settings( state = DEFAULT_SETTINGS, action ) {
 function credentials( state = DEFAULT_CREDENTIALS, action ) {
 	switch ( action.type ) {
 		case LOGIN_SUCCESS:
-			console.log("login succeeded in store", action.payload);
 			return Object.assign({}, state, action.payload, { valid: true } );
 		case LOGIN_FAILURE:
-			console.log("login failed in store", action.payload);
 			return Object.assign({}, state, action.payload, { valid: false } );
 		case LOGOUT:
 			return Object.assign({}, state, { valid: false } );
