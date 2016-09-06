@@ -37,6 +37,20 @@
       text-align: center;
     }
 
+    .pagination-nav {
+      margin-top: 4em;
+      font-size: 3em;
+      display: inline-block;
+      transform: scaleY(5);
+      text-decoration: none;
+    }
+    .pagination-nav:hover,
+    .pagination-nav:active,
+    .pagination-nav:visited,
+    .pagination-nav:focus  {
+      text-decoration: none;
+    }
+
     h1 {
      text-align: center;
     }
@@ -50,51 +64,10 @@
     </style>
   </head>
   <body>
-    <div class="container">
-      <div class="row">
-        <div id="settings" class="col-md-9 col-md-offset-2 panel panel-default">
-            <div class="panel-body">
-              <form class="form-inline" id="settingsForm">
-                <div class="form-group">
-                    <label for="account">Account</label>
-                    <input type="text" class="form-control" id="account" placeholder="wmd">
-                </div>
-                <div class="form-group">
-                  <label for="api_key">API Key</label>
-                  <input type="password" class="form-control" id="api_key" placeholder="c0ffee">
-                </div>
-                <div class="form-group">
-                  <label for="hours_per_day">Hours per day</label>
-                  <input type="number" class="form-control" id="hours_per_day" value="8" >
-                </div>
-                <button type="button" id="submit_settings" class="btn btn-default">Check</button>
-              </form>
-      </div>
-        </div>
-      </div>
-    <div class="row">
-      <div id="displayContainer" class="col-md-12">
-          <div> Bitte Account und API-Key eingeben</div>
-      </div>
+    <div id="app">
+      Loading ...
     </div>
-  </div>
 
-  <div class="modal fade" id="errorModal">
-    <div class="modal-dialog">
-      <div class="modal-content">
-        <div class="modal-header">
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-          <h4 class="modal-title">An Error occured</h4>
-        </div>
-        <div class="modal-body">
-          <p>Error message will be put here.</p>
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
-        </div>
-      </div><!-- /.modal-content -->
-    </div><!-- /.modal-dialog -->
-  </div><!-- /.modal -->
 
     <script src="js/app.js"></script>
   </body>

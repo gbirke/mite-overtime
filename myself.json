@@ -1,0 +1,13 @@
+{
+  "user" : {
+    "note" : "",
+    "role" : "time_tracker",
+    "email" : "test@example.com",
+    "updated_at" : "2015-08-29T09:50:46+02:00",
+    "archived" : false,
+    "id" : 123,
+    "language" : "de",
+    "created_at" : "2014-08-15T12:57:09+02:00",
+    "name" : "Test User"
+  }
+}
