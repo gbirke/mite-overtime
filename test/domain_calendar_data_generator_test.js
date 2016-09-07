@@ -61,4 +61,29 @@ describe( 'CalendarDataGenerator', function () {
 		} );
 
 	} );
+
+	describe( '#getMonth, January with some week days in December', function () {
+
+		var workweekStub = {
+				isWorkDay: function ( date ) {
+					// No Sundays and Saturdays
+					return date.day() !== 0 && date.day() !== 6;
+				}
+			},
+			generator = new CalendarDataGenerator( workweekStub, 'de' ),
+			year = 2016,
+			month = 0; // January
+
+		it( 'generates weeks info', function () {
+			var result = generator.getMonth( year, month );
+			expect( result.weeks ).to.have.all.keys( '2016-53', '2016-01', '2016-02', '2016-03', '2016-04' );
+		} );
+
+
+		it( 'generates days info for first week', function () {
+			var result = generator.getMonth( year, month );
+			expect( result.weeks[ '2016-53' ].days ).to.have.all.keys( '2016-01-01', '2016-01-02', '2016-01-03');
+		} );
+
+	} );
 } );

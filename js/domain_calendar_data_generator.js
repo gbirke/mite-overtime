@@ -3,8 +3,7 @@ import Week from './domain/week'
 import Day from './domain/day'
 import { HOLIDAY, WORKDAY } from './domain/day_types'
 
-let moment = require( 'moment' ),
-	_ = require( 'lodash' );
+let moment = require( 'moment' );
 
 function addDaysToWeek( week, getDayType, monthNumber ) {
 	let currentDay = moment( week.start );
@@ -18,13 +17,13 @@ function addDaysToWeek( week, getDayType, monthNumber ) {
 }
 
 function addWeeksToMonth( month, startDate, getDayType ) {
-	const endWeek = moment( startDate ).add( 1, 'month' ).subtract( 1, 'day' ).week();
-	const startWeek = startDate.week();
-	for( let i=startWeek; i <= endWeek; i++ ) {
-		let weekDate = moment( startDate ).week( i );
-		let week = new Week( weekDate );
+	const endDate = moment( startDate ).add( 1, 'month' ).subtract( 1, 'day' );
+	const currentWeek = startDate.clone();
+	while ( currentWeek.isSameOrBefore( endDate ) ) {
+		let week = new Week( currentWeek.clone() );
 		addDaysToWeek( week, getDayType, month.monthNumber );
 		month.addWeek( week );
+		currentWeek.add( 1, 'week' );
 	}
 }
 
