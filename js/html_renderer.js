@@ -1,5 +1,6 @@
 var d3 = require( 'd3' ),
 	moment = require( 'moment' ),
+	WeeklyDateRangeFormatter = require( './formatters/date_range_formatter' ).default,
 	longFormatter, shortFormatter;
 
 require( 'moment-duration-format' );
@@ -30,24 +31,11 @@ shortFormatter = new DurationFormatter( 'h:mm', 'h:mm', false );
  * @return {Function}
  */
 function createMonthlyWeekRangesFormatter( currentMonth ) {
-	return function ( d ) {
-		var datePieces = [];
-		if ( d.start.month() === d.end.month() ) {
-			datePieces.push(  d.start.format( 'DD.' ) );
-			datePieces.push(  d.end.format( 'DD.MM.' ) );
-		} else if ( d.start.month() < currentMonth ) {
-			datePieces.push(  '01.' );
-			datePieces.push(  d.end.format( 'DD.MM.' ) );
-		} else {
-			datePieces.push(  d.start.format( 'DD.' ) );
-			datePieces.push(  d.end.date( -1 ).format( 'DD.MM.' ) );
-		}
-		return datePieces.join( ' - '  );
-	};
+	const formatter = new WeeklyDateRangeFormatter( currentMonth );
+	return formatter.formatWeek.bind( formatter );
 }
 
 function HtmlRenderer( elementName ) {
-	this.overtimeData = {};
 	this.elementName = elementName;
 }
 

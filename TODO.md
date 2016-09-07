@@ -1,5 +1,4 @@
 # Next steps:
-- Fix overtime display in January - previous week should not show up.
 - Fix overtime display in May 2016 - display 1-day weeks differently and show a value.
 - Change routing URL to have human-readable month names instead of 1-digit, zero-based month number. 
 - Calculate yearly overtime with offset from previous year and an optional starting month for people who started working not from January. Calculate current "balance". To avoid transmitting lots of data from Mite and needing to do calculations, use the `Workweek` object to calculate the required number of hours in a date range and get the data from Mite grouped by year.
