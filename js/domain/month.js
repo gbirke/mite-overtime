@@ -8,7 +8,7 @@ export default class Month {
 	}
 
 	addWeek ( week ) {
-		this.weeks[ week.weekNumber ] = week;
+		this.weeks[ week.getKey() ] = week;
 	}
 
 	getMinutesWorked () {
