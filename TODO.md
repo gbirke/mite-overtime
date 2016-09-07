@@ -7,7 +7,6 @@
 - Check earliest date to avoid navigating to empty months
 - Add history for pagination (back button in browser).
 - Track/mark special entries ( sick days, vacation) in the time data and display it
-- Add different webpack configuration for building the app: minify, no debug information.
 - Graphical "hedgehog" display of overtime ( arcs with the same angle for days/weeks in a month and different radii, depending on overtime/undertime)
 - Display user name by querying `myself.json` 
 - Render HTML overtime with React instead of D3.
