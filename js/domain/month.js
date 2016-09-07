@@ -18,6 +18,12 @@ export default class Month {
 			return minutesWorked + week.getMinutesWorked();
 		}, 0 );
 	}
+
+	getDays () {
+		return _.reduce( this.weeks, function ( days, week ) {
+			return Object.assign( days, week.days );
+		}, {} );
+	}
 }
 
 export function createMonthFromMoment( date ) {

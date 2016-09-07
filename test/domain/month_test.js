@@ -33,6 +33,39 @@ describe( 'Month', function () {
 		expect( month.getMinutesWorked() ).to.equal( 1100 );
 	} );
 
+	describe( '#getDays', function() {
+		it( 'returns days', function () {
+			var dayStub = {},
+				firstWeek = {
+					weekNumber: 1,
+					getMinutesWorked: function () { return 500; },
+					days: {
+						'2016-08-19': dayStub,
+						'2016-08-20': dayStub
+					}
+				},
+				secondWeek = {
+					weekNumber: 2,
+					getMinutesWorked: function () { return 600; }
+					,
+					days: {
+						'2016-08-24': dayStub,
+						'2016-08-25': dayStub
+					}
+				},
+				month = new Month( YEAR, MONTH_NUMBER );
+
+			month.addWeek( firstWeek );
+			month.addWeek( secondWeek );
+			expect( month.getDays ).to.deep.equal( {
+				'2016-08-19': dayStub,
+				'2016-08-20': dayStub,
+				'2016-08-24': dayStub,
+				'2016-08-25': dayStub
+			} );
+		} );
+	} );
+
 	// TODO more sanity checks: Never add the same week twice, reject weeks without days in in the same month, etc.
 
 } );
