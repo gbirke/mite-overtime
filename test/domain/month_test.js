@@ -1,25 +1,20 @@
-var expect = require( 'chai' ).expect,
-	Month = require( '../../js/domain/month' ),
-	MONTH_NUMBER = 7;
+import { default as Month, createMonthFromMoment } from '../../js/domain/month'
 
-function createDateStub() {
-	return {
-		month: function () {
-			return MONTH_NUMBER;
-		}
-	};
-}
+var expect = require( 'chai' ).expect,
+	MONTH_NUMBER = 7,
+	YEAR = 2015;
 
 describe( 'Month', function () {
 
 	it( 'has a default of zero work minutes', function () {
-		var month = Month.createMonth( createDateStub() );
+		var month = new Month( YEAR, MONTH_NUMBER );
 		expect( month.getMinutesWorked() ).to.equal( 0 );
 	} );
 
-	it( 'knows its month number', function () {
-		var month = Month.createMonth( createDateStub() );
+	it( 'assigns month number and year', function () {
+		var month = new Month( YEAR, MONTH_NUMBER );
 		expect( month.monthNumber ).to.equal( MONTH_NUMBER );
+		expect( month.year ).to.equal( YEAR );
 	} );
 
 	it( 'calculates worktime of added week', function () {
@@ -31,13 +26,33 @@ describe( 'Month', function () {
 				weekNumber: 2,
 				getMinutesWorked: function () { return 600; }
 			},
-			month = Month.createMonth( createDateStub() );
+			month = new Month( YEAR, MONTH_NUMBER );
 
 		month.addWeek( firstWeek );
 		month.addWeek( secondWeek );
 		expect( month.getMinutesWorked() ).to.equal( 1100 );
 	} );
 
-	// TODO more sanity checks: Never add the same week twice, reject weeks not in the same month etc
+	// TODO more sanity checks: Never add the same week twice, reject weeks without days in in the same month, etc.
 
+} );
+
+describe( 'createMonthFromMoment', function () {
+
+	const momentStub = function () {
+		return {
+			month: function () {
+				return MONTH_NUMBER;
+			},
+			year: function () {
+				return YEAR
+			}
+		};
+	};
+
+	it( 'assigns month number and year', function () {
+		var month = createMonthFromMoment( momentStub() );
+		expect( month.monthNumber ).to.equal( MONTH_NUMBER );
+		expect( month.year ).to.equal( YEAR );
+	} );
 } );

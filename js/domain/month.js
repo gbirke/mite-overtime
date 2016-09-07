@@ -1,23 +1,23 @@
-var objectAssign = require( 'object-assign' ),
-	_ = require( 'lodash' ),
-	Month = {
-		monthNumber: 0,
-		weeks: {},
-		addWeek: function ( week ) {
-			this.weeks[ week.weekNumber ] = week;
-		},
-		getMinutesWorked:  function () {
-			return _.reduce( this.weeks, function ( minutesWorked, week ) {
-				return minutesWorked + week.getMinutesWorked();
-			}, 0 );
-		}
-	};
+const _ = require( 'lodash' );
 
-module.exports = {
-	createMonth: function ( date ) {
-		return objectAssign( Object.create( Month ), {
-			monthNumber: date.month(),
-			weeks: {}
-		} );
+export default class Month {
+	constructor( year, month ) {
+		this.monthNumber = month;
+		this.year = year;
+		this.weeks = {};
 	}
-};
+
+	addWeek ( week ) {
+		this.weeks[ week.weekNumber ] = week;
+	}
+
+	getMinutesWorked () {
+		return _.reduce( this.weeks, function ( minutesWorked, week ) {
+			return minutesWorked + week.getMinutesWorked();
+		}, 0 );
+	}
+}
+
+export function createMonthFromMoment( date ) {
+	return new Month( date.year(), date.month() );
+}

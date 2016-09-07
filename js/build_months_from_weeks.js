@@ -3,7 +3,7 @@ var _ = require( 'lodash' ),
 
 function addMonthIfNeeded( months, monthIndex, date ) {
 	if ( !_.has( months, monthIndex ) ) {
-		months[ monthIndex ] = Month.createMonth( date );
+		months[ monthIndex ] = Month.createMonthFromMoment( date );
 	}
 }
 
