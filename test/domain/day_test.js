@@ -38,7 +38,7 @@ describe( 'WorkDay', function () {
 
 describe( 'Holiday', function () {
 	it( 'should identify as holiday', function () {
-		var day = Day.createHolyDay( createDateStub() );
+		var day = Day.createHoliday( createDateStub() );
 		expect( day.isWorkDay() ).to.equal( false );
 	} );
 } );

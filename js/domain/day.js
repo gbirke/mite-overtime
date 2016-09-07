@@ -1,44 +1,47 @@
-var DayTypes = require( './day_types' ),
-	objectAssign = require( 'object-assign' ),
-	Day = {
-		date: 0,
-		dateObject: 0,
-		type: DayTypes.WORKDAY,
-		minutesWorked: 0,
-		addWorkMinutes: function ( minutes ) {
-			this.minutesWorked += minutes;
-			return this;
-		},
-		getMinutesWorked: function () {
-			return this.minutesWorked;
-		},
-		isWorkDay: function () {
-			return this.type === DayTypes.WORKDAY;
-		},
-		getKey: function() {
-			return this.dateObject.format( 'YYYY-MM-DD' )
-		}
-	};
+import * as DayTypes from './day_types';
+
+export default class Day {
+	constructor( date, dayType ) {
+		this.date = date.date();
+		this.dateObject = date;
+		this.type = dayType;
+		this.minutesWorked = 0;
+	}
+
+	addWorkMinutes( minutes ) {
+		this.minutesWorked += minutes;
+		return this;
+	}
+
+	getMinutesWorked() {
+		return this.minutesWorked;
+	}
+
+	isWorkDay() {
+		return this.type === DayTypes.WORKDAY;
+	}
+
+	getKey() {
+		return this.dateObject.format( 'YYYY-MM-DD' )
+	}
+}
 
 /**
  * @param {moment} dateObject
  * @param {int} dayType
  * @return {Day}
  */
-function createDay( dateObject, dayType ) {
-	return objectAssign( Object.create( Day ), {
-		date: dateObject.date(),
-		dateObject: dateObject,
-		type: dayType
-	} );
+export function createDay( dateObject, dayType ) {
+	return new Day( dateObject, dayType );
 }
 
-module.exports = {
-	createDay: createDay,
-	createWorkDay: function ( dateObject ) {
-		return createDay( dateObject, DayTypes.WORKDAY );
-	},
-	createHolyDay: function ( dateObject ) {
-		return createDay( dateObject, DayTypes.HOLIDAY );
-	}
-};
+
+
+export function createWorkDay( dateObject ) {
+	return new Day( dateObject, DayTypes.WORKDAY );
+}
+
+export function createHoliday(dateObject ) {
+	return new Day( dateObject, DayTypes.HOLIDAY );
+}
+

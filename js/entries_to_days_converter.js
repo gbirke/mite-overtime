@@ -28,7 +28,7 @@ var objectAssign = require( 'object-assign' ),
 			if ( this.workWeek.isWorkDay( date ) ) {
 				return Day.createWorkDay( date );
 			} else {
-				return Day.createHolyDay( date );
+				return Day.createHoliday( date );
 			}
 
 		},
