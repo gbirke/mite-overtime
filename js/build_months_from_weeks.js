@@ -9,7 +9,7 @@ function addMonthIfNeeded( months, monthIndex, date ) {
 
 module.exports = function buildMonthsFromWeeks( weeks ) {
 	return _.reduce( weeks, function ( months, week ) {
-		var weekDate = week.dateObject,
+		var weekDate = week.moment,
 		firstDayMonthIndex = weekDate.clone().weekday( 0 ).month(),
 		lastDayMonthIndex =  weekDate.clone().weekday( 6 ).month(),
 		weekSpansAcrossMonths = ( firstDayMonthIndex !== lastDayMonthIndex ),

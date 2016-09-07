@@ -5,7 +5,7 @@ module.exports = function buildWeeksFromDays( days ) {
 	return _.reduce( days, function ( weeks, day ) {
 		var weekIndex = day.dateObject.week();
 		if ( !_.has( weeks, weekIndex ) ) {
-			weeks[ weekIndex ] = Week.createWeek( day.dateObject );
+			weeks[ weekIndex ] = Week.createWeekFromMoment( day.dateObject );
 		}
 		weeks[ weekIndex ].addDay( day );
 		return weeks;

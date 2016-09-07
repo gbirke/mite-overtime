@@ -14,6 +14,9 @@ var DayTypes = require( './day_types' ),
 		},
 		isWorkDay: function () {
 			return this.type === DayTypes.WORKDAY;
+		},
+		getKey: function() {
+			return this.dateObject.format( 'YYYY-MM-DD' )
 		}
 	};
 

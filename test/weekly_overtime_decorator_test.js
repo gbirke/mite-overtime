@@ -94,7 +94,7 @@ describe( 'WeeklyOvertimeDecorator', function () {
 			secondDay = Day.createWorkDay( moment( '2015-10-02' ) ),
 			thirdDay = Day.createWorkDay( moment( '2015-10-03' ) ),
 
-			firstWeek = Week.createWeek( moment( '2015-10-01' ) ),
+			firstWeek = Week.createWeekFromMoment( moment( '2015-10-01' ) ),
 			weeks = {
 				40: firstWeek
 			},
