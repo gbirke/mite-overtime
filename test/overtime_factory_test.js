@@ -1,5 +1,8 @@
+import CalendarDataGenerator from '../js/domain_calendar_data_generator'
+
 var expect = require( 'chai' ).expect,
     sinon = require( 'sinon' ),
+	moment = require( 'moment' ),
     OvertimeFactory = require( '../js/overtime_factory' );
 
 describe( 'OvertimeFactory', function () {
@@ -13,14 +16,16 @@ describe( 'OvertimeFactory', function () {
 		],
 		// jscs:enable requireCamelCaseOrUpperCaseIdentifiers
 
-        workWeek = {
-	getHoursPerDay: sinon.stub().returns( 8 ),
-	isWorkDay: function ( date ) {
+		workWeek = {
+			getHoursPerDay: sinon.stub().returns( 8 ),
+			isWorkDay: function ( date ) {
 				// No Sundays and Saturdays
 				return date.day() !== 0 && date.day() !== 6;
 			}
-        };
+		}
+        ;
 
+	/*
 	describe( '#createMonthsFromEntries', function () {
 
 		it( 'should build a nested structure with months, weeks and days', function () {
@@ -61,6 +66,45 @@ describe( 'OvertimeFactory', function () {
 			expect( months[ '9' ].requiredMinutes ).to.equal( 960 );
 			expect( months[ '8' ].timeDelta ).to.equal( -1210 );
 			expect( months[ '9' ].timeDelta ).to.equal( 30 );
+		} );
+
+	} );
+	*/
+
+	describe( '#addTimeTrackingDataToMonth', function () {
+
+		beforeEach( function () {
+			const calendarGenerator = new CalendarDataGenerator( workWeek, 'de' )
+			this.october2015 = calendarGenerator.getMonth( 2015, 9 )
+		})
+
+		it( 'should decorate weeks with weekly required minutes', function () {
+			var factory = OvertimeFactory.createOvertimeFactory( workWeek, 'de' ),
+				result = factory.addTimeTrackingDataToMonth( this.october2015, testData );
+
+			expect( result.weeks[ '2015-40' ].requiredMinutes ).to.equal( 960 );
+		} );
+
+		it( 'should decorate weeks with time deltas', function () {
+			var factory = OvertimeFactory.createOvertimeFactory( workWeek, 'de' ),
+				result = factory.addTimeTrackingDataToMonth( this.october2015, testData );
+			expect( result.weeks[ '2015-40' ].timeDelta ).to.equal( 30 );
+		} );
+
+		it( 'should decorate the month with required minutes and time deltas', function () {
+			var factory = OvertimeFactory.createOvertimeFactory( workWeek, 'de' ),
+				result = factory.addTimeTrackingDataToMonth( this.october2015, testData );
+
+			expect( result.requiredMinutes ).to.equal( 22 * 8 * 60 ); // 22 working days, 78 hours per day, 60 minutes per hour
+			expect( result.timeDelta ).to.equal( -9570 );
+		} );
+
+		it( 'can reduce the time by specifying a cutoff date', function () {
+			var factory = OvertimeFactory.createOvertimeFactory( workWeek, 'de', moment('2015-10-04') ),
+				result = factory.addTimeTrackingDataToMonth( this.october2015, testData );
+
+			expect( result.requiredMinutes ).to.equal( 960 );
+			expect( result.timeDelta ).to.equal( 30 );
 		} );
 
 	} );

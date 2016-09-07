@@ -6,18 +6,6 @@ import { HOLIDAY, WORKDAY } from './domain/day_types'
 let moment = require( 'moment' ),
 	_ = require( 'lodash' );
 
-function addWeeksToMonth( month, startDate, getDayType ) {
-	const endWeek = moment( startDate ).add( 1, 'month' ).subtract( 1, 'day' ).week();
-	const startWeek = startDate.week();
-	for( let i=startWeek; i <= endWeek; i++ ) {
-		let weekDate = moment( startDate ).week( i );
-		let week = new Week( weekDate );
-		addDaysToWeek( week, getDayType, month.monthNumber );
-		month.addWeek( week );
-	}
-}
-
-
 function addDaysToWeek( week, getDayType, monthNumber ) {
 	let currentDay = moment( week.start );
 	while ( currentDay.isSameOrBefore( week.end ) ) {
@@ -29,6 +17,16 @@ function addDaysToWeek( week, getDayType, monthNumber ) {
 	}
 }
 
+function addWeeksToMonth( month, startDate, getDayType ) {
+	const endWeek = moment( startDate ).add( 1, 'month' ).subtract( 1, 'day' ).week();
+	const startWeek = startDate.week();
+	for( let i=startWeek; i <= endWeek; i++ ) {
+		let weekDate = moment( startDate ).week( i );
+		let week = new Week( weekDate );
+		addDaysToWeek( week, getDayType, month.monthNumber );
+		month.addWeek( week );
+	}
+}
 
 export default class CalendarDataGenerator {
 	constructor( workweek, locale ) {

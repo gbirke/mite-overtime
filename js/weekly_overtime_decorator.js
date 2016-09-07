@@ -4,11 +4,11 @@ var objectAssign = require( 'object-assign' ),
     WeeklyOvertimeDecorator = {
 	workWeek: null,
 	filter: null,
-	addOvertimeToEntries: function ( weeks ) {
+	addOvertimeToWeeks: function ( weeks ) {
 		var self = this;
 		_.each( weeks, function ( week ) {
 			self.addRequiredMinutes( week );
-			week.timeDelta = week.getMinutesWorked( self.filter ) - week.requiredMinutes;
+			week.timeDelta = week.getMinutesWorked() - week.requiredMinutes;
 		} );
 	},
 	addRequiredMinutes: function ( week ) {

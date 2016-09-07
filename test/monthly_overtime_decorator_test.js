@@ -22,7 +22,7 @@ describe( 'MonthlyOvertimeDecorator', function () {
 	9: firstMonth
             },
             decorator = MonthlyOvertimeDecorator.createMonthlyOvertimeDecorator();
-		decorator.addOvertimeToEntries( months );
+		decorator.addOvertimeToMonths( months );
 
 		expect( firstMonth ).to.have.property( 'timeDelta' );
 		expect( firstMonth.timeDelta ).to.equal( 42 );

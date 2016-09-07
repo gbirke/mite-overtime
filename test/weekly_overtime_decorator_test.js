@@ -31,7 +31,7 @@ describe( 'WeeklyOvertimeDecorator', function () {
             },
             decorator = WeeklyOvertimeDecorator.createWeeklyOvertimeDecorator( workWeek );
 
-		decorator.addOvertimeToEntries( weeks );
+		decorator.addOvertimeToMonths( weeks );
 
 		expect( firstWeek ).to.have.property( 'timeDelta' );
 		expect( firstWeek.timeDelta ).to.equal( 0 );
@@ -53,7 +53,7 @@ describe( 'WeeklyOvertimeDecorator', function () {
 			},
 			decorator = WeeklyOvertimeDecorator.createWeeklyOvertimeDecorator( workWeek );
 
-		decorator.addOvertimeToEntries( weeks );
+		decorator.addOvertimeToMonths( weeks );
 
 		expect( firstWeek ).to.have.property( 'requiredMinutes' );
 		expect( firstWeek.requiredMinutes ).to.equal( 2400 );
@@ -84,7 +84,7 @@ describe( 'WeeklyOvertimeDecorator', function () {
             filter = sinon.stub(),
             decorator = WeeklyOvertimeDecorator.createWeeklyOvertimeDecorator( workWeek, filter );
 
-		decorator.addOvertimeToEntries( weeks );
+		decorator.addOvertimeToMonths( weeks );
 
 		expect( firstWeek.getMinutesWorked ).to.have.been.calledWith( filter );
 	} );
@@ -107,7 +107,7 @@ describe( 'WeeklyOvertimeDecorator', function () {
 		firstWeek.addDay( firstDay );
 		firstWeek.addDay( secondDay );
 		firstWeek.addDay( thirdDay );
-		decorator.addOvertimeToEntries( weeks );
+		decorator.addOvertimeToMonths( weeks );
 
 		expect( firstWeek.requiredMinutes ).to.equal( 480 );
 	} );
