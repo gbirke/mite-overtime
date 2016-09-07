@@ -31,7 +31,7 @@ describe( 'WeeklyOvertimeDecorator', function () {
             },
             decorator = WeeklyOvertimeDecorator.createWeeklyOvertimeDecorator( workWeek );
 
-		decorator.addOvertimeToMonths( weeks );
+		decorator.addOvertimeToWeeks( weeks );
 
 		expect( firstWeek ).to.have.property( 'timeDelta' );
 		expect( firstWeek.timeDelta ).to.equal( 0 );
@@ -53,7 +53,7 @@ describe( 'WeeklyOvertimeDecorator', function () {
 			},
 			decorator = WeeklyOvertimeDecorator.createWeeklyOvertimeDecorator( workWeek );
 
-		decorator.addOvertimeToMonths( weeks );
+		decorator.addOvertimeToWeeks( weeks );
 
 		expect( firstWeek ).to.have.property( 'requiredMinutes' );
 		expect( firstWeek.requiredMinutes ).to.equal( 2400 );
@@ -61,32 +61,6 @@ describe( 'WeeklyOvertimeDecorator', function () {
 		expect( secondWeek ).to.have.property( 'requiredMinutes' );
 		expect( secondWeek.requiredMinutes ).to.equal( 2400 );
 
-	} );
-
-	it( 'should allow a filter', function () {
-		var days = {
-			'2015-09-01': Day.createDay( moment( '2015-10-01' ) ),
-			'2015-09-02': Day.createDay( moment( '2015-10-02' ) ),
-			'2015-09-03': Day.createDay( moment( '2015-10-03' ) )
-		},
-            firstWeek = {
-	weekNumber: 20,
-	days: days,
-	getMinutesWorked: sinon.stub().returns( 123 ),
-	countDays: sinon.stub().returns( 3 )
-            },
-            weeks = {
-	40: firstWeek
-            },
-			workWeek = {
-				getHoursPerDay: sinon.stub().returns( 8 )
-			},
-            filter = sinon.stub(),
-            decorator = WeeklyOvertimeDecorator.createWeeklyOvertimeDecorator( workWeek, filter );
-
-		decorator.addOvertimeToMonths( weeks );
-
-		expect( firstWeek.getMinutesWorked ).to.have.been.calledWith( filter );
 	} );
 
 	it( 'should stop counting days as missing after cutoff date', function () {
@@ -107,7 +81,7 @@ describe( 'WeeklyOvertimeDecorator', function () {
 		firstWeek.addDay( firstDay );
 		firstWeek.addDay( secondDay );
 		firstWeek.addDay( thirdDay );
-		decorator.addOvertimeToMonths( weeks );
+		decorator.addOvertimeToWeeks( weeks );
 
 		expect( firstWeek.requiredMinutes ).to.equal( 480 );
 	} );

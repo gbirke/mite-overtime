@@ -31,22 +31,6 @@ export default class Week {
 	countDays( dayFilter ) {
 		return _.keys( dayFilter( this.days ) ).length;
 	}
-
-	/**
-	 * @deprecated
-	 * @param workWeek
-	 */
-	addMissingDays ( workWeek ) {
-		var date = this.moment.clone(),
-			i, dayKey;
-		for ( i = 0; i < 7; i++ ) {
-			date.weekday( i );
-			dayKey = date.format( 'YYYY-MM-DD' );
-			if ( !_.has( this.days, dayKey ) ) {
-				this.days[ dayKey ] = workWeek.isWorkDay( date ) ? Day.createWorkDay( date.clone() ) : Day.createHoliday( date.clone() );
-			}
-		}
-	}
 }
 
 export function createWeekFromMoment( moment ) {

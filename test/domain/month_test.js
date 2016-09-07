@@ -20,11 +20,13 @@ describe( 'Month', function () {
 	it( 'calculates worktime of added week', function () {
 		var firstWeek = {
 				weekNumber: 1,
-				getMinutesWorked: function () { return 500; }
+				getMinutesWorked: function () { return 500; },
+				getKey: function() { return '1'; }
 			},
 			secondWeek = {
 				weekNumber: 2,
-				getMinutesWorked: function () { return 600; }
+				getMinutesWorked: function () { return 600; },
+				getKey: function() { return '2'; }
 			},
 			month = new Month( YEAR, MONTH_NUMBER );
 
@@ -42,7 +44,8 @@ describe( 'Month', function () {
 					days: {
 						'2016-08-19': dayStub,
 						'2016-08-20': dayStub
-					}
+					},
+					getKey: function() { return '1'; }
 				},
 				secondWeek = {
 					weekNumber: 2,
@@ -51,13 +54,14 @@ describe( 'Month', function () {
 					days: {
 						'2016-08-24': dayStub,
 						'2016-08-25': dayStub
-					}
+					},
+					getKey: function() { return '2'; }
 				},
 				month = new Month( YEAR, MONTH_NUMBER );
 
 			month.addWeek( firstWeek );
 			month.addWeek( secondWeek );
-			expect( month.getDays ).to.deep.equal( {
+			expect( month.getDays() ).to.deep.equal( {
 				'2016-08-19': dayStub,
 				'2016-08-20': dayStub,
 				'2016-08-24': dayStub,

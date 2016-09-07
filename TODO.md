@@ -34,4 +34,4 @@
 - Write test for server api loadEntries and params
 - Remove views folder and tests. They're made obsolete by the React components but are kept as a reminder what should be tested. Remove jQuery dependency
 - Document how Mite entry objects are converted to Day objects and how days get processed to weeks and months by decorators 
-- Refactor CalendarGenerator to generate domain objects, refactor EntriesToDaysConverter to EntriesToDaysDecorator, simplify EntriesStore and HTML renderer to use the new singular data structure.
+- Refactor decorators and OvertimeFactory to ECMAScript2015 and a more functional style where possible.
