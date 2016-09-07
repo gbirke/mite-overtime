@@ -1,6 +1,4 @@
 # Next steps:
-- Fix overtime display in May 2016 - display 1-day weeks differently and show a value.
-- Change routing URL to have human-readable month names instead of 1-digit, zero-based month number. 
 - Calculate yearly overtime with offset from previous year and an optional starting month for people who started working not from January. Calculate current "balance". To avoid transmitting lots of data from Mite and needing to do calculations, use the `Workweek` object to calculate the required number of hours in a date range and get the data from Mite grouped by year.
 - Add daily overtime decorator
 - Add daily display to HTML renderer. Render days as a 3-column table (Day, hours, total) below each week. Use different colors for holidays and days from other months.
@@ -17,12 +15,13 @@
 - Prettier design
 - Load & cache entries in the background: Load current date on start, load next 12 months when paginating.
 - Make holidays configurable in settings by selecting locale and locale-dependent qualifier. Some locales might have regional holidays (like German counties) or allowances for special religions, that are not covered by locale.
-- I18N: Make all strings translatable.  
+- I18N: Make all strings translatable.
 
 # Planned UI/UX improvements
 - Add help button and overlay to menu
 - Show overtime in green and missing time in red.
 - Show "No entries for Month X" when there are no entries for month x.
+- Change routing URL to have human-readable month names instead of 1-digit, zero-based month number.
 - Show spinning indicators in login form while it's being sent to server
 - Try to distinguish between genuine login errors (check value of ServerApi.checkCredentials Promise reject) and HTTP errors.
 - Add "Remember me" function (with warning that it's unsafe to do that because it stores the API key locally).

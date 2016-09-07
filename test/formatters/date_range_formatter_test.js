@@ -10,6 +10,8 @@ function getLocalizedWeek( date ) {
 
 describe( 'DateRangeFormatter, German locale', function () {
 
+	// All start dates are given as Monday of the week, don't wonder why sometimes the dates are in different month than the `describe` block says
+
 	describe( 'October 2015', function () {
 
 		const formatter = new DateRangeFormatter( 9 );
@@ -44,6 +46,24 @@ describe( 'DateRangeFormatter, German locale', function () {
 
 		it( 'formats first week of month', function () {
 			expect( formatter.formatWeek( getLocalizedWeek( '2015-12-28') ) ).to.equal( '01. - 03.01.' );
+		} );
+	} );
+
+	describe( 'February 2016', function () {
+
+		const formatter = new DateRangeFormatter( 1 );
+
+		it( 'formats weeks at end of month with only one day as date', function () {
+			expect( formatter.formatWeek( getLocalizedWeek( '2016-02-29') ) ).to.equal( '29.02.' );
+		} );
+	} );
+
+	describe( 'May 2016', function () {
+
+		const formatter = new DateRangeFormatter( 4 );
+
+		it( 'formats weeks at start of month with only one day as date', function () {
+			expect( formatter.formatWeek( getLocalizedWeek( '2016-04-25') ) ).to.equal( '01.05.' );
 		} );
 	} );
 
