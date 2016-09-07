@@ -8,7 +8,7 @@ import { withRouter } from 'react-router'
 const OvertimeFactory = require( '../overtime_factory' ),
 	HtmlRenderer = require( '../html_renderer' ),
 	HolidayFactory = require( '../holiday_factory' ),
-	moment = require('moment');
+	moment = require( 'moment' );
 
 class OvertimeDisplay extends React.Component {
 	constructor(props) {
@@ -31,8 +31,7 @@ class OvertimeDisplay extends React.Component {
 		function renderEntries(entries) {
 			let el = ReactFauxDOM.createElement( 'div' );
 			const renderer = new HtmlRenderer(el);
-			renderer.render.apply(
-				renderer,
+			renderer.render(
 				converter.getDataForRenderer( entries, currentDate, workingDays, hoursPerWeek, holidayFunction, locale )
 			);
 			return el.toReact();

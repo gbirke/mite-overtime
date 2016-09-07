@@ -1,6 +1,7 @@
+import CalendarDataGenerator from '../../domain_calendar_data_generator'
+
 let createWorkWeek = require( '../../domain/workweek' ).createWorkWeek;
 let moment = require( 'moment' );
-let CalendarDataGenerator = require( '../../domain_calendar_data_generator' );
 
 export default class EntryConverter {
 	constructor( overtimeFactoryConstructor ) {
@@ -12,7 +13,7 @@ export default class EntryConverter {
 		const workWeek = createWorkWeek( workingDays, hoursPerWeek, holidayFunction );
 		const overtimeFactory = this.overtimeFactoryConstructor( workWeek, locale, currentDate );
 		const calendarDataGenerator = new CalendarDataGenerator( workWeek, locale );
-		const month = calendarDataGenerator.generateData( currentDate.year(), currentDate.month() );
+		const month = calendarDataGenerator.getMonth( currentDate.year(), currentDate.month() );
 		return overtimeFactory.addTimeTrackingDataToMonth( month, entries );
 	}
 }

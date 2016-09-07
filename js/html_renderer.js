@@ -51,11 +51,10 @@ function HtmlRenderer( elementName ) {
 	this.elementName = elementName;
 }
 
-HtmlRenderer.prototype.render = function ( calendarData, overtimeData ) {
-	var	displayContainer, total, weekContainers, weeks;
+HtmlRenderer.prototype.render = function ( overtimeData ) {
+	var	displayContainer;
 
-	this.overtimeData = overtimeData;
-	displayContainer = d3.select( this.elementName ).data( [ calendarData ] );
+	displayContainer = d3.select( this.elementName ).data( [ overtimeData ] );
 	displayContainer.selectAll( 'div, h1' )
 		.remove();
 
@@ -69,16 +68,15 @@ HtmlRenderer.prototype._renderTotal = function ( displayContainer ) {
 
 	displayContainer.append( 'h1' ).text( function ( d ) {
 		var headingTime;
-		moment.locale( 'en' ); // use english locale to display english month names
-		headingTime = moment( [ d.year, d.month ] );
+		headingTime = moment( [ d.year, d.monthNumber ] ).locale( 'en' ); // use english locale to display english month names
 
 		return 'Total for ' + headingTime.format( 'MMMM YYYY' );
 	} );
 	totalElement = displayContainer.append( 'div' )
 		.attr( { id: 'totalOvertime' } )
-		.text( function ( ) {
-			if ( self.overtimeData.timeDelta ) {
-				return longFormatter.format( self.overtimeData.timeDelta );
+		.text( function ( d ) {
+			if ( d.timeDelta ) {
+				return longFormatter.format( d.timeDelta );
 			}
 		} );
 	return totalElement;
@@ -89,9 +87,12 @@ HtmlRenderer.prototype._renderWeeks = function ( displayContainer ) {
 		self = this,
 		weekDateFormatter = null,
 		weeks = weekContainer.selectAll( '.week' )
-			.data( function ( calendarData ) {
-				weekDateFormatter = createMonthlyWeekRangesFormatter( calendarData.month );
-				return d3.values( calendarData.weeks );
+			.data( function ( overtimeData ) {
+				weekDateFormatter = createMonthlyWeekRangesFormatter( overtimeData.monthNumber );
+				// TODO instead of using d3.values, write filter function that does:
+				// - get ordered weeks for weeks spanning > 1 year (so week 53 from previous year is not at the end)
+				// - filter weeks consisting of 1 day that was not worked and is a holiday (see May 1st 2016)
+				return d3.values( overtimeData.weeks );
 			} )
 			.enter()
 			.append( 'div' )
@@ -99,7 +100,7 @@ HtmlRenderer.prototype._renderWeeks = function ( displayContainer ) {
 
 	weeks.append( 'h2' )
 		.text( function ( week ) {
-			return 'Week ' + week.week;
+			return 'Week ' + week.weekNumber;
 		} )
 		.classed( 'weekNumber', true );
 
@@ -109,12 +110,8 @@ HtmlRenderer.prototype._renderWeeks = function ( displayContainer ) {
 
 	weeks.append( 'div' )
 		.classed( 'total', true )
-		.text( function ( d ) {
-			if ( typeof self.overtimeData.weeks !== 'undefined' && d.week in self.overtimeData.weeks ) {
-				return longFormatter.format( self.overtimeData.weeks[ d.week ].timeDelta );
-			} else {
-				return '';
-			}
+		.text( function ( week ) {
+			return longFormatter.format( week.timeDelta )
 		} );
 	return weeks;
 };
