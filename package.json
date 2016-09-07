@@ -20,7 +20,7 @@
     "lint": "jshint js test",
     "cs": "jscs js test",
     "fulltest": "npm run lint && npm run cs && mocha",
-    "deploy": "npm build && gh-pages -d web"
+    "deploy": "npm run build && gh-pages -d web"
   },
   "author": "Gabriel Birke <gb@birke-software.de>",
   "license": "MIT",
