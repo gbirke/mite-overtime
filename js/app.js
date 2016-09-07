@@ -100356,11 +100356,11 @@
 				_.each(month.weeks, function (week) {
 					week.addMissingDays(workWeek);
 				});
-				overTimeDecorator.addOvertimeToEntries(month.weeks);
+				overTimeDecorator.addOvertimeToMonths(month.weeks);
 			});
 	
 			// decorate months
-			monthlyOvertimeDecorator.addOvertimeToEntries(months);
+			monthlyOvertimeDecorator.addOvertimeToMonths(months);
 	
 			return months;
 		}
@@ -100578,7 +100578,7 @@
 	
 	function addMonthIfNeeded(months, monthIndex, date) {
 		if (!_.has(months, monthIndex)) {
-			months[monthIndex] = Month.createMonth(date);
+			months[monthIndex] = Month.createMonthFromMoment(date);
 		}
 	}
 	
@@ -100622,7 +100622,7 @@
 	};
 	
 	module.exports = {
-		createMonth: function createMonth(date) {
+		createMonthFromMoment: function createMonth(date) {
 			return objectAssign(Object.create(Month), {
 				monthNumber: date.month(),
 				weeks: {}
@@ -100642,7 +100642,7 @@
 	    WeeklyOvertimeDecorator = {
 		workWeek: null,
 		filter: null,
-		addOvertimeToEntries: function addOvertimeToEntries(weeks) {
+		addOvertimeToMonths: function addOvertimeToEntries(weeks) {
 			var self = this;
 			_.each(weeks, function (week) {
 				self.addRequiredMinutes(week);
@@ -100733,7 +100733,7 @@
 	
 	var _ = __webpack_require__(1006),
 	    MonthlyOvertimeDecorator = {
-		addOvertimeToEntries: function addOvertimeToEntries(months) {
+		addOvertimeToMonths: function addOvertimeToEntries(months) {
 			_.each(months, function (month) {
 				month.timeDelta = _.reduce(month.weeks, function (timeDelta, week) {
 					return timeDelta + week.timeDelta;
