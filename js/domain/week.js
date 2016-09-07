@@ -3,9 +3,11 @@ const _ = require( 'lodash' ),
 
 export default class Week {
 	constructor( moment ) {
-		this.weekNumber = moment.week();
-		this.days = {};
 		this.moment = moment;
+		this.weekNumber = moment.week();
+		this.start = moment.clone().weekday( 0 );
+		this.end = moment.clone().weekday( 6 );
+		this.days = {};
 	}
 
 	addDay( day ) {
@@ -39,7 +41,7 @@ export default class Week {
 			date.weekday( i );
 			dayKey = date.format( 'YYYY-MM-DD' );
 			if ( !_.has( this.days, dayKey ) ) {
-				this.days[ dayKey ] = workWeek.isWorkDay( date ) ? Day.createWorkDay( date.clone() ) : Day.createHolyDay( date.clone() );
+				this.days[ dayKey ] = workWeek.isWorkDay( date ) ? Day.createWorkDay( date.clone() ) : Day.createHoliday( date.clone() );
 			}
 		}
 	}
