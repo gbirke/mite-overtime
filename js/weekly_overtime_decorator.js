@@ -4,6 +4,7 @@ var objectAssign = require( 'object-assign' ),
     WeeklyOvertimeDecorator = {
 	workWeek: null,
 	filter: null,
+	cutoffDate: null,
 	addOvertimeToWeeks: function ( weeks ) {
 		var self = this;
 		_.each( weeks, function ( week ) {
@@ -13,7 +14,7 @@ var objectAssign = require( 'object-assign' ),
 	},
 	addRequiredMinutes: function ( week ) {
 		var workdayFilter = this.getWorkdayFilter(),
-		workdaysInWeek = week.countDays( workdayFilter );
+			workdaysInWeek = week.countDays( workdayFilter );
 		week.requiredMinutes = workdaysInWeek * this.workWeek.getHoursPerDay() * 60;
 	},
 	getWorkdayFilter: function () {

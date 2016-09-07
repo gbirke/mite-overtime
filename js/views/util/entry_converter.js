@@ -11,7 +11,7 @@ export default class EntryConverter {
 	getDataForRenderer( entries, currentDateStr, workingDays, hoursPerWeek, holidayFunction, locale ) {
 		const currentDate = currentDateStr ? moment( currentDateStr ) : moment();
 		const workWeek = createWorkWeek( workingDays, hoursPerWeek, holidayFunction );
-		const overtimeFactory = this.overtimeFactoryConstructor( workWeek, locale, currentDate );
+		const overtimeFactory = this.overtimeFactoryConstructor( workWeek, locale, moment() );
 		const calendarDataGenerator = new CalendarDataGenerator( workWeek, locale );
 		const month = calendarDataGenerator.getMonth( currentDate.year(), currentDate.month() );
 		return overtimeFactory.addTimeTrackingDataToMonth( month, entries );
