@@ -5,6 +5,8 @@ export default class Month {
 		this.monthNumber = month;
 		this.year = year;
 		this.weeks = {};
+		this.requiredMinutes = 0;
+		this.timeDelta = 0;
 	}
 
 	addWeek ( week ) {

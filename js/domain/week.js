@@ -8,6 +8,8 @@ export default class Week {
 		this.start = moment.clone().weekday( 0 );
 		this.end = moment.clone().weekday( 6 );
 		this.days = {};
+		this.requiredMinutes = 0;
+		this.timeDelta = 0;
 	}
 
 	addDay( day ) {
