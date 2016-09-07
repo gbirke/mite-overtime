@@ -14,6 +14,7 @@
   "main": "js/main.js",
   "scripts": {
     "start": "webpack-dev-server",
+    "start:production": "APP_ENV=production NODE_ENV=production webpack-dev-server",
     "watch": "webpack --watch",
     "test": "mocha --recursive --require babel-core/register",
     "build": "APP_ENV=production NODE_ENV=production webpack",
