@@ -17,9 +17,11 @@
 - I18N: Make all strings translatable.
 
 # Planned UI/UX improvements
-- Add help button and overlay to menu
+- Add help button and overlay to menu. 
+- Explain how to get the API key with an animated GIF. Display the GIF on the login page.
 - Show overtime in green and missing time in red.
 - Show "No entries for Month X" when there are no entries for month x.
+- Show weeks in the future empty instead of '0:00' missing.
 - Change routing URL to have human-readable month names instead of 1-digit, zero-based month number.
 - Show spinning indicators in login form while it's being sent to server
 - Try to distinguish between genuine login errors (check value of ServerApi.checkCredentials Promise reject) and HTTP errors.
