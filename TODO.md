@@ -17,8 +17,10 @@
 - I18N: Make all strings translatable.
 
 # Planned UI/UX improvements
-- Add help button and overlay to menu. 
+- Add help button and overlay to menu.
 - Explain how to get the API key with an animated GIF. Display the GIF on the login page.
+- Hide "Next Month" arrow on current month.
+- Remove special styling for :active and :focus of the pagination arrows. At the moment it's a different color which is confusing.
 - Show overtime in green and missing time in red.
 - Show "No entries for Month X" when there are no entries for month x.
 - Show weeks in the future empty instead of '0:00' missing.
