@@ -19,7 +19,7 @@ function addDaysToWeek( week, getDayType, monthNumber ) {
 function addWeeksToMonth( month, startDate, getDayType ) {
 	const endDate = moment( startDate ).add( 1, 'month' ).subtract( 1, 'day' );
 	const currentWeek = startDate.clone();
-	while ( currentWeek.isSameOrBefore( endDate ) ) {
+	while ( currentWeek.clone().weekday( 0 ).isSameOrBefore( endDate ) ) {
 		let week = new Week( currentWeek.clone() );
 		addDaysToWeek( week, getDayType, month.monthNumber );
 		month.addWeek( week );

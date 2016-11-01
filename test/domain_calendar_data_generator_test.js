@@ -88,5 +88,36 @@ describe( 'CalendarDataGenerator', function () {
 			} );
 
 		} );
+
+		describe( '#getMonth, 6-week October with Monday 31th', function () {
+
+			var workweekStub = {
+					isWorkDay: function ( date ) {
+						// No Sundays and Saturdays
+						return date.day() !== 0 && date.day() !== 6;
+					}
+				},
+				generator = new CalendarDataGenerator( workweekStub, 'de' ),
+				year = 2016,
+				month = 9; // October
+
+			it( 'generates weeks info', function () {
+				var result = generator.getMonth( year, month );
+				expect( result.weeks ).to.have.all.keys( '2016-39', '2016-40', '2016-41', '2016-42', '2016-43', '2016-44' );
+			} );
+
+
+			it( 'generates days info for first week', function () {
+				var result = generator.getMonth( year, month );
+				expect( result.weeks[ '2016-39' ].days ).to.have.all.keys( '2016-10-01', '2016-10-02');
+			} );
+
+			it( 'generates days info for last week', function () {
+				var result = generator.getMonth( year, month );
+				expect( result.weeks[ '2016-44' ].days ).to.have.all.keys( '2016-10-31');
+			} );
+
+		} );
+
 	} );
 } );
