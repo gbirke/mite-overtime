@@ -2,6 +2,9 @@
 
 This JavaScript application calculates the overtime of a month, using data from the time tracker Mite (http://mite.yo.lk).
 
+Just for testing.
+
+
 ## Usage
 
 To use this application you need two pieces of information: your **Mite account name** and your **API key**. The account name is the last bit of your Mite URL, e.g. if you access Mite normally via https://wmd.mite.yo.lk, then your account name is `wmd`. Your API key can be found on the Mite user account page. You can go to the Mite account page by clicking on your name in the top right corner of the Mite page after you logged in to Mite. 
