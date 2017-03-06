@@ -38,7 +38,9 @@ export default class ServerApi {
 	loadEntries( account, apiKey, year, month ) {
 			let from = moment( [ year, month ] );
 			let to = moment( from ).add( 1, 'month' ).subtract( 1, 'day' );
-			let params = '?from=' + from.format( 'YYYY-MM-DD' ) + '&to=' + to.format( 'YYYY-MM-DD' );
+			let params = '?from=' + from.format( 'YYYY-MM-DD' ) + 
+			    '&to=' + to.format( 'YYYY-MM-DD' ) + 
+			    '&user_id=current';
 			return doRequest( this.baseUrl + 'time_entries.json' + params, account, apiKey ).then(
 				( response ) => ( JSON.parse( response ) )
 			);
@@ -47,7 +49,9 @@ export default class ServerApi {
 	getYearlyTime( account, apiKey, year ) {
 		let from = moment( [ year, month ] );
 		let to = moment( from ).add( 1, 'month' ).subtract( 1, 'day' );
-		let params = '?from=' + from.format( 'YYYY-MM-DD' ) + '&to=' + to.format( 'YYYY-MM-DD' );
+		let params = '?from=' + from.format( 'YYYY-MM-DD' ) + 
+		    '&to=' + to.format( 'YYYY-MM-DD' ) +
+		    '&user_id=current';
 		return doRequest( this.baseUrl + 'time_entries.json' + params, account, apiKey ).then(
 			( response ) => ( JSON.parse( response ) )
 		);
